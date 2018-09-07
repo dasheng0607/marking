@@ -84,12 +84,20 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: 'HelloWorld',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  mounted () {
+    axios.get('/api/getDir',{}).then((ele) =>{
+      console.log(ele);
+    }).catch((err) =>{
+      console.log(err);
+    })
   }
 }
 </script>
