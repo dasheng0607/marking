@@ -33,32 +33,25 @@
             </div>
         </div>
         <div class="getstart"></div>
-        <div class="mark" v-if="mark">
-            <div class="tip">
-                <div class="close" @click="btnup"></div>
-                <div class="tip-top">
-                    <span class="tip-top-span" v-html="text"></span>
-                </div>
-                <div class="tip-bottom">
-                    <button  class="tip-bottom-bt" @click="btnup">{{btnText}}</button>
-                    <span class="tip-top-span" v-html="text2"></span>
-                </div>
-            </div>
-        </div>
+        <pop v-if="mark" :text1="text" :btnText="btnText" :text2="text2" @btnup="btnup" @close="close"></pop>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Pop from '../components/pop.vue';
 export default {
   name: 'index',
+  components: {
+      Pop
+  },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
       mark: true,
-      text:'太棒了！<br/>集齐七星祝福',
-      text2:'太棒了祝福',
-      btnText:'这是测试内容'
+      text:'太棒了！<br/>集齐七星祝福<br/>好礼，礼超级大礼包CALL,<br/>获得中秋甄选好礼超级大礼包',
+      text2:'PICK中秋甄中送好礼~',
+      btnText:'赶紧向朋友炫耀'
     }
   },
   mounted () {
@@ -66,13 +59,15 @@ export default {
   },
   methods: {
       btnup(){
+         alert('提交事件')
+      },
+      close(){
           this.mark = false;
       },
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .center-back{
     position: relative;
@@ -192,75 +187,5 @@ export default {
     height: 1.14rem;
     background: url("/static/img/friendsGif.png") center center no-repeat;
     background-size: contain;
-}
-/* 弹窗 */
-.mark{
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: rgba(105, 103, 103, 0.7);
-    display: flex;
-    justify-content:center;
-    align-items:center;
-}
-.tip{
-    width: 5.56rem;
-    height: 5.56rem;
-    text-align: center;
-    background: url("/static/img/reward.png") center center no-repeat ;
-    background-size: contain;
-    position: relative;
-}
-.close{
-    width: 0.4rem;
-    height: 0.4rem;
-    background: url("/static/img/close.png") center center no-repeat;
-    background-size: contain;
-    position: absolute;
-    right: 0.6rem;
-    top: 0.6rem;
-}
-.tip-top{
-    height: 43%;
-    text-align: center;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    padding-bottom: 0.35rem;
-    display: flex;
-    justify-content:center;
-    align-items:flex-end;
-    font-size: 0.26rem;
-    border-bottom: 0.03rem solid rgb(214,188,158);
-}
-.tip-top-span{
-    background: linear-gradient(to right, rgb(90,72,53), rgb(214,188,158),rgb(159,131,101));
-    -webkit-background-clip: text;
-    color: transparent;
-}
-.tip-bottom{
-    height: 46%;
-    text-align: center;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    padding-top: 0.16rem;
-    display: flex;
-    justify-content:top;
-    flex-direction:column;
-    align-items:center;
-    font-size: 0.26rem;
-}
-.tip-bottom-bt{
-    width: 2.32rem;
-    height: 0.68rem;
-    padding-left: 0.12rem;
-    padding-top: 0.10rem;
-    margin-bottom: 0.22rem;
-    background: url("/static/img/btn-img.png") center center no-repeat;
-    background-size: contain;
-    display: inline-block;
-    border: none;
-    color:rgb(214,188,158);
 }
 </style>
