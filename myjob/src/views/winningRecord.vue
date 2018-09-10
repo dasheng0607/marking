@@ -5,7 +5,14 @@
             <div class="btn-right"></div>
         </div>
         <div class="icon"></div>
-        
+        <div class="username-text">Hi，亲爱的{{userName}}</div>
+        <div class="wish-text"></div>
+        <div class="record-box">
+            <p class="record-text">
+                9月24日00点00分，我完成了“集七星”获得了一份中秋团圆大礼！
+            </p>
+        </div>
+        <div class="delivery-msg"></div>
     </div>
 </template>
 
@@ -15,7 +22,7 @@ export default {
   name: 'index',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      userName: '1111'
     }
   },
   mounted () {
@@ -95,4 +102,41 @@ export default {
     background-position-y: 2.48rem;
     background-size: contain;
 }
+.username-text {
+    font-size: 0.36rem;
+    text-align: center;
+    color: #977C61;
+    margin-top: 0.22rem;
+
+}
+.wish-text {
+    width: 5.56rem;
+    height: 1.48rem;
+    margin: 0.34rem auto 0 auto;
+    background: url('/static/img/wish_text.png') no-repeat center center;
+    background-size: contain;
+}
+.record-box {
+    width: 5.29rem;
+    height: 6.24rem;
+    margin: 0.65rem auto 0 auto;
+    background: url('/static/img/record_box.png') no-repeat center center;
+    background-size: contain;
+    padding: 0.5rem 0.4rem;
+    box-sizing: border-box;
+    .record-text {
+        padding-left: 0.38rem;
+        font-size: 0.24rem;
+        color: #C3A281;
+        text-align: left;
+    }
+}
+.delivery-msg {
+    width: 2.97rem;
+    height: 1.07rem;
+    margin: 0.52rem auto 0 auto;
+    background: url('/static/img/delivery_msg.png') no-repeat center center;
+    background-size: contain;
+}
+
 </style>
