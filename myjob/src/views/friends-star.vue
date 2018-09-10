@@ -1,32 +1,32 @@
 <template>
     <div class="center-back">
         <div class="btn">
-            <div class="btn-left"></div>
-            <div class="btn-right"></div>
+            <router-link to="/index"><div class="btn-left"></div></router-link>
+            <router-link to="/rules"> <div class="btn-right"></div></router-link>
         </div>
         <div class="icon"></div>
         <div class="title"></div>
         <div class="pick2">
             <div class="start pick-star1">
-                <div class="span">温暖星</div>
+                <div class="span"  @click.stop="lightUp('warm')">温暖星</div>
             </div>
             <div class="start pick-star2">
-                <div class="span">能量星</div>
+                <div class="span"  @click.stop="lightUp('power')">能量星</div>
             </div>
             <div class="start pick-star3">
-                <div class="span">守护星</div>
+                <div class="span"  @click.stop="lightUp('protect')">守护星</div>
             </div>
             <div class="start pick-star4">
-                <div class="span">自由星</div>
+                <div class="span"  @click.stop="lightUp('freedom')">自由星</div>
             </div>
             <div class="start pick-star5">
-                <div class="span">幸运星</div>
+                <div class="span"  @click.stop="lightUp('lucky')">幸运星</div>
             </div>
             <div class="start pick-star6">
-                <div class="span">快乐星</div>
+                <div class="span" @click.stop="lightUp('happy')">快乐星</div>
             </div>
             <div class="start pick-star7">
-                <div class="span">智慧星</div>
+                <div class="span" @click.stop="lightUp('wit')">智慧星</div>
             </div>
             <div class="pick-moon">
                <span>&nbsp;&nbsp;？</span>
@@ -48,10 +48,10 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      mark: true,
-      text:'太棒了！<br/>集齐七星祝福<br/>好礼，礼超级大礼包CALL,<br/>获得中秋甄选好礼超级大礼包',
-      text2:'PICK中秋甄中送好礼~',
-      btnText:'赶紧向朋友炫耀'
+      mark: false,
+      text:'补签成功<br/>喜提XXX<br/>抢C位邀请好友打CALL,<br/>即可赢取中秋甄选好礼！',
+      text2:'赢中秋团圆礼~',
+      btnText:'我也要抢C位',
     }
   },
   mounted () {
@@ -64,6 +64,10 @@ export default {
       close(){
           this.mark = false;
       },
+      lightUp(str) {
+          this.mark = true;
+
+      }
   }
 }
 </script>
@@ -87,7 +91,7 @@ export default {
     float: left;
     width: 1.62rem;
     height: 100%;
-    background: url("/static/img/icon1.png") left center no-repeat;
+    background: url("/static/img/index_icon.png") left center no-repeat;
     background-size: contain;
 }
 .btn-right{

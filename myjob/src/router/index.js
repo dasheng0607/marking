@@ -5,6 +5,7 @@ import SignIn from '@/views/signIn'
 import WinningRecord from '@/views/signIn'
 import getstar from '@/views/getstar'
 import friendstar from '@/views/friends-star'
+import rules from '@/views/rules'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/friendStar',
       name: 'friendstar',
       component: friendstar
+    },
+    {
+      path: '/rules',
+      name: 'rules',
+      component: rules
     }
   ]
 })

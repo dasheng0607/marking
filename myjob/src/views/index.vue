@@ -1,16 +1,19 @@
 <template>
     <div class="center-back">
         <div class="btn">
-            <div class="btn-left"></div>
-            <div class="btn-right"></div>
+            <router-link to="/winningRecord" class="btn-left"></router-link>
+            <router-link to="/rules" class="btn-right"></router-link>
         </div>
         <div class="icon"></div>
-        <div class="pick"></div>
+         <router-link to="/signIn">
+            <div class="pick"></div>
+         </router-link>
         <div class="title"></div>
-        <div class="pick2"></div>
+         <router-link to="/getstar">
+             <div class="pick2" ></div>
+         </router-link>
         <div class="bottom">
             <div class="banner">
-
             </div>
         </div>
     </div>
@@ -69,6 +72,7 @@ export default {
     background-size: contain;
 }
 .pick{
+    padding: 0rem 1.3rem;
     margin-top: 0.11rem;
     height: 0.54rem;
     background: url("/static/img/pick.png") center center no-repeat;
@@ -82,6 +86,7 @@ export default {
 }
 .pick2{
     margin-top: 0.63rem;
+    padding: 0 1.4rem;
     height: 1.15rem;
     background: url("/static/img/pick2.png") center center no-repeat;
     background-size: contain;

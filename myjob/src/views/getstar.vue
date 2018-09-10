@@ -1,8 +1,8 @@
 <template>
     <div class="center-back">
         <div class="btn">
-            <div class="btn-left"></div>
-            <div class="btn-right"></div>
+          <router-link to="/index"><div class="btn-left"></div></router-link>
+            <router-link to="/rules"> <div class="btn-right"></div></router-link>
         </div>
         <div class="icon"></div>
         <div class="title"></div>
@@ -32,24 +32,43 @@
                <span>&nbsp;&nbsp;？</span>
             </div>
         </div>
-        <div class="getstart"></div>
+        <div class="getstart" v-if="!successBtn"></div>
+        <div class="getstart all-star" v-else @click="showPop = true"></div>
         <div class="world">
-            最多集齐5套喔，你当前是4套啦！
+            最多集齐5套喔，你当前是{{haveNum}}套啦！
         </div>
+        <pop v-if="showPop" :text1="text" :btnText="btnText" :text2="text2" @btnup="btnup" @close="close"></pop>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Pop from '../components/pop.vue';
 export default {
   name: 'index',
+  components: {
+      Pop
+  },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      text: '太棒了！<br/>集齐七星祝福<br/>获得中秋甄选好礼****<br/>',
+      text2: 'PICK中秋甄选好礼~',
+      btnText: '分享好友',
+      haveNum:"0",
+      successBtn:true,
+      showPop:false,
     }
   },
   mounted () {
-
+      
+  },
+  methods: {
+      btnup(){
+         alert('提交事件')
+      },
+      close(){
+          this.showPop = false;
+      },
   }
 }
 </script>
@@ -74,7 +93,7 @@ export default {
     float: left;
     width: 1.62rem;
     height: 100%;
-    background: url("/static/img/icon1.png") left center no-repeat;
+    background: url("/static/img/index_icon.png") left center no-repeat;
     background-size: contain;
 }
 .btn-right{
@@ -119,44 +138,30 @@ export default {
 .pick-star1{
     top: 0px;
     left: 2.78rem;
-    /* background: url("/static/img/start.png") center center no-repeat;
-    background-size: contain; */
 }
 .pick-star2{
     top: 0.78rem;
     left: 1.09rem;
-    /* background: url("/static/img/power-start.png") center center no-repeat;
-    background-size: contain; */
 }
 .pick-star3{
     top: 0.78rem;
     left: 4.49rem;
-    /* background: url("/static/img/protect-start.png") center center no-repeat;
-    background-size: contain; */
 }
 .pick-star4{
     top: 2.45rem;
     left: 0.68rem;
-    /* background: url("/static/img/freedom-start.png") center center no-repeat;
-    background-size: contain; */
 }
 .pick-star5{
     top: 2.45rem;
     left: 5.07rem;
-    /* background: url("/static/img/lucky-start.png") center center no-repeat;
-    background-size: contain; */
 }
 .pick-star6{
     top: 4.05rem;
     left: 1.69rem;
-    /* background: url("/static/img/happy-start.png") center center no-repeat;
-    background-size: contain; */
 }
 .pick-star7{
     top: 4.05rem;
     left: 3.87rem;
-    /* background: url("/static/img/wit-start.png") center center no-repeat;
-    background-size: contain; */
 }
 .title{
     margin-top: 0.28rem;
@@ -173,7 +178,10 @@ export default {
     margin-top: 0.4rem;
     height: 1.07rem;
     background: url("/static/img/get-start.png") center center no-repeat;
-    /* all-start */
+    background-size: contain;
+}
+.all-star{
+    background: url("/static/img/all-star.png") center center no-repeat;
     background-size: contain;
 }
 .world{
