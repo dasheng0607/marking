@@ -30,6 +30,8 @@
         <div class="sign-in-7 sign-in">
                 <span class="day-7 day"></span>
         </div>
+        <div class="click_text"></div>
+        <div class="invite_text"></div>
     </div>
 </template>
 
@@ -52,7 +54,7 @@ export default {
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: url("/static/img/sign_in_bg.png") no-repeat center -1rem fixed;
+  background: url("/static/img/sign_in_bg.png") no-repeat center -0.7rem fixed;
   background-size: contain;
   background-color: #000;
 }
@@ -141,6 +143,24 @@ export default {
 }
 .day-7 {
     background: url("/static/img/day_7.png") center center no-repeat;
+    background-size: contain;
+}
+.click_text {   
+    position: absolute;
+    left: 0.63rem;
+    bottom: 0.97rem;
+    width: 2.66rem;
+    height: 1.07rem;
+    background: url('/static/img/click_text.png') no-repeat center center;
+    background-size: contain;
+}
+.invite_text {   
+    position: absolute;
+    right: 0.63rem;
+    bottom: 0.97rem;
+    width: 2.66rem;
+    height: 1.07rem;
+    background: url('/static/img/invite_text.png') no-repeat center center;
     background-size: contain;
 }
 </style>
