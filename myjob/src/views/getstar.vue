@@ -7,34 +7,34 @@
         <div class="icon"></div>
         <div class="title"></div>
         <div class="pick2">
-            <div class="start pick-start1">
+            <div class="start pick-star1">
                 <div class="span">温暖星</div>
             </div>
-            <div class="start pick-start2">
+            <div class="start pick-star2">
                 <div class="span">能量星</div>
             </div>
-            <div class="start pick-start3">
+            <div class="start pick-star3">
                 <div class="span">守护星</div>
             </div>
-            <div class="start pick-start4">
+            <div class="start pick-star4">
                 <div class="span">自由星</div>
             </div>
-            <div class="start pick-start5">
+            <div class="start pick-star5">
                 <div class="span">幸运星</div>
             </div>
-            <div class="start pick-start6">
+            <div class="start pick-star6">
                 <div class="span">快乐星</div>
             </div>
-            <div class="start pick-start7">
+            <div class="start pick-star7">
                 <div class="span">智慧星</div>
             </div>
-            <div class="pick-start7">
+            <div class="pick-moon">
+               <span>&nbsp;&nbsp;？</span>
             </div>
         </div>
-        <div class="bottom">
-            <div class="banner">
-
-            </div>
+        <div class="getstart"></div>
+        <div class="world">
+            最多集齐5套喔，你当前是4套啦！
         </div>
     </div>
 </template>
@@ -98,49 +98,61 @@ export default {
     width: 1.88rem;
     height: 1.88rem;
     position: absolute;
-    background: url("/static/img/start.png") center center no-repeat;
+    background: url("/static/img/star.png") center center no-repeat;
     background-size: contain;
+}
+.pick-moon{
+    width: 3.33rem;
+    height: 3.33rem;
+    position: absolute;
+    background: url("/static/img/moon.png") center center no-repeat;
+    background-size: contain;
+    top: 1.58rem;
+    left: 2.10rem;
+    color:rgb(185, 160, 132);
+    text-align: center;
+    line-height:  3.33rem;
 }
 .span{
     padding-top: 1.68rem;
 }
-.pick-start1{
+.pick-star1{
     top: 0px;
     left: 2.78rem;
     /* background: url("/static/img/start.png") center center no-repeat;
     background-size: contain; */
 }
-.pick-start2{
+.pick-star2{
     top: 0.78rem;
     left: 1.09rem;
     /* background: url("/static/img/power-start.png") center center no-repeat;
     background-size: contain; */
 }
-.pick-start3{
+.pick-star3{
     top: 0.78rem;
     left: 4.49rem;
     /* background: url("/static/img/protect-start.png") center center no-repeat;
     background-size: contain; */
 }
-.pick-start4{
+.pick-star4{
     top: 2.45rem;
     left: 0.68rem;
     /* background: url("/static/img/freedom-start.png") center center no-repeat;
     background-size: contain; */
 }
-.pick-start5{
+.pick-star5{
     top: 2.45rem;
     left: 5.07rem;
     /* background: url("/static/img/lucky-start.png") center center no-repeat;
     background-size: contain; */
 }
-.pick-start6{
+.pick-star6{
     top: 4.05rem;
     left: 1.69rem;
     /* background: url("/static/img/happy-start.png") center center no-repeat;
     background-size: contain; */
 }
-.pick-start7{
+.pick-star7{
     top: 4.05rem;
     left: 3.87rem;
     /* background: url("/static/img/wit-start.png") center center no-repeat;
@@ -157,20 +169,20 @@ export default {
     height: 6.00rem;
     position: relative;
 }
-.bottom{
-    margin-top: 0.46rem;
-    height: 4.38rem;
-    background: url("/static/img/gift.png") no-repeat;
-    background-position-x: 1.05rem;
-    background-position-y: 0;
-    background-size: 4.48rem 3.51rem;
-}
-.banner{
-    padding-top: 2.48rem;
-    height: 2.16rem;
-    background: url("/static/img/banner1.png") no-repeat;
-    background-position-x: 0;
-    background-position-y: 2.48rem;
+.getstart{
+    margin-top: 0.4rem;
+    height: 1.07rem;
+    background: url("/static/img/get-start.png") center center no-repeat;
+    /* all-start */
     background-size: contain;
+}
+.world{
+    margin-top: 0.1rem;
+    text-align: center;
+    font-size: 0.26rem;
+    line-height: 0.26rem;
+    background: linear-gradient(to right, rgb(90,72,53), rgb(214,188,158),rgb(159,131,101));
+    -webkit-background-clip: text;
+    color: transparent;
 }
 </style>
