@@ -8,25 +8,25 @@
         <div class="title"></div>
         <div class="pick2">
             <div class="start pick-star1">
-                <div class="span"  @click.stop="lightUp('warm')">温暖星</div>
+                <div class="span"  @click.stop="lightUp('1')">温暖星</div>
             </div>
             <div class="start pick-star2">
-                <div class="span"  @click.stop="lightUp('power')">能量星</div>
+                <div class="span"  @click.stop="lightUp('2')">能量星</div>
             </div>
             <div class="start pick-star3">
-                <div class="span"  @click.stop="lightUp('protect')">守护星</div>
+                <div class="span"  @click.stop="lightUp('3')">守护星</div>
             </div>
             <div class="start pick-star4">
-                <div class="span"  @click.stop="lightUp('freedom')">自由星</div>
+                <div class="span"  @click.stop="lightUp('4')">自由星</div>
             </div>
             <div class="start pick-star5">
-                <div class="span"  @click.stop="lightUp('lucky')">幸运星</div>
+                <div class="span"  @click.stop="lightUp('5')">幸运星</div>
             </div>
             <div class="start pick-star6">
-                <div class="span" @click.stop="lightUp('happy')">快乐星</div>
+                <div class="span" @click.stop="lightUp('6')">快乐星</div>
             </div>
             <div class="start pick-star7">
-                <div class="span" @click.stop="lightUp('wit')">智慧星</div>
+                <div class="span" @click.stop="lightUp('7')">智慧星</div>
             </div>
             <div class="pick-moon">
                <span>&nbsp;&nbsp;？</span>
@@ -52,7 +52,25 @@ export default {
       text:'补签成功<br/>喜提XXX<br/>抢C位邀请好友打CALL,<br/>即可赢取中秋甄选好礼！',
       text2:'赢中秋团圆礼~',
       btnText:'我也要抢C位',
+      userData:{}
     }
+  },
+  created () {
+     axios.post('/qxby/api/light/getLightInfo?openId=789', {
+        })
+        .then( (response) => {
+            console.log(response.data.data);
+            // isDraw 复制	[boolean]	是	领奖按钮状态	
+            // lightRecords	[json]	是	点亮列表	
+            // position	[string]	是	点亮位置	
+            // headImage	[string]	是	点亮者的头像地址	
+            // lightNo	[int]	是	点亮批次	
+            // isPrize	[boolean]	是	是否奖品弹窗
+            this.userData =Object.assign({},this.userData,response.data.data)
+        })
+        .catch( (error) => {
+            console.log(error);
+        });
   },
   mounted () {
 
@@ -65,8 +83,19 @@ export default {
           this.mark = false;
       },
       lightUp(str) {
-          this.mark = true;
-
+        this.mark = true;
+        axios.post('/qxby/api/light/getLightInfo', {
+            openId: '789',
+            lightOpenId:'666',
+            postison: str,
+            lightNo: this.userData.lightNo
+        })
+        .then( (response) => {
+            console.log(response.data);
+        })
+        .catch( (error) => {
+            console.log(error);
+        });
       }
   }
 }

@@ -21,12 +21,27 @@
 
 <script>
 import axios from 'axios';
+// import store from '@/stroe/index'
 export default {
   name: 'index',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
+  },
+  created(){
+      console.log(process.env);
+      axios.get('http://www.swisse-china.com.cn/swisseweixin/weixin/jsApiSign', {
+        })
+        .then( (response) => {
+            console.log(response.data.appId);
+        // console.log(this.$store.state.appId)
+        console.log(this.$store.dispatch('AppId',response.data.appId))
+        console.log(this.$store.state.appId)
+        })
+        .catch( (error) => {
+            console.log(error);
+        });
   },
   mounted () {
 
