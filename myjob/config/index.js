@@ -13,7 +13,8 @@ module.exports = {
     proxyTable: {
       '/qxby/*': {
         target: 'https://java.howjoin.com',
-        secure: false
+        secure: false,
+        changeOrigin: true,
       }
     },
 

@@ -7,14 +7,18 @@
         <div class="icon"></div>
         <div class="title"></div>
         <div class="pick2">
-            <div class="start pick-star1">
-                <div class="span"  @click.stop="lightUp('1')">温暖星</div>
+            <div v-for="(item,index) in starName" :key="item" :class="'pick-star'+(index+1)" class="start">
+                <div class="span"  v-if="!starList[index+1]"   @click.stop="lightUp(index+1)">{{item}}</div>
+                <div class="span " v-else ><img v-if="starList[index+1]" class="pick-img" :src="starList[index+1]" alt="">{{item}}</div>
+                
             </div>
-            <div class="start pick-star2">
-                <div class="span"  @click.stop="lightUp('2')">能量星</div>
+            <!-- <div class="start pick-star2">
+                <div class="span"  v-if="!starList[2]"  @click.stop="lightUp('2')">能量星</div>
+                <div class="span " v-else ><img v-if="starList[2]" class="pick-img" :src="starList[2]" alt="">能量星</div>
             </div>
             <div class="start pick-star3">
-                <div class="span"  @click.stop="lightUp('3')">守护星</div>
+                <div class="span" v-if="!starList[3]"  @click.stop="lightUp('3')">守护星</div>
+                <div class="span " v-else ><img v-if="starList[3]" class="pick-img" :src="starList[3]" alt="">守护星</div>
             </div>
             <div class="start pick-star4">
                 <div class="span"  @click.stop="lightUp('4')">自由星</div>
@@ -27,7 +31,7 @@
             </div>
             <div class="start pick-star7">
                 <div class="span" @click.stop="lightUp('7')">智慧星</div>
-            </div>
+            </div> -->
             <div class="pick-moon">
                <span>&nbsp;&nbsp;？</span>
             </div>
@@ -55,7 +59,11 @@ export default {
       btnText:'我也要抢C位',
       userData:{},
       friendCanSave:false,
-      reword:{}
+      reword:{
+          prizeName:''
+      },
+      starName:['温暖星','能量星','守护星','自由星','幸运星','快乐星','智慧星'],
+      starList:[],
     }
   },
   created () {
@@ -64,13 +72,18 @@ export default {
         "openId": this.$route.query.id || '',
         }),{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
         .then( (response) => {
-            console.log(response.data.data);
             // isDraw 复制	[boolean]	是	领奖按钮状态	
             // lightRecords	[json]	是	点亮列表	
             // position	[string]	是	点亮位置	
             // headImage	[string]	是	点亮者的头像地址	
             // lightNo	[int]	是	点亮批次	
             // isPrize	[boolean]	是	是否奖品弹窗
+            let arr= [];
+            response.data.data.lightRecords.forEach(element => {
+                arr[element.position] = element.headImage
+            });
+            this.starList = arr;
+            console.log(this.starList);
             this.userData =Object.assign({},this.userData,response.data.data)
         })
         .catch( (error) => {
@@ -80,7 +93,7 @@ export default {
     axios.post('/qxby/api/member/addMember?', qs.stringify({
             "openId": '666',
             "customerId": "",
-            "headImageUrl":"https://avatar-static.segmentfault.com/199/098/1990980043-58ccbb8107e5c_big64",
+            "headImageUrl":"https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=3075942851,1445479430&fm=85&s=8DFAEE049A647D1506BD849003005097",
             "nickName":"test2"
         }))
         .then( (response) => {
@@ -107,13 +120,13 @@ export default {
         // }
         axios.post('/qxby/api/light/lightUp', qs.stringify({
             openId: '789',
-            lightOpenId:'666',
+            lightOpenId:'10000',
             postison: str * 1,
             lightNo: this.userData.lightNo * 1
         }))
         .then( (response) => {
             if(response.data.errMsg ==='成功'){
-                this.reword = response.data.data;
+                this.reword.prizeName = response.data.data.prizeName || '';
             } else{
                 alert(response.data.errMsg);
             }
@@ -245,5 +258,12 @@ export default {
     height: 1.14rem;
     background: url("/static/img/friendsGif.png") center center no-repeat;
     background-size: contain;
+}
+.pick-img{
+    position: absolute;
+    top: 0.4rem;
+    left: 0.46rem;
+    border-radius: 50%;
+    width: 1.0rem;
 }
 </style>
