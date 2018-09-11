@@ -40,6 +40,7 @@
 <script>
 import axios from 'axios';
 import Pop from '../components/pop.vue';
+import qs from 'qs';
 export default {
   name: 'index',
   components: {
@@ -52,12 +53,16 @@ export default {
       text:'补签成功<br/>喜提XXX<br/>抢C位邀请好友打CALL,<br/>即可赢取中秋甄选好礼！',
       text2:'赢中秋团圆礼~',
       btnText:'我也要抢C位',
-      userData:{}
+      userData:{},
+      friendCanSave:false,
+      reword:{}
     }
   },
   created () {
-     axios.post('/qxby/api/light/getLightInfo?openId=789', {
-        })
+    //   获取默认点亮的星星
+     axios.post('/qxby/api/light/getLightInfo', qs.stringify({
+        "openId": this.$route.query.id || '',
+        }),{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
         .then( (response) => {
             console.log(response.data.data);
             // isDraw 复制	[boolean]	是	领奖按钮状态	
@@ -67,6 +72,19 @@ export default {
             // lightNo	[int]	是	点亮批次	
             // isPrize	[boolean]	是	是否奖品弹窗
             this.userData =Object.assign({},this.userData,response.data.data)
+        })
+        .catch( (error) => {
+            console.log(error);
+        });
+    //提交用户信息 
+    axios.post('/qxby/api/member/addMember?', qs.stringify({
+            "openId": '666',
+            "customerId": "",
+            "headImageUrl":"https://avatar-static.segmentfault.com/199/098/1990980043-58ccbb8107e5c_big64",
+            "nickName":"test2"
+        }))
+        .then( (response) => {
+            this.friendCanSave  = true;
         })
         .catch( (error) => {
             console.log(error);
@@ -83,18 +101,25 @@ export default {
           this.mark = false;
       },
       lightUp(str) {
-        this.mark = true;
-        axios.post('/qxby/api/light/getLightInfo', {
+        // this.mark = true;
+        // if(!this.friendCanSave) {
+        //     return;
+        // }
+        axios.post('/qxby/api/light/lightUp', qs.stringify({
             openId: '789',
             lightOpenId:'666',
-            postison: str,
-            lightNo: this.userData.lightNo
-        })
+            postison: str * 1,
+            lightNo: this.userData.lightNo * 1
+        }))
         .then( (response) => {
-            console.log(response.data);
+            if(response.data.errMsg ==='成功'){
+                this.reword = response.data.data;
+            } else{
+                alert(response.data.errMsg);
+            }
         })
         .catch( (error) => {
-            console.log(error);
+            console.log(error)
         });
       }
   }
