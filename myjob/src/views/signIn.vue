@@ -1,8 +1,8 @@
 <template>
     <div id="singIn">
         <div class="btn">
-            <div class="btn-left"></div>
-            <div class="btn-right"></div>
+             <router-link to="/index"><div class="btn-left"></div></router-link>
+            <router-link to="/rules"> <div class="btn-right"></div></router-link>
         </div>
         <div class="icon"></div>
         <div class="sign-in-text"></div>
@@ -30,6 +30,8 @@
         <div class="sign-in-7 sign-in">
                 <span class="day-7 day"></span>
         </div>
+        <div class="click_text"></div>
+        <div class="invite_text"></div>
     </div>
 </template>
 
@@ -38,11 +40,30 @@ import axios from "axios";
 export default {
   name: "index",
   data() {
-    return {
-      msg: "Welcome to Your Vue.js App"
-    };
+    return {};
   },
-  mounted() {}
+  created() {
+    //  axios
+    //     .get("http://www.swisse-china.com.cn/swisseweixin/weixin/authorize?encodeTargetUrl=http://www.swisse-china.com.cn/#/signIn")
+    //     .then(function(response) {
+    //       console.log(response);
+    //     })
+    //     .catch(function(error) {
+    //       console.log(error);
+    //     });
+    // this.$get('http://www.swisse-china.com.cn/swisseweixin/weixin/jsApiSign')
+    // .then((response) => {
+    //     console.log(response);
+    //   })
+
+  },
+  mounted() {
+  },
+  methods: {
+    getId() {
+     
+    }
+  }
 };
 </script>
 
@@ -52,7 +73,7 @@ export default {
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: url("/static/img/sign_in_bg.png") no-repeat center -1rem fixed;
+  background: url("/static/img/sign_in_bg.png") no-repeat center -0.7rem fixed;
   background-size: contain;
   background-color: #000;
 }
@@ -103,44 +124,62 @@ export default {
   position: relative;
 }
 .sign-in-7 {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .day {
-    position: absolute;
-    width: 1.21rem;
-    height: 0.78rem;
-    bottom: -0.1rem;
-    left: 50%;
-    transform: translateX(-50%);
+  position: absolute;
+  width: 1.21rem;
+  height: 0.78rem;
+  bottom: -0.1rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .day-1 {
-    background: url("/static/img/day_1.png") center center no-repeat;
-    background-size: contain;
+  background: url("/static/img/day_1.png") center center no-repeat;
+  background-size: contain;
 }
 .day-2 {
-    background: url("/static/img/day_2.png") center center no-repeat;
-    background-size: contain;
+  background: url("/static/img/day_2.png") center center no-repeat;
+  background-size: contain;
 }
 .day-3 {
-    background: url("/static/img/day_3.png") center center no-repeat;
-    background-size: contain;
+  background: url("/static/img/day_3.png") center center no-repeat;
+  background-size: contain;
 }
 .day-4 {
-    background: url("/static/img/day_4.png") center center no-repeat;
-    background-size: contain;
+  background: url("/static/img/day_4.png") center center no-repeat;
+  background-size: contain;
 }
 .day-5 {
-    background: url("/static/img/day_5.png") center center no-repeat;
-    background-size: contain;
+  background: url("/static/img/day_5.png") center center no-repeat;
+  background-size: contain;
 }
 .day-6 {
-    background: url("/static/img/day_6.png") center center no-repeat;
-    background-size: contain;
+  background: url("/static/img/day_6.png") center center no-repeat;
+  background-size: contain;
 }
 .day-7 {
-    background: url("/static/img/day_7.png") center center no-repeat;
-    background-size: contain;
+  background: url("/static/img/day_7.png") center center no-repeat;
+  background-size: contain;
+}
+.click_text {
+  position: absolute;
+  left: 0.63rem;
+  bottom: 0.97rem;
+  width: 2.66rem;
+  height: 1.07rem;
+  background: url("/static/img/click_text.png") no-repeat center center;
+  background-size: contain;
+}
+.invite_text {
+  position: absolute;
+  right: 0.63rem;
+  bottom: 0.97rem;
+  width: 2.66rem;
+  height: 1.07rem;
+  background: url("/static/img/invite_text.png") no-repeat center center;
+  background-size: contain;
 }
 </style>
