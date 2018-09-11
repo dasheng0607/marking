@@ -56,6 +56,17 @@ export default {
     //     console.log(response);
     //   })
 
+    axios.post('/qxby/api/sign/getSignListByOpenId?openId=789', {
+        })
+        .then( (response) => {
+            console.log(response.data.data);
+         
+      
+        })
+        .catch( (error) => {
+            console.log(error);
+        });
+
   },
   mounted() {
   },
