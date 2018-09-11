@@ -9,7 +9,7 @@ import rules from '@/views/rules'
 
 Vue.use(Router)
 
-export default new Router({
+const my_router = new Router({
   routes: [
     {
       path: '/index',
@@ -43,3 +43,6 @@ export default new Router({
     }
   ]
 })
+
+
+export default my_router

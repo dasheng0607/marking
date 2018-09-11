@@ -4,6 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import fastclick from 'fastclick'
+import common from '@/utils/common'
+
+Vue.prototype.$get = common.get;
+Vue.prototype.$post = common.post;
+
 fastclick.attach(document.body)
 
 Vue.config.productionTip = false

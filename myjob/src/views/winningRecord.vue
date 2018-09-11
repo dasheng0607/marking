@@ -1,8 +1,7 @@
 <template>
     <div id="winningRecord">
         <div class="btn">
-            <div class="btn-left"></div>
-            <div class="btn-right"></div>
+             <div class="btn-left"></div>
         </div>
         <div class="icon"></div>
         <div class="username-text">Hi，亲爱的{{userName}}</div>
