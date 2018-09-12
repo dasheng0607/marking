@@ -74,11 +74,12 @@ export default {
     top: 0.6rem;
 }
 .tip-top{
-    height: 43%;
+    min-height: 30%;
     text-align: center;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    padding-bottom: 0.35rem;
+    margin-left: 1.2rem;
+    margin-top: 0.8rem;
+    margin-right: 1.2rem;
+    padding-bottom: 0.20rem;
     display: flex;
     justify-content:center;
     align-items:flex-end;
@@ -91,11 +92,11 @@ export default {
     color: transparent;
 }
 .tip-bottom{
-    height: 46%;
+    min-height: 30%;
     text-align: center;
     margin-left: 1rem;
     margin-right: 1rem;
-    padding-top: 0.16rem;
+    padding-top: 0.1rem;
     display: flex;
     justify-content:top;
     flex-direction:column;
