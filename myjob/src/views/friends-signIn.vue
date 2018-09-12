@@ -7,7 +7,7 @@
         <div class="icon"></div>
         <div class="sign-in-text"></div>
         <div class="sign-in-box">
-            <div class="sign-in" 
+            <div class="sign-in" @click="friendSign()"
             v-for="(item,index) in signList" :key="index" :class="'sign-in-'+ (index+1)">
                 <img :src="item.headImage" alt="">
                 <span class="day" :class="'day-' + (index+1)"></span>
@@ -32,8 +32,8 @@
             </div> -->
         </div>
         
-        <div class="click_text" @click="signIn()"></div>
-        <div class="invite_text"></div>
+        <!-- <div class="click_text" @click="signIn()"></div>
+        <div class="invite_text"></div> -->
         <pop v-if="mark" :text1="text" :btnText="btnText" :text2="text2" @btnup="btnup" @close="close"></pop>
     </div>
 </template>
@@ -51,28 +51,18 @@ export default {
     return {
       mark: false,
       text: "",
-      text2: "一起PICK中秋团圆礼",
-      btnText: "赶紧向朋友炫耀",
+      text2: "赢中秋团圆礼",
+      btnText: "我也要抢C位",
       today: "",
       prizeName: "",
-      openId: "1",
+      openId: "11",
+      signOpenId: '22',
       signDateList: [],
       signRecords: []
     };
   },
   created() {
-    //  axios
-    //     .get("http://www.swisse-china.com.cn/swisseweixin/weixin/authorize?encodeTargetUrl=http://www.swisse-china.com.cn/#/signIn")
-    //     .then(function(response) {
-    //       console.log(response);
-    //     })
-    //     .catch(function(error) {
-    //       console.log(error);
-    //     });
-    // this.$get('http://www.swisse-china.com.cn/swisseweixin/weixin/jsApiSign')
-    // .then((response) => {
-    //     console.log(response);
-    //   })
+  
 
     this.getList();
     this.submitUserMsg();
@@ -169,7 +159,7 @@ export default {
           "/qxby/api/sign/addSign",
           qs.stringify({
             openId: this.openId,
-            signOpenId: this.openId,
+            signOpenId: this.signOpenId,
             signDate: this.today
           })
         )
@@ -178,7 +168,8 @@ export default {
           if (response.data.errCode == 0) {
             this.mark = true;
             this.prizeName = response.data.data.prizeName || "";
-            this.text = "恭喜你<br/>喜提" + this.prizeName + "<br/>";
+            this.text = "恭喜你<br/>喜提" + this.prizeName + 
+            "<br/>抢C位，邀请好友打CALL<br/>即可赢得中秋甄选好礼！";
           } else {
             alert(response.data.errMsg);
           }
