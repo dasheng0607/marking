@@ -74,7 +74,7 @@ export default {
     top: 0.6rem;
 }
 .tip-top{
-    min-height: 30%;
+    min-height: 34%;
     text-align: center;
     margin-left: 1.2rem;
     margin-top: 0.8rem;

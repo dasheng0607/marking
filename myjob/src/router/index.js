@@ -46,6 +46,10 @@ const my_router = new Router({
       path: '/rules',
       name: 'rules',
       component: rules
+    },
+    {
+      path: '*',
+      redirect:'/index'
     }
   ]
 })

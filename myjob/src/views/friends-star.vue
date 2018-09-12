@@ -64,37 +64,19 @@ export default {
       },
       starName:['温暖星','能量星','守护星','自由星','幸运星','快乐星','智慧星'],
       starList:[],
+      friendID: '513'
     }
   },
   created () {
+    this.sendDot("B000020300")
     //   获取默认点亮的星星
-     axios.post('/qxby/api/light/getLightInfo', qs.stringify({
-        "openId": this.$route.query.id || '',
-        }),{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
-        .then( (response) => {
-            // isDraw 复制	[boolean]	是	领奖按钮状态	
-            // lightRecords	[json]	是	点亮列表	
-            // position	[string]	是	点亮位置	
-            // headImage	[string]	是	点亮者的头像地址	
-            // lightNo	[int]	是	点亮批次	
-            // isPrize	[boolean]	是	是否奖品弹窗
-            let arr= [];
-            response.data.data.lightRecords.forEach(element => {
-                arr[element.position] = element.headImage
-            });
-            this.starList = arr;
-            console.log(this.starList);
-            this.userData =Object.assign({},this.userData,response.data.data)
-        })
-        .catch( (error) => {
-            console.log(error);
-        });
+     this.getUser();
     //提交用户信息 
     axios.post('/qxby/api/member/addMember?', qs.stringify({
-            "openId": '666',
+            "openId": this.friendID,
             "customerId": "",
-            "headImageUrl":"https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=3075942851,1445479430&fm=85&s=8DFAEE049A647D1506BD849003005097",
-            "nickName":"test2"
+            "headImageUrl":"http://img4.imgtn.bdimg.com/it/u=3437100934,916268746&fm=26&gp=0.jpg",
+            "nickName":"test" + this.friendID
         }))
         .then( (response) => {
             this.friendCanSave  = true;
@@ -107,26 +89,56 @@ export default {
 
   },
   methods: {
+      sendDot(code){
+          axios.post(process.env.SET_DOT, qs.stringify({
+            "platform": 2,
+            "point_code":code,
+            "created_time": (new Date()).getTime()
+            }),{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+            .then( (response) => {
+            })
+            .catch( (error) => {
+                console.log(error);
+            });
+      },
+      getUser(){
+          axios.post('/qxby/api/light/getLightInfo', qs.stringify({
+        "openId": this.$route.query.id || '',
+        }),{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+        .then( (response) => {
+            let arr= [];
+            response.data.data.lightRecords.forEach(element => {
+                arr[element.position] = element.headImage
+            });
+            this.starList = arr;
+            if(response.data.data.lightRecords.length ===7){
+                alert("好友已集齐7颗星");
+            }
+            this.userData =Object.assign({},this.userData,response.data.data)
+        })
+        .catch( (error) => {
+            console.log(error);
+        });
+      },
       btnup(){
-         alert('提交事件')
+         this.$router.push('/index')
       },
       close(){
           this.mark = false;
       },
       lightUp(str) {
-        // this.mark = true;
-        // if(!this.friendCanSave) {
-        //     return;
-        // }
         axios.post('/qxby/api/light/lightUp', qs.stringify({
             openId: '789',
-            lightOpenId:'10000',
+            lightOpenId: this.friendID,
             postison: str * 1,
             lightNo: this.userData.lightNo * 1
         }))
         .then( (response) => {
             if(response.data.errMsg ==='成功'){
-                this.reword.prizeName = response.data.data.prizeName || '';
+                // 重新获取数据
+                this.text = "恭喜你！<br/>喜提"+response.data.data.prizeName+"<br/>参与抢C位活动，即可抱中秋团圆礼回家！"
+                this.mark = true;
+                this.getUser();
             } else{
                 alert(response.data.errMsg);
             }
@@ -135,6 +147,11 @@ export default {
             console.log(error)
         });
       }
+  },
+  computed:{
+      isAll(){
+          
+      },
   }
 }
 </script>
@@ -265,5 +282,6 @@ export default {
     left: 0.46rem;
     border-radius: 50%;
     width: 1.0rem;
+    height: 1rem;
 }
 </style>

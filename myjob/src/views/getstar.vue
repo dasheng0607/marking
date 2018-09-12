@@ -7,35 +7,19 @@
         <div class="icon"></div>
         <div class="title"></div>
         <div class="pick2">
-            <div class="start pick-star1">
-                <div class="span">温暖星</div>
-            </div>
-            <div class="start pick-star2">
-                <div class="span">能量星</div>
-            </div>
-            <div class="start pick-star3">
-                <div class="span">守护星</div>
-            </div>
-            <div class="start pick-star4">
-                <div class="span">自由星</div>
-            </div>
-            <div class="start pick-star5">
-                <div class="span">幸运星</div>
-            </div>
-            <div class="start pick-star6">
-                <div class="span">快乐星</div>
-            </div>
-            <div class="start pick-star7">
-                <div class="span">智慧星</div>
+            <div v-for="(item,index) in starName" :key="item" :class="'pick-star'+(index+1)" class="start">
+                <div class="span"  v-if="!starList[index+1]" >{{item}}</div>
+                <div class="span " v-else ><img v-if="starList[index+1]" class="pick-img" :src="starList[index+1]" alt="">{{item}}</div>
+                
             </div>
             <div class="pick-moon">
                <span>&nbsp;&nbsp;？</span>
             </div>
         </div>
         <div class="getstart" v-if="!successBtn"></div>
-        <div class="getstart all-star" v-else @click="showPop = true"></div>
+        <div class="getstart all-star" v-else @click="openDraw"></div>
         <div class="world">
-            最多集齐5套喔，你当前是{{haveNum}}套啦！
+            最多集齐5套喔，你当前是{{userData.lightNo}}套啦！
         </div>
         <pop v-if="showPop" :text1="text" :btnText="btnText" :text2="text2" @btnup="btnup" @close="close"></pop>
     </div>
@@ -44,6 +28,7 @@
 <script>
 import axios from 'axios';
 import Pop from '../components/pop.vue';
+import qs from 'qs';
 export default {
   name: 'index',
   components: {
@@ -51,24 +36,73 @@ export default {
   },
   data () {
     return {
-      text: '太棒了！<br/>集齐七星祝福<br/>获得中秋甄选好礼****<br/>',
+      text: '太棒了！<br/>集齐七星祝福<br/>获得中秋甄选好礼40元Swisse商城现金券',
       text2: 'PICK中秋甄选好礼~',
       btnText: '分享好友',
       haveNum:"0",
-      successBtn:true,
+      successBtn:false,
       showPop:false,
+      starName:['温暖星','能量星','守护星','自由星','幸运星','快乐星','智慧星'],
+      starList:[],
+      userData:{
+          lightNo:'',
+          isDraw: false
+      }
     }
+  },
+  created() {
+      this.getUser();
   },
   mounted () {
       
   },
   methods: {
+      getUser(){
+          axios.post('/qxby/api/light/getLightInfo', qs.stringify({
+            "openId": this.$route.query.id || '789',
+            }),{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
+            .then( (response) => {
+                let arr= [];
+                response.data.data.lightRecords.forEach(element => {
+                    arr[element.position] = element.headImage
+                });
+                this.starList = arr;
+                if(response.data.data.lightRecords.length === 7){
+                    this.successBtn =true
+                } else {
+                    this.successBtn =false;
+                }
+                this.userData =Object.assign({},this.userData,response.data.data)
+                console.log(this.userData);
+            })
+            .catch( (error) => {
+                console.log(error);
+            });
+      },
       btnup(){
          alert('提交事件')
       },
+      openDraw(){
+        //   发送
+         axios.post('/qxby/api/light/openLightAward', qs.stringify({
+            openId: '789',
+            lightNo:this.userData.lightNo,
+        }))
+        .then( (response) => {
+            if(response.data.errMsg === '成功') {
+                this.text = '太棒了！<br/>集齐七星祝福<br/>获得中秋甄选好礼' + response.data.data.prizeName;
+                this.showPop = true;
+            }else {
+                alert(response.data.errMsg);
+            }
+        })
+        .catch( (error) => {
+
+        });
+      },
       close(){
           this.showPop = false;
-      },
+      }
   }
 }
 </script>
@@ -192,5 +226,13 @@ export default {
     background: linear-gradient(to right, rgb(90,72,53), rgb(214,188,158),rgb(159,131,101));
     -webkit-background-clip: text;
     color: transparent;
+}
+.pick-img{
+    position: absolute;
+    top: 0.4rem;
+    left: 0.46rem;
+    border-radius: 50%;
+    width: 1.0rem;
+    height: 1rem;
 }
 </style>
