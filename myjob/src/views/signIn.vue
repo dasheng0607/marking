@@ -8,7 +8,7 @@
         <div class="sign-in-text"></div>
         <div class="sign-in-box">
             <div class="sign-in" 
-            v-for="(item,index) in signList" :key="index" :class="'sign-in-'+ (index+1)">
+            v-for="(item,index) in newArr" :key="index" :class="'sign-in-'+ (index+1)">
                 <img :src="item.headImage" alt="">
                 <span class="day" :class="'day-' + (index+1)"></span>
             </div>
@@ -55,9 +55,10 @@ export default {
       btnText: "赶紧向朋友炫耀",
       today: "",
       prizeName: "",
-      openId: "1",
+      openId: "13",
       signDateList: [],
-      signRecords: []
+      signRecords: [],
+      newArr: []
     };
   },
   created() {
@@ -79,28 +80,28 @@ export default {
     // this.getDateList();
   },
   mounted() {},
-  computed: {
-    signList() {
-      let self = this;
-      let newArr = [];
-      this.signDateList.forEach(function(v1) {
-        newArr.push({ date: v1 });
-      });
+  // computed: {
+  //   signList() {
+  //     let self = this;
+  //     let newArr = [];
+  //     this.signDateList.forEach(function(v1) {
+  //       newArr.push({ date: v1 });
+  //     });
 
-      newArr.forEach(function(v1) {
-        self.signRecords.forEach(function(v2) {
-          if (v1.date == v2.date) {
-            v1.headImage = v2.headImage;
-          }else {
-            v1.headImage = '';
-          }
-        });
-      })
+  //     newArr.forEach(function(v1) {
+  //       self.signRecords.forEach(function(v2) {
+  //         if (v1.date == v2.date) {
+  //           v1.headImage = v2.headImage;
+  //         } else {
+  //           v1.headImage = "";
+  //         }
+  //       });
+  //     });
 
-      console.log(newArr);
-      return newArr;
-    }
-  },
+  //     console.log(newArr);
+  //     return newArr;
+  //   }
+  // },
   methods: {
     btnup() {
       alert("提交事件");
@@ -123,6 +124,25 @@ export default {
           this.signDateList = response[0].data.data.signDateList;
           this.signRecords = response[1].data.data.signRecords;
           console.log(this.signDateList, this.signRecords);
+
+          let self = this;
+          this.newArr = [];
+          this.signDateList.forEach(function(v1) {
+            self.newArr.push({ date: v1, headImage: ''});
+          });
+
+        console.log(this.newArr);
+          this.newArr.forEach(function(v1) {
+            self.signRecords.forEach(function(v2) {
+              
+              if (v1.date == v2.date) {
+                console.log(v2);
+                v1.headImage = v2.headImage;
+              } 
+            });
+          });
+
+          console.log(this.newArr);
         })
         .catch(error => {
           console.log(error);
@@ -179,6 +199,7 @@ export default {
             this.mark = true;
             this.prizeName = response.data.data.prizeName || "";
             this.text = "恭喜你<br/>喜提" + this.prizeName + "<br/>";
+            this.getList();
           } else {
             alert(response.data.errMsg);
           }

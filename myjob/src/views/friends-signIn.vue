@@ -7,8 +7,8 @@
         <div class="icon"></div>
         <div class="sign-in-text"></div>
         <div class="sign-in-box">
-            <div class="sign-in" @click="friendSign()"
-            v-for="(item,index) in signList" :key="index" :class="'sign-in-'+ (index+1)">
+            <div class="sign-in" @click="friendSign(item.date)"
+            v-for="(item,index) in newArr" :key="index" :class="'sign-in-'+ (index+1)">
                 <img :src="item.headImage" alt="">
                 <span class="day" :class="'day-' + (index+1)"></span>
             </div>
@@ -56,9 +56,10 @@ export default {
       today: "",
       prizeName: "",
       openId: "11",
-      signOpenId: '22',
+      signOpenId: '21',
       signDateList: [],
-      signRecords: []
+      signRecords: [],
+      newArr: []
     };
   },
   created() {
@@ -69,31 +70,9 @@ export default {
     // this.getDateList();
   },
   mounted() {},
-  computed: {
-    signList() {
-      let self = this;
-      let newArr = [];
-      this.signDateList.forEach(function(v1) {
-        newArr.push({ date: v1 });
-      });
-
-      newArr.forEach(function(v1) {
-        self.signRecords.forEach(function(v2) {
-          if (v1.date == v2.date) {
-            v1.headImage = v2.headImage;
-          }else {
-            v1.headImage = '';
-          }
-        });
-      })
-
-      console.log(newArr);
-      return newArr;
-    }
-  },
   methods: {
     btnup() {
-      alert("提交事件");
+      this.$router.replace({path: '/index'});
     },
     close() {
       this.mark = false;
@@ -113,6 +92,25 @@ export default {
           this.signDateList = response[0].data.data.signDateList;
           this.signRecords = response[1].data.data.signRecords;
           console.log(this.signDateList, this.signRecords);
+
+          let self = this;
+          this.newArr = [];
+          this.signDateList.forEach(function(v1) {
+            self.newArr.push({ date: v1, headImage: ''});
+          });
+
+        console.log(this.newArr);
+          this.newArr.forEach(function(v1) {
+            self.signRecords.forEach(function(v2) {
+              
+              if (v1.date == v2.date) {
+                console.log(v2);
+                v1.headImage = v2.headImage;
+              } 
+            });
+          });
+
+          console.log(this.newArr);
         })
         .catch(error => {
           console.log(error);
@@ -139,7 +137,7 @@ export default {
         .post(
           "/qxby/api/member/addMember?",
           qs.stringify({
-            openId: this.openId,
+            openId: this.signOpenId,
             customerId: "",
             headImageUrl:
               "https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=3075942851,1445479430&fm=85&s=8DFAEE049A647D1506BD849003005097",
@@ -153,14 +151,14 @@ export default {
           console.log(error);
         });
     },
-    signIn() {
+    friendSign(date) {
       axios
         .post(
           "/qxby/api/sign/addSign",
           qs.stringify({
             openId: this.openId,
             signOpenId: this.signOpenId,
-            signDate: this.today
+            signDate: date
           })
         )
         .then(response => {
@@ -170,6 +168,7 @@ export default {
             this.prizeName = response.data.data.prizeName || "";
             this.text = "恭喜你<br/>喜提" + this.prizeName + 
             "<br/>抢C位，邀请好友打CALL<br/>即可赢得中秋甄选好礼！";
+            this.getList();
           } else {
             alert(response.data.errMsg);
           }
