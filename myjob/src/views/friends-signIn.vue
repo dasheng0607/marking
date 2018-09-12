@@ -31,6 +31,7 @@
                 <span class="day-7 day"></span>
             </div> -->
         </div>
+        <div class="help-sign-in"></div>
         
         <!-- <div class="click_text" @click="signIn()"></div>
         <div class="invite_text"></div> -->
@@ -56,7 +57,7 @@ export default {
       today: "",
       prizeName: "",
       openId: "11",
-      signOpenId: '21',
+      signOpenId: '22',
       signDateList: [],
       signRecords: [],
       newArr: []
@@ -305,5 +306,12 @@ export default {
   height: 1.07rem;
   background: url("/static/img/invite_text.png") no-repeat center center;
   background-size: contain;
+}
+.help-sign-in {
+    width: 5.45rem;
+    height: 1.14rem;
+    margin: 2rem auto;
+    background: url("/static/img/help_sign_in.png") no-repeat center center;
+    background-size: contain;
 }
 </style>

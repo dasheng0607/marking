@@ -14,17 +14,29 @@
             </div>
         </div>
         <div class="delivery-msg" @click="showBg()"></div>
-        <div class="bg" v-sdeliveryhow="bgFlag">
+        <div class="bg" v-if="bgFlag">
             <div class="delivery-box">
-                
+                <p class="name">收件人姓名：<span></span></p>
+                <p class="phone">收件人手机号码：<span></span></p>
+                <p class="address">地址：<span></span></p>
+                <p class="address-1"></p>
+                <div class="save-address"></div>
             </div>
         </div>
+         <!-- <popup v-model="show_store_flag" @on-hide="confirm_store">
+            <Picker ref=""
+              :data=""
+              v-model=""
+              :columns=3
+              @on-change="change_store"></Picker>
+        </popup> -->
     </div>
 </template>
 
 <script>
 import axios from "axios";
 import qs from "qs";
+import { Popup, Picker } from "vux";
 export default {
   name: "index",
   data() {
@@ -37,6 +49,7 @@ export default {
   },
   created() {
     this.getList();
+    this.getAddress();
   },
   mounted() {},
   methods: {
@@ -61,8 +74,26 @@ export default {
           console.log(error);
         });
     },
+    getAddress() {
+      axios
+        .post(
+          "/qxby/api/address/linkProvinceAndCity",
+          qs.stringify({
+            code: "001006"
+          })
+        )
+        .then(response => {
+          console.log(response);
+          if (response.data.errCode == 0) {
+            this.recordList = response.data.data.winnerList;
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     showBg() {
-        this.bgFlag = true;
+      this.bgFlag = true;
     }
   }
 };
@@ -168,8 +199,8 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-     overflow: hidden;
-     overflow: auto;
+    overflow: hidden;
+    overflow: auto;
   }
   .record-text {
     padding-left: 0.38rem;
@@ -187,12 +218,61 @@ export default {
   background-size: contain;
 }
 .bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(105, 103, 103, 0.7);
+  z-index: 9;
+  .delivery-box {
+    width: 5.29rem;
+    height: 5.56rem;
+    padding: 1.2rem 0.3rem;
+    box-sizing: border-box;
+    text-align: left;
+    background: url("/static/img/delivery_bg.png") no-repeat center center;
+    background-size: contain;
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: transparent;
-    z-index: 9;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    p, span {
+        color: #6F4D20;
+        font-size: 0.24rem;
+    }
+    p {
+        margin-bottom: 0.3rem;
+        padding-left: 0.35rem;
+    }
+    span {
+        display: inline-block;
+        height: 0.3rem;
+        border-bottom: 1px solid #AE8863;
+    }
+    .name span {
+        width: 2.48rem;
+    }
+    .phone span {
+        width: 1.96rem;
+    }
+    .address span {
+        width: 3.22rem;
+    }
+    .address-1 {
+        width: 3.22rem;
+        height: 0.3rem;
+        margin-left: 1.08rem;
+        padding: 0;
+        border-bottom: 1px solid #AE8863;
+    }
+    .save-address {
+        width: 2.32rem;
+        height: 0.68rem;
+        margin: 0.68rem auto;
+        background: url("/static/img/save_address.png") no-repeat center center;
+        background-size: contain;
+    }
+  }
 }
 </style>
