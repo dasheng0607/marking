@@ -202,13 +202,8 @@ export default {
   position: relative;
   width: 100vw;
   height: 100vh;
-<<<<<<< HEAD
   background: url("/static/img/sign_in_bg.png") no-repeat center -0.7rem fixed;
   background-size: 7.5rem 12.8rem;
-=======
-  background: url("../../static/img/sign_in_bg.png") no-repeat center -0.7rem fixed;
-  background-size: contain;
->>>>>>> 46ceb72c1c2b6c87e5d40abfd30910d076c06968
   background-color: #000;
 }
 .btn {
@@ -221,48 +216,28 @@ export default {
   float: left;
   width: 1.62rem;
   height: 100%;
-<<<<<<< HEAD
   background: url("/static/img/index_icon.png") left center no-repeat;
   background-size: 1.11rem 0.33rem;
-=======
-  background: url("../../static/img/index_icon.png") left center no-repeat;
-  background-size: contain;
->>>>>>> 46ceb72c1c2b6c87e5d40abfd30910d076c06968
 }
 .btn-right {
   margin-right: 0.64rem;
   float: right;
   width: 1.69rem;
   height: 100%;
-<<<<<<< HEAD
   background: url("/static/img/icon2.png") left center no-repeat;
   background-size: 1.68rem 0.32rem;
-=======
-  background: url("../../static/img/icon2.png") left center no-repeat;
-  background-size: contain;
->>>>>>> 46ceb72c1c2b6c87e5d40abfd30910d076c06968
 }
 .icon {
   margin-top: 0.1rem;
   height: 0.46rem;
-<<<<<<< HEAD
   background: url("/static/img/icon3.png") center center no-repeat;
   background-size: 2.45rem 0.47rem;
-=======
-  background: url("../../static/img/icon3.png") center center no-repeat;
-  background-size: contain;
->>>>>>> 46ceb72c1c2b6c87e5d40abfd30910d076c06968
 }
 .sign-in-text {
   margin-top: 0.3rem;
   height: 1.52rem;
-<<<<<<< HEAD
   background: url("/static/img/sign_in_text.png") center center no-repeat;
   background-size: 4.97rem 1.52rem;
-=======
-  background: url("../../static/img/sign_in_text.png") center center no-repeat;
-  background-size: contain;
->>>>>>> 46ceb72c1c2b6c87e5d40abfd30910d076c06968
 }
 .sign-in-box {
   width: 6rem;
@@ -273,25 +248,15 @@ export default {
   width: 2rem;
   height: 1.86rem;
   float: left;
-<<<<<<< HEAD
   background: url("/static/img/sign_in_icon.png") center center no-repeat;
   background-size: 1.78rem 1.86rem;
-=======
-  background: url("../../static/img/sign_in_icon.png") center center no-repeat;
-  background-size: contain;
->>>>>>> 46ceb72c1c2b6c87e5d40abfd30910d076c06968
   position: relative;
   img {
     display: block;
     width: 1.13rem;
     height: 1.13rem;
-<<<<<<< HEAD
     background: url("/static/img/sign_in_icon1.png") center center no-repeat;
     background-size: 0.89rem 0.89rem;
-=======
-    background: url("../../static/img/sign_in_icon1.png") center center no-repeat;
-    background-size: contain;
->>>>>>> 46ceb72c1c2b6c87e5d40abfd30910d076c06968
     position: absolute;
     top: 0.42rem;
     left: 0.5rem;
@@ -311,7 +276,6 @@ export default {
   transform: translateX(-50%);
 }
 .day-1 {
-<<<<<<< HEAD
   background: url("/static/img/day_1.png") center center no-repeat;
   background-size: 1.21rem 0.78rem;
 }
@@ -338,52 +302,6 @@ export default {
 .day-7 {
   background: url("/static/img/day_7.png") center center no-repeat;
   background-size: 1.21rem 0.78rem;
-=======
-  background: url("../../static/img/day_1.png") center center no-repeat;
-  background-size: contain;
-}
-.day-2 {
-  background: url("../../static/img/day_2.png") center center no-repeat;
-  background-size: contain;
-}
-.day-3 {
-  background: url("../../static/img/day_3.png") center center no-repeat;
-  background-size: contain;
-}
-.day-4 {
-  background: url("../../static/img/day_4.png") center center no-repeat;
-  background-size: contain;
-}
-.day-5 {
-  background: url("../../static/img/day_5.png") center center no-repeat;
-  background-size: contain;
-}
-.day-6 {
-  background: url("../../static/img/day_6.png") center center no-repeat;
-  background-size: contain;
-}
-.day-7 {
-  background: url("../../static/img/day_7.png") center center no-repeat;
-  background-size: contain;
-}
-.click_text {
-  position: absolute;
-  left: 0.63rem;
-  bottom: 0.97rem;
-  width: 2.66rem;
-  height: 1.07rem;
-  background: url("../../static/img/click_text.png") no-repeat center center;
-  background-size: contain;
-}
-.invite_text {
-  position: absolute;
-  right: 0.63rem;
-  bottom: 0.97rem;
-  width: 2.66rem;
-  height: 1.07rem;
-  background: url("../../static/img/invite_text.png") no-repeat center center;
-  background-size: contain;
->>>>>>> 46ceb72c1c2b6c87e5d40abfd30910d076c06968
 }
 .help-sign-in {
     width: 5.45rem;

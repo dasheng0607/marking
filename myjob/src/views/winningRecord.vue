@@ -18,35 +18,39 @@
         <div class="bg" v-if="bgFlag">
             <div class="delivery-box">
                 <p class="name">收件人姓名：<span></span></p>
-                <p class="phone">收件人手机号码：<span></span></p>
+                <!-- <p class="phone">收件人手机号码：</p> -->
                 <!-- <p class="address">地址：</p> -->
-                <flexbox style="font-size:12px;">
-                  <flexbox-item :span="6"><div class="flex-demo">6/12</div></flexbox-item>
-                  <flexbox-item :span="2"><div class="flex-demo">
-                    <popup-picker title="请选择" :data="list3" :columns="3" v-model="value4" show-name></popup-picker></div>
+                <flexbox  class="address" style="font-size:12px;padding-left:0.35rem;color: #6f4d20;font-size: 0.24rem;box-sizing: border-box;">
+                  <!-- <flexbox-item :span="0"><div class="flex-demo">收件人手机号码：:</div></flexbox-item> -->
+                  <flexbox-item :span="12">
+                    收件人手机号码： <x-input  placeholder="请输入详细地址"></x-input>
                   </flexbox-item>
-                  <flexbox-item ><div class="flex-demo">rest</div></flexbox-item>
                 </flexbox>
-                <!-- <p class="address">地址：<popup-picker :title="请选择" :data="list3" :columns="3" v-model="value4" show-name></popup-picker></p>
-                <p class="address-1">
-                  <div  style="width:1rem;font-size:12px;">
-                    <popup-picker title="请选择" :data="list3" :columns="3" v-model="value4" show-name></popup-picker>
-                  </div>
-          -<span @click="address.province.isShow = false;address.city.isShow = true;address.area.isShow = false">{{address.city.value[0].name || '请选择'}}</span>-<span @click="address.province.isShow = false;address.city.isShow = false;address.area.isShow = true">{{address.area.value[0].name || '请选择'}}</span></p>
-                <div class="save-address" @click="bgFlag =false"></div> -->
+                <flexbox  class="address" style="font-size:12px;padding-left:0.35rem;color: #6f4d20;font-size: 0.24rem;box-sizing: border-box;">
+                  <flexbox-item :span="2"><div class="flex-demo">地址:</div></flexbox-item>
+                  <flexbox-item :span="10">
+                    <div class="flex-demo">
+                      <span @click="address.province.isShow = true">
+                        {{address.province.value[0] ? address.province.value[0].split('-')[0] : '请选择'}}
+                      </span> - 
+                      <span @click="address.city.isShow = true">
+                        {{address.city.value[0] ? address.city.value[0].split('-')[0] : '请选择'}}
+                      </span> -
+                      <span @click="address.area.isShow = true">
+                        {{address.area.value[0] ? address.area.value[0].split('-')[0] : '请选择'}}
+                      </span>
+                    </div>
+                  </flexbox-item>
+                </flexbox>
+                <group>
+                 <x-input  placeholder="请输入详细地址"></x-input>
+                </group>
+                <div class="save-address" @click="bgFlag =false"></div>
             </div>
             
-        <div style="position:absolute;bottom:0;left:0;right:0">
-          <group v-if="address.province.isShow">
-           <picker :data='address.province.tab' v-model='address.province.value' @on-change='change1'></picker>
-          </group>
-          <group v-if="address.city.isShow">
-            <picker :data='address.city.tab' v-model='address.city.value' @on-change='change2'></picker>
-          </group>
-          <group v-if="address.area.isShow">
-            <picker :data='address.area.tab' v-model='address.area.value' @on-change='change3'></picker>
-          </group>
-        </div>
+        <popup-picker :show.sync="address.province.isShow" :show-cell="false" title="TEST" :data="address.province.tab" @on-change="change1" v-model="address.province.value"></popup-picker>
+        <popup-picker :show.sync="address.city.isShow" @on-change="change2" :show-cell="false" title="TEST" :data="address.city.tab" v-model="address.city.value"></popup-picker>
+        <popup-picker :show.sync="address.area.isShow" @on-change="change3" :show-cell="false" title="TEST" :data="address.area.tab" v-model="address.area.value"></popup-picker>
           
         </div>
     </div>
@@ -56,7 +60,7 @@
 import axios from "axios";
 import qs from "qs";
 // import { Picker, Popup } from "vux";
-import {  Group, Picker ,PopupPicker , Flexbox, FlexboxItem} from 'vux'
+import {  Group, Picker ,PopupPicker , Flexbox, FlexboxItem,XInput} from 'vux'
 let years = []
 for (var i = 2000; i <= 2030; i++) {
   years.push({
@@ -68,6 +72,7 @@ export default {
   name: "index",
   data() {
     return {
+      showPopupPicker:false,
       userName: "1111",
       openId: 11,
       recordList: [],
@@ -75,10 +80,10 @@ export default {
       province: [],
       // 
       years: [years],
-      year1: [''],
+      value5: [''],
       address: {
         province:{
-          value:[''],
+          value:['北京-001001'],
           tab:[],
           isShow:false,
         },
@@ -93,65 +98,6 @@ export default {
           isShow:false,
         },
       },
-      title4: '联动显示文字',
-      value4: [],
-      list3: [{
-        name: '中国',
-        value: 'china',
-        parent: 0
-      }, {
-        name: '美国',
-        value: 'USA',
-        parent: 0
-      }, {
-        name: '广东',
-        value: 'china001',
-        parent: 'china'
-      }, {
-        name: '广西',
-        value: 'china002',
-        parent: 'china'
-      }, {
-        name: '美国001',
-        value: 'usa001',
-        parent: 'USA'
-      }, {
-        name: '美国002',
-        value: 'usa002',
-        parent: 'USA'
-      }, {
-        name: '广州',
-        value: 'gz',
-        parent: 'china001'
-      }, {
-        name: '深圳',
-        value: 'sz',
-        parent: 'china001'
-      }, {
-        name: '广西001',
-        value: 'gx001',
-        parent: 'china002'
-      }, {
-        name: '广西002',
-        value: 'gx002',
-        parent: 'china002'
-      }, {
-        name: '美国001_001',
-        value: '0003',
-        parent: 'usa001'
-      }, {
-        name: '美国001_002',
-        value: '0004',
-        parent: 'usa001'
-      }, {
-        name: '美国002_001',
-        value: '0005',
-        parent: 'usa002'
-      }, {
-        name: '美国002_002',
-        value: '0006',
-        parent: 'usa002'
-      }],
     };
   },
   components: {
@@ -159,7 +105,8 @@ export default {
     Group,
     PopupPicker,
     Flexbox,
-    FlexboxItem
+    FlexboxItem,
+    XInput
   },
   created() {
     this.getList();
@@ -193,20 +140,18 @@ export default {
         .post(
           "/qxby/api/address/linkProvinceAndCity",
           qs.stringify({
-            code: "0"
+            code: code
           })
         )
         .then(response => {
           console.log(response);
-          this.$nextTick(() => {
             this.address[tar].tab = [response.data.data.list.map((ele) =>{
               return {
-                value : ele.code,
+                value : ele.name +'-' +ele.code,
                 name:ele.name
               }
             })];
             console.log(this.address[tar].tab);
-          });
         })
         .catch(error => {
           console.log(error);
@@ -216,10 +161,19 @@ export default {
       this.bgFlag = true;
     },
     change1 (value) {
-      console.log('new Value', value)
+      //获取市级级清空区级
+      console.log(this.address.province.value[0].split('-')[1])
+        this.address.city.value[0] ='';
+        this.getAddress(this.address.province.value[0].split('-')[1],'city')
+        this.address.area.value[0] ='';
+        this.address.area.tab = [[]];
     },
     change2 (value) {
-      console.log('new Value', value)
+      // 有值的时候变化
+      if(this.address.city.value[0]) {
+        this.getAddress(this.address.city.value[0].split('-')[1],'area')
+        this.address.area.tab = [[]];
+      }
     },
     change3 (value) {
       console.log('new Value', value)
@@ -372,6 +326,7 @@ export default {
       font-size: 0.24rem;
     }
     p {
+      box-sizing: border-box;
       margin-bottom: 0.3rem;
       padding-left: 0.35rem;
     }
@@ -388,6 +343,10 @@ export default {
     }
     .address span {
       width: 3.22rem;
+    }
+    .flex-demo span{
+      width: auto;
+      padding: 0.06rem 0;
     }
     .address-1 {
       width: 3.22rem;
