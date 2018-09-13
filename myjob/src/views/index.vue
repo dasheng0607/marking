@@ -68,7 +68,7 @@ export default {
   min-height: 100%;
   width: 100%;
   background: url("/static/img/background.png") no-repeat center 0px fixed;
-  background-size: contain;
+  background-size: 100vw 100vh;
   background-color: #000;
 }
 .btn {
@@ -82,7 +82,7 @@ export default {
   width: 1.62rem;
   height: 100%;
   background: url("/static/img/icon1.png") left center no-repeat;
-  background-size: contain;
+  background-size: 1.61rem 0.34rem;
 }
 .btn-right {
   margin-right: 0.64rem;
@@ -90,48 +90,54 @@ export default {
   width: 1.69rem;
   height: 100%;
   background: url("/static/img/icon2.png") left center no-repeat;
-  background-size: contain;
+  background-size: 1.68rem 0.32rem;
 }
 .icon {
-  margin-top: 0.1rem;
+  margin-top: 0.3rem;
   height: 0.46rem;
   background: url("/static/img/icon3.png") center center no-repeat;
-  background-size: contain;
+  background-size: 2.45rem 0.47rem;
 }
 .pick {
   padding: 0rem 1.3rem;
   margin-top: 0.11rem;
   height: 0.54rem;
   background: url("/static/img/pick.png") center center no-repeat;
-  background-size: contain;
+  background-size: 4.81rem 0.54rem;
 }
 .title {
-  margin-top: 0.28rem;
+  margin-top: 0.5rem;
   height: 2.84rem;
   background: url("/static/img/title.png") center center no-repeat;
-  background-size: contain;
+  background-size: 5.11rem 2.84rem;
 }
 .pick2 {
   margin-top: 0.63rem;
   padding: 0 1.4rem;
   height: 1.15rem;
   background: url("/static/img/pick2.png") center center no-repeat;
-  background-size: contain;
+  background-size: 4.56rem 1.13rem;
 }
 .bottom {
   margin-top: 0.46rem;
+  width: 100vw;
   height: 4.38rem;
   background: url("/static/img/gift.png") no-repeat;
   background-position-x: 1.05rem;
   background-position-y: 0;
   background-size: 4.48rem 3.51rem;
+  position: absolute;
+  bottom: 0;
 }
 .banner {
+    position: absolute;
+    bottom: 0;
   padding-top: 2.48rem;
+  width: 100vw;
   height: 2.16rem;
   background: url("/static/img/banner1.png") no-repeat;
   background-position-x: 0;
   background-position-y: 2.48rem;
-  background-size: contain;
+  background-size: 7.5rem 2.17rem;
 }
 </style>
