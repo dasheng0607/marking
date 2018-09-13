@@ -19,23 +19,35 @@
             <div class="delivery-box">
                 <p class="name">收件人姓名：<span></span></p>
                 <p class="phone">收件人手机号码：<span></span></p>
-                <p class="address">地址：</p>
-                <p class="address-1"><span @click="address.province.isShow = true;address.city.isShow = false;address.area.isShow = false">{{address.province.value[0].name || '请选择'}}</span>-<span @click="address.province.isShow = false;address.city.isShow = true;address.area.isShow = false">{{address.city.value[0].name || '请选择'}}</span>-<span @click="address.province.isShow = false;address.city.isShow = false;address.area.isShow = true">{{address.area.value[0].name || '请选择'}}</span></p>
-                <div class="save-address" @click="bgFlag =false"></div>
+                <!-- <p class="address">地址：</p> -->
+                <flexbox style="font-size:12px;">
+                  <flexbox-item :span="6"><div class="flex-demo">6/12</div></flexbox-item>
+                  <flexbox-item :span="2"><div class="flex-demo">
+                    <popup-picker title="请选择" :data="list3" :columns="3" v-model="value4" show-name></popup-picker></div>
+                  </flexbox-item>
+                  <flexbox-item ><div class="flex-demo">rest</div></flexbox-item>
+                </flexbox>
+                <!-- <p class="address">地址：<popup-picker :title="请选择" :data="list3" :columns="3" v-model="value4" show-name></popup-picker></p>
+                <p class="address-1">
+                  <div  style="width:1rem;font-size:12px;">
+                    <popup-picker title="请选择" :data="list3" :columns="3" v-model="value4" show-name></popup-picker>
+                  </div>
+          -<span @click="address.province.isShow = false;address.city.isShow = true;address.area.isShow = false">{{address.city.value[0].name || '请选择'}}</span>-<span @click="address.province.isShow = false;address.city.isShow = false;address.area.isShow = true">{{address.area.value[0].name || '请选择'}}</span></p>
+                <div class="save-address" @click="bgFlag =false"></div> -->
             </div>
             
         <div style="position:absolute;bottom:0;left:0;right:0">
           <group v-if="address.province.isShow">
            <picker :data='address.province.tab' v-model='address.province.value' @on-change='change1'></picker>
-        </group>
-        <group v-if="address.city.isShow">
-           <picker :data='address.city.tab' v-model='address.city.value' @on-change='change2'></picker>
-        </group>
-        <group v-if="address.area.isShow">
-           <picker :data='address.area.tab' v-model='address.area.value' @on-change='change3'></picker>
-        </group>
+          </group>
+          <group v-if="address.city.isShow">
+            <picker :data='address.city.tab' v-model='address.city.value' @on-change='change2'></picker>
+          </group>
+          <group v-if="address.area.isShow">
+            <picker :data='address.area.tab' v-model='address.area.value' @on-change='change3'></picker>
+          </group>
         </div>
-         <popup-picker :title="title4" :data="list3" :columns="3" v-model="value4" show-name></popup-picker>
+          
         </div>
     </div>
 </template>
@@ -44,7 +56,7 @@
 import axios from "axios";
 import qs from "qs";
 // import { Picker, Popup } from "vux";
-import {  Group, Picker ,PopupPicker } from 'vux'
+import {  Group, Picker ,PopupPicker , Flexbox, FlexboxItem} from 'vux'
 let years = []
 for (var i = 2000; i <= 2030; i++) {
   years.push({
@@ -145,7 +157,9 @@ export default {
   components: {
     Picker,
     Group,
-    PopupPicker 
+    PopupPicker,
+    Flexbox,
+    FlexboxItem
   },
   created() {
     this.getList();
