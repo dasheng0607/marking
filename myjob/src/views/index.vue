@@ -67,7 +67,7 @@ export default {
   position: relative;
   min-height: 100%;
   width: 100%;
-  background: url("/static/img/background.png") no-repeat center 0px fixed;
+  background: url("../../static/img/background.png") no-repeat center 0px fixed;
   background-size: contain;
   background-color: #000;
 }
@@ -81,7 +81,7 @@ export default {
   float: left;
   width: 1.62rem;
   height: 100%;
-  background: url("/static/img/icon1.png") left center no-repeat;
+  background: url("../../static/img/icon1.png") left center no-repeat;
   background-size: contain;
 }
 .btn-right {
@@ -89,39 +89,39 @@ export default {
   float: right;
   width: 1.69rem;
   height: 100%;
-  background: url("/static/img/icon2.png") left center no-repeat;
+  background: url("../../static/img/icon2.png") left center no-repeat;
   background-size: contain;
 }
 .icon {
   margin-top: 0.1rem;
   height: 0.46rem;
-  background: url("/static/img/icon3.png") center center no-repeat;
+  background: url("../../static/img/icon3.png") center center no-repeat;
   background-size: contain;
 }
 .pick {
   padding: 0rem 1.3rem;
   margin-top: 0.11rem;
   height: 0.54rem;
-  background: url("/static/img/pick.png") center center no-repeat;
+  background: url("../../static/img/pick.png") center center no-repeat;
   background-size: contain;
 }
 .title {
   margin-top: 0.28rem;
   height: 2.84rem;
-  background: url("/static/img/title.png") center center no-repeat;
+  background: url("../../static/img/title.png") center center no-repeat;
   background-size: contain;
 }
 .pick2 {
   margin-top: 0.63rem;
   padding: 0 1.4rem;
   height: 1.15rem;
-  background: url("/static/img/pick2.png") center center no-repeat;
+  background: url("../../static/img/pick2.png") center center no-repeat;
   background-size: contain;
 }
 .bottom {
   margin-top: 0.46rem;
   height: 4.38rem;
-  background: url("/static/img/gift.png") no-repeat;
+  background: url("../../static/img/gift.png") no-repeat;
   background-position-x: 1.05rem;
   background-position-y: 0;
   background-size: 4.48rem 3.51rem;
@@ -129,7 +129,7 @@ export default {
 .banner {
   padding-top: 2.48rem;
   height: 2.16rem;
-  background: url("/static/img/banner1.png") no-repeat;
+  background: url("../../static/img/banner1.png") no-repeat;
   background-position-x: 0;
   background-position-y: 2.48rem;
   background-size: contain;

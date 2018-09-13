@@ -60,14 +60,14 @@ export default {
     width: 5.56rem;
     height: 5.56rem;
     text-align: center;
-    background: url("/static/img/reward.png") center center no-repeat ;
+    background: url("../../static/img/reward.png") center center no-repeat ;
     background-size: contain;
     position: relative;
 }
 .close{
     width: 0.4rem;
     height: 0.4rem;
-    background: url("/static/img/close.png") center center no-repeat;
+    background: url("../../static/img/close.png") center center no-repeat;
     background-size: contain;
     position: absolute;
     right: 0.6rem;
@@ -111,7 +111,7 @@ export default {
     margin-bottom: 0.22rem;
     font-size: 0.26rem;
     font-weight: bold;
-    background: url("/static/img/btn-img.png") center center no-repeat;
+    background: url("../../static/img/btn-img.png") center center no-repeat;
     background-size: contain;
     display: inline-block;
     border: none;

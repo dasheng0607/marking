@@ -191,7 +191,7 @@ export default {
   position: relative;
   min-height: 100%;
   width: 100%;
-  background: url("/static/img/background.png") no-repeat center 0px fixed;
+  background: url("../../static/img/background.png") no-repeat center 0px fixed;
   background-size: contain;
   background-color: #000;
 }
@@ -205,7 +205,7 @@ export default {
   float: left;
   width: 1.62rem;
   height: 100%;
-  background: url("/static/img/index_icon.png") left center no-repeat;
+  background: url("../../static/img/index_icon.png") left center no-repeat;
   background-size: contain;
 }
 .btn-right {
@@ -213,13 +213,13 @@ export default {
   float: right;
   width: 1.69rem;
   height: 100%;
-  background: url("/static/img/icon2.png") left center no-repeat;
+  background: url("../../static/img/icon2.png") left center no-repeat;
   background-size: contain;
 }
 .icon {
   margin-top: 0.1rem;
   height: 0.46rem;
-  background: url("/static/img/icon3.png") center center no-repeat;
+  background: url("../../static/img/icon3.png") center center no-repeat;
   background-size: contain;
 }
 .start {
@@ -229,14 +229,14 @@ export default {
   width: 1.88rem;
   height: 1.88rem;
   position: absolute;
-  background: url("/static/img/star.png") center center no-repeat;
+  background: url("../../static/img/star.png") center center no-repeat;
   background-size: contain;
 }
 .pick-moon {
   width: 3.33rem;
   height: 3.33rem;
   position: absolute;
-  background: url("/static/img/moon.png") center center no-repeat;
+  background: url("../../static/img/moon.png") center center no-repeat;
   background-size: contain;
   top: 1.58rem;
   left: 2.1rem;
@@ -250,49 +250,49 @@ export default {
 .pick-star1 {
   top: 0px;
   left: 2.78rem;
-  /* background: url("/static/img/start.png") center center no-repeat;
+  /* background: url("../../static/img/start.png") center center no-repeat;
     background-size: contain; */
 }
 .pick-star2 {
   top: 0.78rem;
   left: 1.09rem;
-  /* background: url("/static/img/power-start.png") center center no-repeat;
+  /* background: url("../../static/img/power-start.png") center center no-repeat;
     background-size: contain; */
 }
 .pick-star3 {
   top: 0.78rem;
   left: 4.49rem;
-  /* background: url("/static/img/protect-start.png") center center no-repeat;
+  /* background: url("../../static/img/protect-start.png") center center no-repeat;
     background-size: contain; */
 }
 .pick-star4 {
   top: 2.45rem;
   left: 0.68rem;
-  /* background: url("/static/img/freedom-start.png") center center no-repeat;
+  /* background: url("../../static/img/freedom-start.png") center center no-repeat;
     background-size: contain; */
 }
 .pick-star5 {
   top: 2.45rem;
   left: 5.07rem;
-  /* background: url("/static/img/lucky-start.png") center center no-repeat;
+  /* background: url("../../static/img/lucky-start.png") center center no-repeat;
     background-size: contain; */
 }
 .pick-star6 {
   top: 4.05rem;
   left: 1.69rem;
-  /* background: url("/static/img/happy-start.png") center center no-repeat;
+  /* background: url("../../static/img/happy-start.png") center center no-repeat;
     background-size: contain; */
 }
 .pick-star7 {
   top: 4.05rem;
   left: 3.87rem;
-  /* background: url("/static/img/wit-start.png") center center no-repeat;
+  /* background: url("../../static/img/wit-start.png") center center no-repeat;
     background-size: contain; */
 }
 .title {
   margin-top: 0.28rem;
   height: 2.66rem;
-  background: url("/static/img/title2.png") center center no-repeat;
+  background: url("../../static/img/title2.png") center center no-repeat;
   background-size: contain;
 }
 .pick2 {
@@ -303,7 +303,7 @@ export default {
 .getstart {
   margin-top: 0.4rem;
   height: 1.14rem;
-  background: url("/static/img/friendsGif.png") center center no-repeat;
+  background: url("../../static/img/friendsGif.png") center center no-repeat;
   background-size: contain;
 }
 .pick-img {

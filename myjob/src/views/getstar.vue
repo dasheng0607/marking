@@ -149,7 +149,7 @@ export default {
   position: relative;
   min-height: 100%;
   width: 100%;
-  background: url("/static/img/background.png") no-repeat center 0px fixed;
+  background: url("../../static/img/background.png") no-repeat center 0px fixed;
   background-size: contain;
   background-color: #000;
 }
@@ -163,7 +163,7 @@ export default {
   float: left;
   width: 1.62rem;
   height: 100%;
-  background: url("/static/img/index_icon.png") left center no-repeat;
+  background: url("../../static/img/index_icon.png") left center no-repeat;
   background-size: contain;
 }
 .btn-right {
@@ -171,13 +171,13 @@ export default {
   float: right;
   width: 1.69rem;
   height: 100%;
-  background: url("/static/img/icon2.png") left center no-repeat;
+  background: url("../../static/img/icon2.png") left center no-repeat;
   background-size: contain;
 }
 .icon {
   margin-top: 0.1rem;
   height: 0.46rem;
-  background: url("/static/img/icon3.png") center center no-repeat;
+  background: url("../../static/img/icon3.png") center center no-repeat;
   background-size: contain;
 }
 .start {
@@ -187,14 +187,14 @@ export default {
   width: 1.88rem;
   height: 1.88rem;
   position: absolute;
-  background: url("/static/img/star.png") center center no-repeat;
+  background: url("../../static/img/star.png") center center no-repeat;
   background-size: contain;
 }
 .pick-moon {
   width: 3.33rem;
   height: 3.33rem;
   position: absolute;
-  background: url("/static/img/moon.png") center center no-repeat;
+  background: url("../../static/img/moon.png") center center no-repeat;
   background-size: contain;
   top: 1.58rem;
   left: 2.1rem;
@@ -236,7 +236,7 @@ export default {
 .title {
   margin-top: 0.28rem;
   height: 2.66rem;
-  background: url("/static/img/title2.png") center center no-repeat;
+  background: url("../../static/img/title2.png") center center no-repeat;
   background-size: contain;
 }
 .pick2 {
@@ -247,11 +247,11 @@ export default {
 .getstart {
   margin-top: 0.4rem;
   height: 1.07rem;
-  background: url("/static/img/get-start.png") center center no-repeat;
+  background: url("../../static/img/get-start.png") center center no-repeat;
   background-size: contain;
 }
 .all-star {
-  background: url("/static/img/all-star.png") center center no-repeat;
+  background: url("../../static/img/all-star.png") center center no-repeat;
   background-size: contain;
 }
 .world {

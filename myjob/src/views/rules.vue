@@ -32,7 +32,7 @@ export default {
   position: relative;
   width: 100vw;
   min-height: 100vh;
-  background: url("/static/img/sign_in_bg.png") no-repeat center -1.2rem fixed;
+  background: url("../../static/img/sign_in_bg.png") no-repeat center -1.2rem fixed;
   background-size: contain;
   background-color: #000;
 }
@@ -46,7 +46,7 @@ export default {
   float: left;
   width: 1.62rem;
   height: 100%;
-  background: url("/static/img/index_icon.png") left center no-repeat;
+  background: url("../../static/img/index_icon.png") left center no-repeat;
   background-size: contain;
 }
 .btn-right {
@@ -54,19 +54,19 @@ export default {
   float: right;
   width: 1.69rem;
   height: 100%;
-  background: url("/static/img/icon2.png") left center no-repeat;
+  background: url("../../static/img/icon2.png") left center no-repeat;
   background-size: contain;
 }
 .icon {
   margin-top: 0.1rem;
   height: 0.46rem;
-  background: url("/static/img/icon3.png") center center no-repeat;
+  background: url("../../static/img/icon3.png") center center no-repeat;
   background-size: contain;
 }
 .sign-in-text {
   margin-top: 0.3rem;
   height: 1.98rem;
-  background: url("/static/img/rules.png") 0.32rem center no-repeat;
+  background: url("../../static/img/rules.png") 0.32rem center no-repeat;
   background-size: contain;
 }
 .sules{
