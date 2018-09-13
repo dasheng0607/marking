@@ -73,7 +73,7 @@ export default {
         "智慧星"
       ],
       starList: [],
-      friendID: "513"
+      friendID: "515"
     };
   },
   created() {
@@ -124,7 +124,7 @@ export default {
         .post(
           "/qxby/api/light/getLightInfo",
           qs.stringify({
-            openId: this.$route.query.id || ""
+            openId: this.$route.query.id || "789"
           }),
           { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
         )
