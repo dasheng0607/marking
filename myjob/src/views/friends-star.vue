@@ -64,7 +64,7 @@ export default {
       },
       starName:['温暖星','能量星','守护星','自由星','幸运星','快乐星','智慧星'],
       starList:[],
-      friendID: '513'
+      friendID: '514'
     }
   },
   created () {
@@ -103,7 +103,7 @@ export default {
       },
       getUser(){
           axios.post('/qxby/api/light/getLightInfo', qs.stringify({
-        "openId": this.$route.query.id || '',
+        "openId": this.$route.query.id || '789',
         }),{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
         .then( (response) => {
             let arr= [];
