@@ -33,7 +33,7 @@
         </div>
         
         <div class="click_text" @click="signIn()"></div>
-        <div class="invite_text"></div>
+        <div class="invite_text" @click="invite()"></div>
         <pop v-if="mark" :text1="text" :btnText="btnText" :text2="text2" @btnup="btnup" @close="close"></pop>
     </div>
 </template>
@@ -62,26 +62,31 @@ export default {
     };
   },
   created() {
-    this.sendDot('B000020200')
+    this.sendDot("B000020200");
     this.getList();
     this.submitUserMsg();
     // this.getDateList();
   },
   mounted() {},
   methods: {
-    sendDot(code){
-          axios.post('https://interface.mama100.cn/statistics/api/add', {
-            "platform": 2,
-            "point_code":code,
-            "created_time": (new Date()).getTime()
-            },{headers: {'Content-Type':'application/json'}})
-            .then( (response) => {
-              console.log(response);
-            })
-            .catch( (error) => {
-                console.log(error);
-            });
-      },
+    sendDot(code) {
+      axios
+        .post(
+          process.env.SET_DOT,
+          {
+            platform: 2,
+            point_code: code,
+            created_time: new Date().getTime()
+          },
+          { headers: { "Content-Type": "application/json" } }
+        )
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     btnup() {
       alert("提交事件");
     },
@@ -105,18 +110,16 @@ export default {
           let self = this;
           this.newArr = [];
           this.signDateList.forEach(function(v1) {
-            self.newArr.push({ date: v1, headImage: ''});
+            self.newArr.push({ date: v1, headImage: "" });
           });
 
           this.newArr.forEach(function(v1) {
             self.signRecords.forEach(function(v2) {
-              
               if (v1.date == v2.date) {
                 v1.headImage = v2.headImage;
-              } 
+              }
             });
           });
-
         })
         .catch(error => {
           console.log(error);
@@ -156,6 +159,8 @@ export default {
         });
     },
     signIn() {
+      this.sendDot("B000020221");
+
       axios
         .post(
           "/qxby/api/sign/addSign",
@@ -167,11 +172,14 @@ export default {
         )
         .then(response => {
           if (response.data.errCode == 0) {
-            this.mark = true;
-            this.prizeName = response.data.data.prizeName || "";
-            this.text = "恭喜你<br/>喜提" + this.prizeName + "<br/>";
+            if (response.data.data.hasOwnProperty("prizeName")) {
+              this.mark = true;
+              this.prizeName = response.data.data.prizeName || "";
+              this.text = "恭喜你<br/>喜提" + this.prizeName + "<br/>";
+              
+            }
             this.getList();
-            this.$add('B000020221')
+            console.log("sign", response.data.data);
           } else {
             alert(response.data.errMsg);
           }
@@ -179,6 +187,9 @@ export default {
         .catch(error => {
           console.log(error);
         });
+    },
+    invite() {
+      this.sendDot("B000020222");
     }
   }
 };

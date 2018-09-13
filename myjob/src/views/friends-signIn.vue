@@ -65,14 +65,28 @@ export default {
   },
   created() {
   
-
+    this.sendDot('B000020300');
     this.getList();
     this.submitUserMsg();
     // this.getDateList();
   },
   mounted() {},
   methods: {
+    sendDot(code){
+          axios.post(process.env.SET_DOT, {
+            "platform": 2,
+            "point_code":code,
+            "created_time": (new Date()).getTime()
+            },{headers: {'Content-Type':'application/json'}})
+            .then( (response) => {
+              console.log(response);
+            })
+            .catch( (error) => {
+                console.log(error);
+            });
+      },
     btnup() {
+      this.sendDot('B000020321');
       this.$router.replace({path: '/index'});
     },
     close() {

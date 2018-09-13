@@ -42,246 +42,276 @@
 </template>
 
 <script>
-import axios from 'axios';
-import Pop from '../components/pop.vue';
-import qs from 'qs';
+import axios from "axios";
+import Pop from "../components/pop.vue";
+import qs from "qs";
 export default {
-  name: 'index',
+  name: "index",
   components: {
-      Pop
+    Pop
   },
-  data () {
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App',
+      msg: "Welcome to Your Vue.js App",
       mark: false,
-      text:'补签成功<br/>喜提XXX<br/>抢C位邀请好友打CALL,<br/>即可赢取中秋甄选好礼！',
-      text2:'赢中秋团圆礼~',
-      btnText:'我也要抢C位',
-      userData:{},
-      friendCanSave:false,
-      reword:{
-          prizeName:''
+      text:
+        "补签成功<br/>喜提XXX<br/>抢C位邀请好友打CALL,<br/>即可赢取中秋甄选好礼！",
+      text2: "赢中秋团圆礼~",
+      btnText: "我也要抢C位",
+      userData: {},
+      friendCanSave: false,
+      reword: {
+        prizeName: ""
       },
-      starName:['温暖星','能量星','守护星','自由星','幸运星','快乐星','智慧星'],
-      starList:[],
-      friendID: '513'
-    }
+      starName: [
+        "温暖星",
+        "能量星",
+        "守护星",
+        "自由星",
+        "幸运星",
+        "快乐星",
+        "智慧星"
+      ],
+      starList: [],
+      friendID: "513"
+    };
   },
-  created () {
-    this.sendDot("B000020300")
+  created() {
+    this.sendDot("B000020500");
     //   获取默认点亮的星星
-     this.getUser();
-    //提交用户信息 
-    axios.post('/qxby/api/member/addMember?', qs.stringify({
-            "openId": this.friendID,
-            "customerId": "",
-            "headImageUrl":"http://img4.imgtn.bdimg.com/it/u=3437100934,916268746&fm=26&gp=0.jpg",
-            "nickName":"test" + this.friendID
-        }))
-        .then( (response) => {
-            this.friendCanSave  = true;
+    this.getUser();
+    //提交用户信息
+    axios
+      .post(
+        "/qxby/api/member/addMember?",
+        qs.stringify({
+          openId: this.friendID,
+          customerId: "",
+          headImageUrl:
+            "http://img4.imgtn.bdimg.com/it/u=3437100934,916268746&fm=26&gp=0.jpg",
+          nickName: "test" + this.friendID
         })
-        .catch( (error) => {
-            console.log(error);
-        });
+      )
+      .then(response => {
+        this.friendCanSave = true;
+      })
+      .catch(error => {
+        console.log(error);
+      });
   },
-  mounted () {
-
-  },
+  mounted() {},
   methods: {
-      sendDot(code){
-          axios.post(process.env.SET_DOT, qs.stringify({
-            "platform": 2,
-            "point_code":code,
-            "created_time": (new Date()).getTime()
-            }),{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
-            .then( (response) => {
-            })
-            .catch( (error) => {
-                console.log(error);
-            });
-      },
-      getUser(){
-          axios.post('/qxby/api/light/getLightInfo', qs.stringify({
-        "openId": this.$route.query.id || '',
-        }),{headers: {'Content-Type': 'application/x-www-form-urlencoded'}})
-        .then( (response) => {
-            let arr= [];
-            response.data.data.lightRecords.forEach(element => {
-                arr[element.position] = element.headImage
-            });
-            this.starList = arr;
-            if(response.data.data.lightRecords.length ===7){
-                alert("好友已集齐7颗星");
-            }
-            this.userData =Object.assign({},this.userData,response.data.data)
+    sendDot(code) {
+      axios
+        .post(
+          process.env.SET_DOT,
+          {
+            platform: 2,
+            point_code: code,
+            created_time: new Date().getTime()
+          },
+          { headers: { "Content-Type": "application/json" } }
+        )
+        .then(response => {
+          console.log(response);
         })
-        .catch( (error) => {
-            console.log(error);
+        .catch(error => {
+          console.log(error);
         });
-      },
-      btnup(){
-         this.$router.push('/index')
-      },
-      close(){
-          this.mark = false;
-      },
-      lightUp(str) {
-        axios.post('/qxby/api/light/lightUp', qs.stringify({
-            openId: '789',
+    },
+    getUser() {
+      axios
+        .post(
+          "/qxby/api/light/getLightInfo",
+          qs.stringify({
+            openId: this.$route.query.id || ""
+          }),
+          { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+        )
+        .then(response => {
+          let arr = [];
+          response.data.data.lightRecords.forEach(element => {
+            arr[element.position] = element.headImage;
+          });
+          this.starList = arr;
+          if (response.data.data.lightRecords.length === 7) {
+            alert("好友已集齐7颗星");
+          }
+          this.userData = Object.assign({}, this.userData, response.data.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    btnup() {
+      this.$router.push("/index");
+      this.sendDot('B000020522')
+    },
+    close() {
+      this.mark = false;
+    },
+    lightUp(str) {
+        this.sendDot("B000020521");
+      axios
+        .post(
+          "/qxby/api/light/lightUp",
+          qs.stringify({
+            openId: "789",
             lightOpenId: this.friendID,
             postison: str * 1,
             lightNo: this.userData.lightNo * 1
-        }))
-        .then( (response) => {
-            if(response.data.errMsg ==='成功'){
-                // 重新获取数据
-                this.text = "恭喜你！<br/>喜提"+response.data.data.prizeName+"<br/>参与抢C位活动，即可抱中秋团圆礼回家！"
-                this.mark = true;
-                this.getUser();
-            } else{
-                alert(response.data.errMsg);
-            }
+          })
+        )
+        .then(response => {
+          if (response.data.errMsg === "成功") {
+            // 重新获取数据
+            this.text =
+              "恭喜你！<br/>喜提" +
+              response.data.data.prizeName +
+              "<br/>参与抢C位活动，即可抱中秋团圆礼回家！";
+            this.mark = true;
+            this.getUser();
+          } else {
+            alert(response.data.errMsg);
+          }
         })
-        .catch( (error) => {
-            console.log(error)
+        .catch(error => {
+          console.log(error);
         });
-      }
+    }
   },
-  computed:{
-      isAll(){
-          
-      },
+  computed: {
+    isAll() {}
   }
-}
+};
 </script>
 
 <style scoped>
-.center-back{
-    position: relative;
-    min-height: 100%;
-    width: 100%;
-    background: url("/static/img/background.png") no-repeat center 0px fixed;
-    background-size: contain;
-    background-color: #000;
+.center-back {
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  background: url("/static/img/background.png") no-repeat center 0px fixed;
+  background-size: contain;
+  background-color: #000;
 }
-.btn{
-    width: 100%;
-    height: 0.34rem;
-    padding-top: 0.5rem;
+.btn {
+  width: 100%;
+  height: 0.34rem;
+  padding-top: 0.5rem;
 }
-.btn-left{
-    margin-left: 0.5rem;
-    float: left;
-    width: 1.62rem;
-    height: 100%;
-    background: url("/static/img/index_icon.png") left center no-repeat;
-    background-size: contain;
+.btn-left {
+  margin-left: 0.5rem;
+  float: left;
+  width: 1.62rem;
+  height: 100%;
+  background: url("/static/img/index_icon.png") left center no-repeat;
+  background-size: contain;
 }
-.btn-right{
-    margin-right: 0.64rem;
-    float: right;
-    width: 1.69rem;
-    height: 100%;
-    background: url("/static/img/icon2.png") left center no-repeat;
-    background-size: contain;
+.btn-right {
+  margin-right: 0.64rem;
+  float: right;
+  width: 1.69rem;
+  height: 100%;
+  background: url("/static/img/icon2.png") left center no-repeat;
+  background-size: contain;
 }
-.icon{
-    margin-top: 0.1rem;
-    height: 0.46rem;
-    background: url("/static/img/icon3.png") center center no-repeat;
-    background-size: contain;
+.icon {
+  margin-top: 0.1rem;
+  height: 0.46rem;
+  background: url("/static/img/icon3.png") center center no-repeat;
+  background-size: contain;
 }
-.start{
-    color:rgb(185, 160, 132);
-    font-size: 0.14rem;
-    line-height: 0.2rem;
-    width: 1.88rem;
-    height: 1.88rem;
-    position: absolute;
-    background: url("/static/img/star.png") center center no-repeat;
-    background-size: contain;
+.start {
+  color: rgb(185, 160, 132);
+  font-size: 0.14rem;
+  line-height: 0.2rem;
+  width: 1.88rem;
+  height: 1.88rem;
+  position: absolute;
+  background: url("/static/img/star.png") center center no-repeat;
+  background-size: contain;
 }
-.pick-moon{
-    width: 3.33rem;
-    height: 3.33rem;
-    position: absolute;
-    background: url("/static/img/moon.png") center center no-repeat;
-    background-size: contain;
-    top: 1.58rem;
-    left: 2.10rem;
-    color:rgb(185, 160, 132);
-    text-align: center;
-    line-height:  3.33rem;
+.pick-moon {
+  width: 3.33rem;
+  height: 3.33rem;
+  position: absolute;
+  background: url("/static/img/moon.png") center center no-repeat;
+  background-size: contain;
+  top: 1.58rem;
+  left: 2.1rem;
+  color: rgb(185, 160, 132);
+  text-align: center;
+  line-height: 3.33rem;
 }
-.span{
-    padding-top: 1.68rem;
+.span {
+  padding-top: 1.68rem;
 }
-.pick-star1{
-    top: 0px;
-    left: 2.78rem;
-    /* background: url("/static/img/start.png") center center no-repeat;
+.pick-star1 {
+  top: 0px;
+  left: 2.78rem;
+  /* background: url("/static/img/start.png") center center no-repeat;
     background-size: contain; */
 }
-.pick-star2{
-    top: 0.78rem;
-    left: 1.09rem;
-    /* background: url("/static/img/power-start.png") center center no-repeat;
+.pick-star2 {
+  top: 0.78rem;
+  left: 1.09rem;
+  /* background: url("/static/img/power-start.png") center center no-repeat;
     background-size: contain; */
 }
-.pick-star3{
-    top: 0.78rem;
-    left: 4.49rem;
-    /* background: url("/static/img/protect-start.png") center center no-repeat;
+.pick-star3 {
+  top: 0.78rem;
+  left: 4.49rem;
+  /* background: url("/static/img/protect-start.png") center center no-repeat;
     background-size: contain; */
 }
-.pick-star4{
-    top: 2.45rem;
-    left: 0.68rem;
-    /* background: url("/static/img/freedom-start.png") center center no-repeat;
+.pick-star4 {
+  top: 2.45rem;
+  left: 0.68rem;
+  /* background: url("/static/img/freedom-start.png") center center no-repeat;
     background-size: contain; */
 }
-.pick-star5{
-    top: 2.45rem;
-    left: 5.07rem;
-    /* background: url("/static/img/lucky-start.png") center center no-repeat;
+.pick-star5 {
+  top: 2.45rem;
+  left: 5.07rem;
+  /* background: url("/static/img/lucky-start.png") center center no-repeat;
     background-size: contain; */
 }
-.pick-star6{
-    top: 4.05rem;
-    left: 1.69rem;
-    /* background: url("/static/img/happy-start.png") center center no-repeat;
+.pick-star6 {
+  top: 4.05rem;
+  left: 1.69rem;
+  /* background: url("/static/img/happy-start.png") center center no-repeat;
     background-size: contain; */
 }
-.pick-star7{
-    top: 4.05rem;
-    left: 3.87rem;
-    /* background: url("/static/img/wit-start.png") center center no-repeat;
+.pick-star7 {
+  top: 4.05rem;
+  left: 3.87rem;
+  /* background: url("/static/img/wit-start.png") center center no-repeat;
     background-size: contain; */
 }
-.title{
-    margin-top: 0.28rem;
-    height: 2.66rem;
-    background: url("/static/img/title2.png") center center no-repeat;
-    background-size: contain;
+.title {
+  margin-top: 0.28rem;
+  height: 2.66rem;
+  background: url("/static/img/title2.png") center center no-repeat;
+  background-size: contain;
 }
-.pick2{
-    margin-top: 0.63rem;
-    height: 6.00rem;
-    position: relative;
+.pick2 {
+  margin-top: 0.63rem;
+  height: 6rem;
+  position: relative;
 }
-.getstart{
-    margin-top: 0.4rem;
-    height: 1.14rem;
-    background: url("/static/img/friendsGif.png") center center no-repeat;
-    background-size: contain;
+.getstart {
+  margin-top: 0.4rem;
+  height: 1.14rem;
+  background: url("/static/img/friendsGif.png") center center no-repeat;
+  background-size: contain;
 }
-.pick-img{
-    position: absolute;
-    top: 0.4rem;
-    left: 0.46rem;
-    border-radius: 50%;
-    width: 1.0rem;
-    height: 1rem;
+.pick-img {
+  position: absolute;
+  top: 0.4rem;
+  left: 0.46rem;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
 }
 </style>
