@@ -5,10 +5,6 @@ import App from './App'
 import router from './router'
 import store from './stroe/index'
 import fastclick from 'fastclick'
-import common from '@/utils/common'
-
-Vue.prototype.$get = common.get;
-Vue.prototype.$post = common.post;
 
 fastclick.attach(document.body)
 

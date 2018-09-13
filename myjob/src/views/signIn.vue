@@ -62,47 +62,26 @@ export default {
     };
   },
   created() {
-    //  axios
-    //     .get("http://www.swisse-china.com.cn/swisseweixin/weixin/authorize?encodeTargetUrl=http://www.swisse-china.com.cn/#/signIn")
-    //     .then(function(response) {
-    //       console.log(response);
-    //     })
-    //     .catch(function(error) {
-    //       console.log(error);
-    //     });
-    // this.$get('http://www.swisse-china.com.cn/swisseweixin/weixin/jsApiSign')
-    // .then((response) => {
-    //     console.log(response);
-    //   })
-
+    this.sendDot('B000020200')
     this.getList();
     this.submitUserMsg();
     // this.getDateList();
   },
   mounted() {},
-  // computed: {
-  //   signList() {
-  //     let self = this;
-  //     let newArr = [];
-  //     this.signDateList.forEach(function(v1) {
-  //       newArr.push({ date: v1 });
-  //     });
-
-  //     newArr.forEach(function(v1) {
-  //       self.signRecords.forEach(function(v2) {
-  //         if (v1.date == v2.date) {
-  //           v1.headImage = v2.headImage;
-  //         } else {
-  //           v1.headImage = "";
-  //         }
-  //       });
-  //     });
-
-  //     console.log(newArr);
-  //     return newArr;
-  //   }
-  // },
   methods: {
+    sendDot(code){
+          axios.post('https://interface.mama100.cn/statistics/api/add', {
+            "platform": 2,
+            "point_code":code,
+            "created_time": (new Date()).getTime()
+            },{headers: {'Content-Type':'application/json'}})
+            .then( (response) => {
+              console.log(response);
+            })
+            .catch( (error) => {
+                console.log(error);
+            });
+      },
     btnup() {
       alert("提交事件");
     },
@@ -119,11 +98,9 @@ export default {
           )
         ])
         .then((response, typeResp) => {
-          console.log(response);
           this.today = response[0].data.data.toDay;
           this.signDateList = response[0].data.data.signDateList;
           this.signRecords = response[1].data.data.signRecords;
-          console.log(this.signDateList, this.signRecords);
 
           let self = this;
           this.newArr = [];
@@ -131,18 +108,15 @@ export default {
             self.newArr.push({ date: v1, headImage: ''});
           });
 
-        console.log(this.newArr);
           this.newArr.forEach(function(v1) {
             self.signRecords.forEach(function(v2) {
               
               if (v1.date == v2.date) {
-                console.log(v2);
                 v1.headImage = v2.headImage;
               } 
             });
           });
 
-          console.log(this.newArr);
         })
         .catch(error => {
           console.log(error);
@@ -152,11 +126,9 @@ export default {
       axios
         .post("/qxby/api/sign/getSignDateList")
         .then(response => {
-          console.log(response);
           if (response.data.errCode == 0) {
             this.today = response.data.data.toDay;
             this.signDateList = response.data.data.signDateList;
-            console.log(this.today);
           }
         })
         .catch(error => {
@@ -194,12 +166,12 @@ export default {
           })
         )
         .then(response => {
-          console.log(response);
           if (response.data.errCode == 0) {
             this.mark = true;
             this.prizeName = response.data.data.prizeName || "";
             this.text = "恭喜你<br/>喜提" + this.prizeName + "<br/>";
             this.getList();
+            this.$add('B000020221')
           } else {
             alert(response.data.errMsg);
           }

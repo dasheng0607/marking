@@ -14,11 +14,17 @@
             </div>
         </div>
         <div class="delivery-msg" @click="showBg()"></div>
+        
         <div class="bg" v-if="bgFlag">
             <div class="delivery-box">
                 <p class="name">收件人姓名：<span></span></p>
                 <p class="phone">收件人手机号码：<span></span></p>
-                <p class="address">地址：<span></span></p>
+                <p class="address">地址：
+                  <popup >
+              <Picker 
+              :data="province" ></Picker>
+          </popup>
+    </p>
                 <p class="address-1"></p>
                 <div class="save-address"></div>
             </div>
@@ -36,7 +42,7 @@
 <script>
 import axios from "axios";
 import qs from "qs";
-import { Popup, Picker } from "vux";
+import { Picker, Popup } from "vux";
 export default {
   name: "index",
   data() {
@@ -44,8 +50,13 @@ export default {
       userName: "1111",
       openId: 11,
       recordList: [],
-      bgFlag: false
+      bgFlag: false,
+      province: []
     };
+  },
+  components: {
+    Picker,
+    Popup
   },
   created() {
     this.getList();
@@ -79,14 +90,22 @@ export default {
         .post(
           "/qxby/api/address/linkProvinceAndCity",
           qs.stringify({
-            code: "001006"
+            code: "0"
           })
         )
         .then(response => {
           console.log(response);
-          if (response.data.errCode == 0) {
-            this.recordList = response.data.data.winnerList;
-          }
+          this.$nextTick(() => {
+            this.province = response.data.data.list;
+            let self = this;
+            // console.log(province);
+
+            this.province.forEach(function(v) {
+              v.value = v.code;
+              delete v.code;
+            });
+            console.log(this.province);
+          });
         })
         .catch(error => {
           console.log(error);
@@ -237,41 +256,42 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    p, span {
-        color: #6F4D20;
-        font-size: 0.24rem;
+    p,
+    span {
+      color: #6f4d20;
+      font-size: 0.24rem;
     }
     p {
-        margin-bottom: 0.3rem;
-        padding-left: 0.35rem;
+      margin-bottom: 0.3rem;
+      padding-left: 0.35rem;
     }
     span {
-        display: inline-block;
-        height: 0.3rem;
-        border-bottom: 1px solid #AE8863;
+      display: inline-block;
+      height: 0.3rem;
+      border-bottom: 1px solid #ae8863;
     }
     .name span {
-        width: 2.48rem;
+      width: 2.48rem;
     }
     .phone span {
-        width: 1.96rem;
+      width: 1.96rem;
     }
     .address span {
-        width: 3.22rem;
+      width: 3.22rem;
     }
     .address-1 {
-        width: 3.22rem;
-        height: 0.3rem;
-        margin-left: 1.08rem;
-        padding: 0;
-        border-bottom: 1px solid #AE8863;
+      width: 3.22rem;
+      height: 0.3rem;
+      margin-left: 1.08rem;
+      padding: 0;
+      border-bottom: 1px solid #ae8863;
     }
     .save-address {
-        width: 2.32rem;
-        height: 0.68rem;
-        margin: 0.68rem auto;
-        background: url("/static/img/save_address.png") no-repeat center center;
-        background-size: contain;
+      width: 2.32rem;
+      height: 0.68rem;
+      margin: 0.68rem auto;
+      background: url("/static/img/save_address.png") no-repeat center center;
+      background-size: contain;
     }
   }
 }
