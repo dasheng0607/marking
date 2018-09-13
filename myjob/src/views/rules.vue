@@ -66,7 +66,7 @@ export default {
 .sign-in-text {
   margin-top: 0.3rem;
   height: 1.98rem;
-  background: url("/static/img/rules.png") 0.32rem center no-repeat;
+  background: url("../../static/img/rules.png") 0.32rem center no-repeat;
   background-size: contain;
 }
 .sules{

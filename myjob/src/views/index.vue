@@ -122,7 +122,7 @@ export default {
   margin-top: 0.46rem;
   width: 100vw;
   height: 4.38rem;
-  background: url("/static/img/gift.png") no-repeat;
+  background: url("../../static/img/gift.png") no-repeat;
   background-position-x: 1.05rem;
   background-position-y: 0;
   background-size: 4.48rem 3.51rem;
@@ -135,7 +135,7 @@ export default {
   padding-top: 2.48rem;
   width: 100vw;
   height: 2.16rem;
-  background: url("/static/img/banner1.png") no-repeat;
+  background: url("../../static/img/banner1.png") no-repeat;
   background-position-x: 0;
   background-position-y: 2.48rem;
   background-size: 7.5rem 2.17rem;
