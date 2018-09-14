@@ -9,7 +9,7 @@
         <div class="record-box">
             <div class="record-content">
                 <p class="record-text" v-for="(item,index) in recordList" :key="index">
-                    {{item.date}} {{item.prizeInfo}}
+                    <i class="star-icon"></i>{{item.date}} {{item.prizeInfo}}
                 </p>
             </div>
         </div>
@@ -62,36 +62,36 @@
 import axios from "axios";
 import qs from "qs";
 // import { Picker, Popup } from "vux";
-import {  PopupPicker , Flexbox, FlexboxItem,XInput ,XTextarea } from 'vux'
+import { PopupPicker, Flexbox, FlexboxItem, XInput, XTextarea } from "vux";
 export default {
   name: "index",
   data() {
     return {
-      showPopupPicker:false,
+      showPopupPicker: false,
       userName: "",
       openId: 11,
       recordList: [],
       bgFlag: false,
       address: {
-        province:{
-          value:['北京-001001'],
+        province: {
+          value: ["北京-001001"],
           tab: [],
-          isShow:false,
+          isShow: false
         },
-        city:{
-          value:[''],
-          tab:[],
-          isShow:false,
+        city: {
+          value: [""],
+          tab: [],
+          isShow: false
         },
-        area:{
-          value:[''],
-          tab:[],
-          isShow:false,
+        area: {
+          value: [""],
+          tab: [],
+          isShow: false
         },
-        name:'',
-        phone:'',
-        addr:''
-      },
+        name: "",
+        phone: "",
+        addr: ""
+      }
     };
   },
   components: {
@@ -152,32 +152,44 @@ export default {
         .post(
           "/qxby/api/address/getAddress",
           qs.stringify({
-            openId: this.openId 
+            openId: this.openId
           })
         )
         .then(response => {
-          console.log('response',response);
-          if(response.data.errMsg === '成功') {
-            this.address.phone || !this.address.name|| !this.address.addr || !this.address.province.value[0] || !this.address.city.value[0] || !this.address.area.value[0]
+          console.log("response", response);
+          if (response.data.errMsg === "成功") {
+            this.address.phone ||
+              !this.address.name ||
+              !this.address.addr ||
+              !this.address.province.value[0] ||
+              !this.address.city.value[0] ||
+              !this.address.area.value[0];
             this.address.phone = response.data.data.mobile;
             this.address.name = response.data.data.name;
             this.address.addr = response.data.data.addr;
-            this.address.province.value[0] = response.data.data.provinceName +'-' + response.data.data.province;
-            this.address.city.value[0] = response.data.data.cityName +'-' + response.data.data.city;
-            this.address.area.value[0] = response.data.data.areaName +'-' + response.data.data.area;
-            this.getAddress(response.data.data.province,'city');
-            this.getAddress(response.data.data.city,'area');
+            this.address.province.value[0] =
+              response.data.data.provinceName +
+              "-" +
+              response.data.data.province;
+            this.address.city.value[0] =
+              response.data.data.cityName + "-" + response.data.data.city;
+            this.address.area.value[0] =
+              response.data.data.areaName + "-" + response.data.data.area;
+            this.getAddress(response.data.data.province, "city");
+            this.getAddress(response.data.data.city, "area");
             // 获取市区级内容
           } else {
-            this.getAddress(this.address.province.value[0].split('-')[1],'city');
+            this.getAddress(
+              this.address.province.value[0].split("-")[1],
+              "city"
+            );
           }
-
         })
         .catch(error => {
           console.log(error);
         });
     },
-    getAddress(code='0',tar='province') {
+    getAddress(code = "0", tar = "province") {
       axios
         .post(
           "/qxby/api/address/linkProvinceAndCity",
@@ -186,12 +198,14 @@ export default {
           })
         )
         .then(response => {
-            this.address[tar].tab = [response.data.data.list.map((ele) =>{
+          this.address[tar].tab = [
+            response.data.data.list.map(ele => {
               return {
-                value : ele.name +'-' +ele.code,
-                name:ele.name
-              }
-            })];
+                value: ele.name + "-" + ele.code,
+                name: ele.name
+              };
+            })
+          ];
         })
         .catch(error => {
           console.log(error);
@@ -200,28 +214,35 @@ export default {
     showBg() {
       this.bgFlag = true;
     },
-    change1 () {
+    change1() {
       //获取市级级清空区级
-      console.log(this.address.province.value[0].split('-')[1])
-        this.address.city.value[0] ='';
-        this.getAddress(this.address.province.value[0].split('-')[1],'city')
-        this.address.area.value[0] ='';
-        this.address.area.tab = [[]];
+      console.log(this.address.province.value[0].split("-")[1]);
+      this.address.city.value[0] = "";
+      this.getAddress(this.address.province.value[0].split("-")[1], "city");
+      this.address.area.value[0] = "";
+      this.address.area.tab = [[]];
     },
-    change2 () {
+    change2() {
       // 有值的时候变化
-      if(this.address.city.value[0]) {
-        this.getAddress(this.address.city.value[0].split('-')[1],'area')
-        this.address.area.value[0] = '';
+      if (this.address.city.value[0]) {
+        this.getAddress(this.address.city.value[0].split("-")[1], "area");
+        this.address.area.value[0] = "";
       }
     },
-    change3 () {
+    change3() {
       // console.log('new Value', value)
     },
-    saveNewAddress(){
+    saveNewAddress() {
       // 判断不能为空
       console.log(this.address);
-      if(!this.address.phone || !this.address.name|| !this.address.addr || !this.address.province.value[0] || !this.address.city.value[0] || !this.address.area.value[0]) {
+      if (
+        !this.address.phone ||
+        !this.address.name ||
+        !this.address.addr ||
+        !this.address.province.value[0] ||
+        !this.address.city.value[0] ||
+        !this.address.area.value[0]
+      ) {
         alert("请输入完整地址信息");
         return;
       }
@@ -230,21 +251,21 @@ export default {
           "/qxby/api/address/addOrUpdateAddress",
           qs.stringify({
             openId: this.openId,
-            province: this.address.province.value[0].split('-')[1],
-            city: this.address.city.value[0].split('-')[1],
-            area: this.address.area.value[0].split('-')[1],
-            provinceName: this.address.province.value[0].split('-')[0],
-            cityName: this.address.city.value[0].split('-')[0],
-            areaName: this.address.area.value[0].split('-')[0],
+            province: this.address.province.value[0].split("-")[1],
+            city: this.address.city.value[0].split("-")[1],
+            area: this.address.area.value[0].split("-")[1],
+            provinceName: this.address.province.value[0].split("-")[0],
+            cityName: this.address.city.value[0].split("-")[0],
+            areaName: this.address.area.value[0].split("-")[0],
             mobile: this.address.phone,
             name: this.address.name,
-            addr: this.address.addr,
+            addr: this.address.addr
           })
         )
         .then(response => {
-          console.log(response)
-          if(response.data.errMsg ==='成功'){
-            alert("提交成功")
+          console.log(response);
+          if (response.data.errMsg === "成功") {
+            alert("提交成功");
             this.bgFlag = false;
           }
         })
@@ -263,7 +284,7 @@ export default {
   width: 100vw;
   height: 100vh;
   background: url("../../static/img/background.png") no-repeat center 0px fixed;
-  background-size: contain;
+  background-size: 100vw 100vh;
   background-color: #000;
 }
 .btn {
@@ -360,11 +381,22 @@ export default {
     overflow: auto;
   }
   .record-text {
-    padding-left: 0.38rem;
-    font-size: 0.24rem;
+    padding-left: 0.42rem;
+    font-size: 0.26rem;
     color: #c3a281;
     text-align: left;
     margin-bottom: 0.3rem;
+    position: relative;
+    .star-icon {
+      position: absolute;
+      top: -0.1rem;
+      left: -0.18rem;
+      display: inline-block;
+      width: 0.67rem;
+      height: 0.67rem;
+      background: url("../../static/img/star_icon.png") no-repeat center center;
+      background-size: contain;
+    }
   }
 }
 .delivery-msg {
@@ -375,6 +407,7 @@ export default {
   background: url("../../static/img/delivery_msg.png") no-repeat center center;
   background-size: contain;
 }
+
 .bg {
   position: absolute;
   top: 0;
@@ -390,7 +423,7 @@ export default {
     box-sizing: border-box;
     text-align: left;
     background-color: #fff;
-    border:0.06rem solid rgb(136,100,59);
+    border: 0.06rem solid rgb(136, 100, 59);
     border-radius: 10%;
     // background: url("../../static/img/delivery_bg.png") no-repeat center center;
     // background-size: contain;
@@ -422,7 +455,7 @@ export default {
     .address span {
       width: 3.22rem;
     }
-    .flex-demo span{
+    .flex-demo span {
       width: auto;
       padding: 0.06rem 0;
     }
@@ -437,7 +470,8 @@ export default {
       width: 2.32rem;
       height: 0.68rem;
       margin: 0.08rem auto;
-      background: url("../../static/img/save_address.png") no-repeat center center;
+      background: url("../../static/img/save_address.png") no-repeat center
+        center;
       background-size: contain;
     }
   }
