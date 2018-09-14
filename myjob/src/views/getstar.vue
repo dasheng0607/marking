@@ -8,7 +8,7 @@
         <div class="title"></div>
         <div class="pick2">
             <div v-for="(item,index) in starName" :key="item" :class="'pick-star'+(index+1)" class="start">
-                <div class="span"  v-if="!starList[index+1]" >{{item}}</div>
+                <div class="span"  v-if="!starList[index+1]" ><strong>{{item}}</strong></div>
                 <div class="span " v-else ><img v-if="starList[index+1]" class="pick-img" :src="starList[index+1]" alt="">{{item}}</div>
                 
             </div>
@@ -19,7 +19,7 @@
         <div class="getstart" v-if="!successBtn" @click="sendDot('B000020421')"></div>
         <div class="getstart all-star" v-else @click="openDraw"></div>
         <div class="world">
-            最多集齐5套喔，你当前是{{userData.lightNo}}套啦！
+            <strong>最多集齐5套喔，你当前是{{userData.lightNo}}套啦！</strong>
         </div>
         <pop v-if="showPop" :text1="text" :btnText="btnText" :text2="text2" @btnup="btnup" @close="close"></pop>
     </div>
@@ -182,7 +182,7 @@ export default {
 }
 .start {
   color: rgb(185, 160, 132);
-  font-size: 0.14rem;
+  font-size: 0.22rem;
   line-height: 0.2rem;
   width: 1.88rem;
   height: 1.88rem;

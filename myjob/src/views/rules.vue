@@ -70,8 +70,11 @@ export default {
   background-size: contain;
 }
 .sules{
-    min-height: 200px;
-    margin: 0.1rem 0.7rem;
+    // min-height: 200px;
+    height:  6.90rem;
+    overflow-x: scroll;
+    margin: 0 0.7rem;
+    padding: 0.1rem 0;
     border: 0.04rem solid rgb(175, 149, 119);
     border-radius: 0.1rem;
 }
