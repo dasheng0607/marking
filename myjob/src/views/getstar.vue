@@ -16,7 +16,7 @@
                <span>&nbsp;&nbsp;？</span>
             </div>
         </div>
-        <div class="getstart" v-if="!successBtn" @click="sendDot('B000020421')"></div>
+        <div class="getstart" v-if="!successBtn" @click="share"></div>
         <div class="getstart all-star" v-else @click="openDraw"></div>
         <div class="world">
             <strong>最多集齐5套喔，你当前是{{userData.lightNo}}套啦！</strong>
@@ -43,6 +43,7 @@ export default {
       haveNum: "0",
       successBtn: false,
       showPop: false,
+      customerId:"",
       starName: [
         "温暖星",
         "能量星",
@@ -62,6 +63,7 @@ export default {
   created() {
     this.getUser();
     this.sendDot('B000020400');
+    this.isUSer();
   },
   mounted() {},
   methods: {
@@ -88,7 +90,7 @@ export default {
         .post(
           "/qxby/api/light/getLightInfo",
           qs.stringify({
-            openId: this.$route.query.id || "789"
+            openId: window.openId
           }),
           { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
         )
@@ -120,7 +122,7 @@ export default {
         .post(
           "/qxby/api/light/openLightAward",
           qs.stringify({
-            openId: "789",
+            openId: window.openId,
             lightNo: this.userData.lightNo
           })
         )
@@ -138,6 +140,39 @@ export default {
     },
     close() {
       this.showPop = false;
+    },
+    // 判断用户是不是注册用户
+    isUSer(){
+    var data = {
+        "openId": window.openId,
+        "tsno": new Date().getTime()
+    };
+    var url = process.env.SWISSE + '/cust/getCustomer';
+     axios
+        .post(
+          url,
+         data,
+          { headers: { "Content-Type": "application/json" } }
+        )
+        .then(response => {
+          if (data.code == 100) {
+             this.customerId = data.id;
+          } else {
+            this.customerId = '';    
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    share(){
+      this.sendDot('B000020421');
+      // 判断是不是登录用户,是就执行分享，否则跳转到登录注册页面
+      if(this.customerId) {
+
+      } else {
+         window.location.href = process.env.LOGIN + '/weixin/bind/auth?token='+ openId +'&redirect='+encodeURIComponent(window.location.href);
+      }
     }
   }
 };

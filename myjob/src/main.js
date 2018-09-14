@@ -5,10 +5,28 @@ import App from './App'
 import router from './router'
 import store from './stroe/index'
 import fastclick from 'fastclick'
+import axios from "axios";
+import qs from "qs";
 import '../static/css/main.css'
 import '../static/js/fontSize.js'
-fastclick.attach(document.body)
-
+fastclick.attach(document.body);
+//提交用户信息
+axios
+  .post(
+    "/qxby/api/member/addMember?",
+    qs.stringify({
+      openId: window.openId,
+      customerId: "",
+      headImageUrl: window.user.headimgurl,
+      nickName: window.user.nickname
+    })
+  )
+  .then(response => {
+    this.friendCanSave = true;
+  })
+  .catch(error => {
+    console.log(error);
+  });
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */

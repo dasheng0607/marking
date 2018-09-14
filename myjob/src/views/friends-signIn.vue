@@ -67,7 +67,6 @@ export default {
   
     this.sendDot('B000020300');
     this.getList();
-    this.submitUserMsg();
     // this.getDateList();
   },
   mounted() {},
@@ -141,26 +140,6 @@ export default {
             this.signDateList = response.data.data.signDateList;
             console.log(this.today);
           }
-        })
-        .catch(error => {
-          console.log(error);
-        });
-    },
-    submitUserMsg() {
-      //提交用户信息
-      axios
-        .post(
-          "/qxby/api/member/addMember?",
-          qs.stringify({
-            openId: this.signOpenId,
-            customerId: "",
-            headImageUrl:
-              "https://ss0.baidu.com/73t1bjeh1BF3odCf/it/u=3075942851,1445479430&fm=85&s=8DFAEE049A647D1506BD849003005097",
-            nickName: "test2"
-          })
-        )
-        .then(response => {
-          console.log(response);
         })
         .catch(error => {
           console.log(error);

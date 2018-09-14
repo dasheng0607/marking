@@ -80,24 +80,6 @@ export default {
     this.sendDot("B000020500");
     //   获取默认点亮的星星
     this.getUser();
-    //提交用户信息
-    axios
-      .post(
-        "/qxby/api/member/addMember?",
-        qs.stringify({
-          openId: this.friendID,
-          customerId: "",
-          headImageUrl:
-            "http://img4.imgtn.bdimg.com/it/u=3437100934,916268746&fm=26&gp=0.jpg",
-          nickName: "test" + this.friendID
-        })
-      )
-      .then(response => {
-        this.friendCanSave = true;
-      })
-      .catch(error => {
-        console.log(error);
-      });
   },
   mounted() {},
   methods: {
