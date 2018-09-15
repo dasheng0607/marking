@@ -102,7 +102,7 @@ export default {
   padding: 0rem 1.3rem;
   margin-top: 0.11rem;
   height: 0.54rem;
-  background: url("../../static/img/pick.png") center center no-repeat;
+  background: url("../../static/img/newpick.png") center center no-repeat;
   background-size: 4.81rem 0.54rem;
 }
 .title {

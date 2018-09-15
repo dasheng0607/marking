@@ -17,7 +17,7 @@
           <div class="delivery-msg" @click="showBg()"></div>
         </div>
         
-        <div class="bg" style="font-size:0.12rem;color: #6f4d20;" v-if="bgFlag" @click.self="bgFlag = false" >
+        <div class="bg" style="font-size:0.24rem;color: #6f4d20;" v-if="bgFlag" @click.self="bgFlag = false" >
             <div class="delivery-box" >
                 <flexbox>
                   <flexbox-item :span="6"><div class="flex-demo text-r">收件人姓名：</div></flexbox-item>
@@ -27,7 +27,7 @@
                   <flexbox-item :span="6"><div class="flex-demo text-r">收件人手机号码：</div></flexbox-item>
                   <flexbox-item><div class="flex-demo"><x-input  v-model="address.phone" placeholder="输入手机号码"></x-input></div></flexbox-item>
                 </flexbox>
-                <flexbox  class="address" style="font-size:0.12rem;box-sizing: border-box; padding-top:0.21rem">
+                <flexbox  class="address" style="font-size:0.24rem;box-sizing: border-box; padding-top:0.21rem">
                   <flexbox-item :span="2"><div class="flex-demo">地址：</div></flexbox-item>
                   <flexbox-item :span="10">
                     <div class="flex-demo">
@@ -111,7 +111,7 @@ export default {
       this.getAddress();
       this.addressInfo();
     },(err) =>{
-      window.location.href = process.env.LOGIN;
+      // window.location.href = process.env.LOGIN;
     })
   },
   mounted() {},
