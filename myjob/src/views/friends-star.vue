@@ -33,7 +33,7 @@
                 <div class="span" @click.stop="lightUp('7')">智慧星</div>
             </div> -->
             <div class="pick-moon">
-               <span>&nbsp;&nbsp;？</span>
+              <img :src="this.myImg" alt="">
             </div>
         </div>
         <div class="getstart"></div>
@@ -52,8 +52,9 @@ export default {
   },
   data() {
     return {
-      msg: "Welcome to Your Vue.js App",
+      myImg:decodeURIComponent(this.$route.query.imgUrl),
       mark: false,
+      openId: this.$route.query.openId,
       text:
         "补签成功<br/>喜提XXX<br/>抢C位邀请好友打CALL,<br/>即可赢取中秋甄选好礼！",
       text2: "赢中秋团圆礼~",
@@ -80,6 +81,7 @@ export default {
     this.sendDot("B000020500");
     //   获取默认点亮的星星
     this.getUser();
+    console.log(this.myImg);
   },
   mounted() {},
   methods: {
@@ -106,7 +108,7 @@ export default {
         .post(
           "/qxby/api/light/getLightInfo",
           qs.stringify({
-            openId: this.$route.query.id || "789"
+            openId: this.openId || "789"
           }),
           { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
         )
@@ -126,8 +128,8 @@ export default {
         });
     },
     btnup() {
-      this.$router.push("/index");
       this.sendDot('B000020522')
+      this.$router.push("/index");
     },
     close() {
       this.mark = false;
@@ -138,8 +140,8 @@ export default {
         .post(
           "/qxby/api/light/lightUp",
           qs.stringify({
-            openId: "789",
-            lightOpenId: this.friendID,
+            openId: this.openId,
+            lightOpenId: window.openId,
             postison: str * 1,
             lightNo: this.userData.lightNo * 1
           })
@@ -270,8 +272,14 @@ export default {
 .getstart {
   margin-top: 0.2rem;
   height: 1.07rem;
-  background: url("../../static/img/get-start.png") center center no-repeat;
+  background: url("../../static/img/help_sign_in.png") center center no-repeat;
   background-size: 4.56rem 1.07rem;
+}
+.pick-moon img{
+  border-radius: 50%;
+  width: 2.32rem;
+  height:2.32rem;
+  margin-top: 0.5rem;
 }
 .pick-img {
   position: absolute;

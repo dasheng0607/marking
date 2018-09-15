@@ -13,7 +13,7 @@
                 
             </div>
             <div class="pick-moon">
-               <span>&nbsp;&nbsp;？</span>
+               <img :src="this.myImg" alt="">
             </div>
         </div>
         <div class="getstart" v-if="!successBtn" @click="share"></div>
@@ -22,13 +22,14 @@
             <strong>最多集齐5套喔，你当前是{{userData.lightNo}}套啦！</strong>
         </div>
         <pop v-if="showPop" :text1="text" :btnText="btnText" :text2="text2" @btnup="btnup" @close="close"></pop>
+        <div v-if="shareFriend" @click="shareFriend = false" class="shareFriend"></div>
     </div>
 </template>
 
 <script>
 import axios from "axios";
-import wx from 'weixin-js-sdk'
 import Pop from "../components/pop.vue";
+import wxShowMenu from "../../static/js/share.js";
 import qs from "qs";
 export default {
   name: "index",
@@ -37,13 +38,16 @@ export default {
   },
   data() {
     return {
+      myImg:window.user.headimgurl || 'http://img2.imgtn.bdimg.com/it/u=54240133,741874735&fm=200&gp=0.jpg',
       text:
         "太棒了！<br/>集齐七星祝福<br/>获得中秋甄选好礼40元Swisse商城现金券",
       text2: "PICK中秋甄选好礼~",
       btnText: "分享好友",
+      winnerId:'',
       haveNum: "0",
       successBtn: false,
       showPop: false,
+      shareFriend:false,
       customerId:"",
       starName: [
         "温暖星",
@@ -66,68 +70,39 @@ export default {
     this.sendDot('B000020400');
   },
   mounted() {
-//分享朋友圈
-  let _self = this;
-  let getMsg ={}
-  wx.config({
-    debug: false, //生产环境需要关闭debug模式
-    appId: getMsg.appId, //appId通过微信服务号后台查看
-    timestamp: getMsg.timestamp, //生成签名的时间戳
-    nonceStr: getMsg.nonceStr, //生成签名的随机字符串
-    signature: getMsg.signature, //签名
-    jsApiList: [ //需要调用的JS接口列表
-        'onMenuShareTimeline', //分享给好友
-        'onMenuShareAppMessage', //分享到朋友圈
-    ]
-  });
+    wxShowMenu.wxShowMenu({
+      title1: '这个中秋我要C位出道', // 分享标题
+      desc1: '帮我抢C位，一起抢中秋礼，点击开抢！', //分享描述
+      link: window.location.href + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId,// 分享链接
+    },() =>{
+      // 判断是不是最后点击月亮分享
+      if(winnerId){
+        // 发送请求获取礼物
+        wxShowMenu.getCustomer((id) =>{
+          this.customerId = id;
+          axios
+          .post(
+            '/qxby/api/ticket/exchangePrize',
+            {
+              openId: 2,
+              customerId: this.customerId,
+              winnerId: this.winnerId,
+              accessToken:window.accessToken
+            },
+            { headers: { "Content-Type": "application/json" } }
+          )
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        },(err) =>{
+          window.location.href = process.env.LOGIN;
+        })
 
-  wx.ready(function() {
-    wx.checkJsApi({
-        jsApiList: ["showMenuItems"],
-        success: function(res) {
-            wx.showMenuItems({
-                menuList: [
-                    'menuItem:share:appMessage', //发送给朋友
-                    'menuItem:share:timeline' //分享到朋友圈
-                ]
-            });
-        }
-    });
-
-    //分享到朋友圈
-
-    wx.updateTimelineShareData({
-        title: "分享描述", // 分享标题
-        desc: "分享描述", //分享描述
-        link: getMsg.shareLink, // 分享链接
-        imgUrl: getMsg.imgUrl, // 分享图标
-        success () {
-          alert('分享朋友圈成功')
-          // 用户确认分享后执行的回调函数
-          _self
-        },
-        cancel () {
-        // 用户取消分享后执行的回调函数
-        }
-    });
-  //分享给朋友
-  wx.updateAppMessageShareData({
-      title: "分享描述", // 分享标题
-      desc: "分享描述", // 分享描述
-      link: getMsg.shareLink, // 分享链接
-      imgUrl: getMsg.imgUrl, // 分享图标
-      success () {
-        alert('分享朋友圈成功')
-        // 用户确认分享后执行的回调函数
-      },
-      cancel () {
-      // 用户取消分享后执行的回调函数
       }
-  });
-  });
-
-// end
-
+    })
   },
   methods: {
     sendDot(code) {
@@ -192,6 +167,7 @@ export default {
               "太棒了！<br/>集齐七星祝福<br/>获得中秋甄选好礼" +
               response.data.data.prizeName;
             this.showPop = true;
+            this.winnerId = response.data.data.winnerId;
           } else {
             alert(response.data.errMsg);
           }
@@ -202,17 +178,10 @@ export default {
       this.showPop = false;
     },
     share() {
-      alert("请点击右上角分享按钮分享");
+      this.shareFriend = true;
     },
     btnup(){
-      this.sendDot('B000020421');
-      // 判断是不是登录用户,是就执行分享，否则跳转到登录注册页面
-      if(this.customerId) {
-        // 如果有,判读是不是已经成功分享，成功分享的有回调
-        alert("成功分享好友即可领取实物大奖");
-      } else {
-         window.location.href = process.env.LOGIN;
-      }
+      this.shareFriend = true;
     }
   }
 };
@@ -224,7 +193,7 @@ export default {
   position: relative;
   min-height: 100%;
   width: 100%;
-  background: url("../../static/img/background.png") no-repeat center 0px fixed;
+  background: url("/static/img/background.png") no-repeat center 0px fixed;
   background-size: 100vw 100vh;
   background-color: #000;
 }
@@ -238,7 +207,7 @@ export default {
   float: left;
   width: 1.62rem;
   height: 100%;
-  background: url("../../static/img/index_icon.png") left center no-repeat;
+  background: url("/static/img/index_icon.png") left center no-repeat;
   background-size: 1.11rem 0.33rem;
 }
 .btn-right {
@@ -246,13 +215,13 @@ export default {
   float: right;
   width: 1.69rem;
   height: 100%;
-  background: url("../../static/img/icon2.png") left center no-repeat;
+  background: url("/static/img/icon2.png") left center no-repeat;
   background-size: 1.68rem 0.32rem;
 }
 .icon {
   margin-top: 0.1rem;
   height: 0.46rem;
-  background: url("../../static/img/icon3.png") center center no-repeat;
+  background: url("/static/img/icon3.png") center center no-repeat;
   background-size: 2.45rem 0.47rem;
 }
 .start {
@@ -262,20 +231,26 @@ export default {
   width: 1.88rem;
   height: 1.88rem;
   position: absolute;
-  background: url("../../static/img/star.png") center center no-repeat;
+  background: url("/static/img/star.png") center center no-repeat;
   background-size: 1.87rem 1.88rem;
 }
 .pick-moon {
   width: 3.33rem;
   height: 3.33rem;
   position: absolute;
-  background: url("../../static/img/moon.png") center center no-repeat;
+  background: url("/static/img/moon.png") center center no-repeat;
   background-size: 3.33rem 3.33rem;
   top: 1.58rem;
   left: 2.1rem;
   color: rgb(185, 160, 132);
   text-align: center;
   line-height: 3.33rem;
+}
+.pick-moon img{
+  border-radius: 50%;
+  width: 2.32rem;
+  height:2.32rem;
+  margin-top: 0.5rem;
 }
 .span {
   padding-top: 1.68rem;
@@ -310,7 +285,7 @@ export default {
 }
 .title {
   height: 2.66rem;
-  background: url("../../static/img/title2.png") center center no-repeat;
+  background: url("/static/img/title2.png") center center no-repeat;
   background-size: 5.41rem 2.66rem;
 }
 .pick2 {
@@ -321,11 +296,11 @@ export default {
 .getstart {
   margin-top: 0.2rem;
   height: 1.07rem;
-  background: url("../../static/img/get-start.png") center center no-repeat;
+  background: url("/static/img/get-start.png") center center no-repeat;
   background-size: 4.56rem 1.07rem;
 }
 .all-star {
-  background: url("../../static/img/all-star.png") center center no-repeat;
+  background: url("/static/img/all-star.png") center center no-repeat;
   background-size: 4.94rem 1.07rem;
 }
 .world {
@@ -333,6 +308,7 @@ export default {
   text-align: center;
   font-size: 0.26rem;
   line-height: 0.26rem;
+  height: 0.28rem;
   background: linear-gradient(
     to right,
     rgb(90, 72, 53),
@@ -349,5 +325,15 @@ export default {
   border-radius: 50%;
   width: 1rem;
   height: 1rem;
+}
+.shareFriend{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+   background: url("/static/img/shareFriend.png") no-repeat center 0px fixed;
+  background-size: 100vw 100vh;
+  background-color: #000;
 }
 </style>

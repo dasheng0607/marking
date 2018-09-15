@@ -63,10 +63,12 @@ import axios from "axios";
 import qs from "qs";
 // import { Picker, Popup } from "vux";
 import { PopupPicker, Flexbox, FlexboxItem, XInput, XTextarea } from "vux";
+import wxShowMenu from "../../static/js/share.js";
 export default {
   name: "index",
   data() {
     return {
+      customerId:'',
       showPopupPicker: false,
       userName: "",
       openId: 11,
@@ -102,10 +104,15 @@ export default {
     XTextarea
   },
   created() {
-    this.sendDot("B000020600");
-    this.getList();
-    this.getAddress();
-    this.addressInfo();
+    wxShowMenu.getCustomer((id) =>{
+      this.customerId = id;
+      this.sendDot("B000020600");
+      this.getList();
+      this.getAddress();
+      this.addressInfo();
+    },(err) =>{
+      window.location.href = process.env.LOGIN;
+    })
   },
   mounted() {},
   methods: {
@@ -133,7 +140,7 @@ export default {
           "/qxby/api/ticket/getPrizeListByOpenId",
           qs.stringify({
             openId: window.openId,
-            customerId: window.customerId || 1111,
+            customerId: this.customerId,
             pageIndex: 1,
             pageSize: 100
           })

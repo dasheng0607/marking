@@ -58,6 +58,6 @@
 
     window.openId = openId || 11;
     window.accessToken = accessToken;
-    window.customerId = customerId;
+    // window.customerId = customerId;
     window.user = JSON.parse(decodeURIComponent(user));
 })(document, window);

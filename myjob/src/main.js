@@ -9,6 +9,7 @@ import axios from "axios";
 import qs from "qs";
 import '../static/css/main.css'
 import '../static/js/fontSize.js'
+import wxShowMenu from "../static/js/share.js";
 fastclick.attach(document.body);
 //提交用户信息
 axios
@@ -28,25 +29,6 @@ axios
     console.log(error);
   });
 
-axios
-  .post(
-    process.env.SWISSE + '/cust/getCustomer',
-    {
-      "openId": window.openId,
-      "tsno": new Date().getTime()
-    },
-    { headers: { "Content-Type": "application/json" } }
-  )
-  .then(response => {
-    if (data.code == 100) {
-      window.customerId = data.id;
-    } else {
-      
-    }
-  })
-  .catch(error => {
-    console.log(error);
-  });
 Vue.config.productionTip = false;
 router.beforeEach((to, from, next) => {
   //根据字段判断是否路由过滤
