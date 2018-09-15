@@ -132,8 +132,8 @@ export default {
         .post(
           "/qxby/api/ticket/getPrizeListByOpenId",
           qs.stringify({
-            openId: this.openId,
-            customerId: 1111,
+            openId: window.openId,
+            customerId: window.customerId || 1111,
             pageIndex: 1,
             pageSize: 100
           })
@@ -152,7 +152,7 @@ export default {
         .post(
           "/qxby/api/address/getAddress",
           qs.stringify({
-            openId: this.openId
+            openId: window.openId
           })
         )
         .then(response => {
@@ -250,7 +250,7 @@ export default {
         .post(
           "/qxby/api/address/addOrUpdateAddress",
           qs.stringify({
-            openId: this.openId,
+            openId: window.openId,
             province: this.address.province.value[0].split("-")[1],
             city: this.address.city.value[0].split("-")[1],
             area: this.address.area.value[0].split("-")[1],

@@ -56,7 +56,7 @@
     //     return false;
     // }
 
-    window.openId = openId;
+    window.openId = openId || 11;
     window.accessToken = accessToken;
     window.customerId = customerId;
     window.user = JSON.parse(decodeURIComponent(user));

@@ -173,7 +173,7 @@ export default {
   position: relative;
   min-height: 100%;
   width: 100%;
-  background: url("/static/img/background.png") no-repeat center 0px fixed;
+  background: url("../../static/img/background.png") no-repeat center 0px fixed;
   background-size: 100vw 100vh;
   background-color: #000;
 }
@@ -187,7 +187,7 @@ export default {
   float: left;
   width: 1.62rem;
   height: 100%;
-  background: url("/static/img/index_icon.png") left center no-repeat;
+  background: url("../../static/img/index_icon.png") left center no-repeat;
   background-size: 1.11rem 0.33rem;
 }
 .btn-right {
@@ -195,13 +195,13 @@ export default {
   float: right;
   width: 1.69rem;
   height: 100%;
-  background: url("/static/img/icon2.png") left center no-repeat;
+  background: url("../../static/img/icon2.png") left center no-repeat;
   background-size: 1.68rem 0.32rem;
 }
 .icon {
   margin-top: 0.1rem;
   height: 0.46rem;
-  background: url("/static/img/icon3.png") center center no-repeat;
+  background: url("../../static/img/icon3.png") center center no-repeat;
   background-size: 2.45rem 0.47rem;
 }
 .start {
@@ -211,14 +211,14 @@ export default {
   width: 1.88rem;
   height: 1.88rem;
   position: absolute;
-  background: url("/static/img/star.png") center center no-repeat;
+  background: url("../../static/img/star.png") center center no-repeat;
   background-size: 1.87rem 1.88rem;
 }
 .pick-moon {
   width: 3.33rem;
   height: 3.33rem;
   position: absolute;
-  background: url("/static/img/moon.png") center center no-repeat;
+  background: url("../../static/img/moon.png") center center no-repeat;
   background-size: 3.33rem 3.33rem;
   top: 1.58rem;
   left: 2.1rem;
@@ -259,7 +259,7 @@ export default {
 }
 .title {
   height: 2.66rem;
-  background: url("/static/img/title2.png") center center no-repeat;
+  background: url("../../static/img/title2.png") center center no-repeat;
   background-size: 5.41rem 2.66rem;
 }
 .pick2 {
@@ -270,7 +270,7 @@ export default {
 .getstart {
   margin-top: 0.2rem;
   height: 1.07rem;
-  background: url("/static/img/get-start.png") center center no-repeat;
+  background: url("../../static/img/get-start.png") center center no-repeat;
   background-size: 4.56rem 1.07rem;
 }
 .pick-img {

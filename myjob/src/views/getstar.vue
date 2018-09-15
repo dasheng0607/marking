@@ -27,6 +27,7 @@
 
 <script>
 import axios from "axios";
+import wx from 'weixin-js-sdk'
 import Pop from "../components/pop.vue";
 import qs from "qs";
 export default {
@@ -63,9 +64,71 @@ export default {
   created() {
     this.getUser();
     this.sendDot('B000020400');
-    this.isUSer();
   },
-  mounted() {},
+  mounted() {
+//分享朋友圈
+  let _self = this;
+  let getMsg ={}
+  wx.config({
+    debug: false, //生产环境需要关闭debug模式
+    appId: getMsg.appId, //appId通过微信服务号后台查看
+    timestamp: getMsg.timestamp, //生成签名的时间戳
+    nonceStr: getMsg.nonceStr, //生成签名的随机字符串
+    signature: getMsg.signature, //签名
+    jsApiList: [ //需要调用的JS接口列表
+        'onMenuShareTimeline', //分享给好友
+        'onMenuShareAppMessage', //分享到朋友圈
+    ]
+  });
+
+  wx.ready(function() {
+    wx.checkJsApi({
+        jsApiList: ["showMenuItems"],
+        success: function(res) {
+            wx.showMenuItems({
+                menuList: [
+                    'menuItem:share:appMessage', //发送给朋友
+                    'menuItem:share:timeline' //分享到朋友圈
+                ]
+            });
+        }
+    });
+
+    //分享到朋友圈
+
+    wx.updateTimelineShareData({
+        title: "分享描述", // 分享标题
+        desc: "分享描述", //分享描述
+        link: getMsg.shareLink, // 分享链接
+        imgUrl: getMsg.imgUrl, // 分享图标
+        success () {
+          alert('分享朋友圈成功')
+          // 用户确认分享后执行的回调函数
+          _self
+        },
+        cancel () {
+        // 用户取消分享后执行的回调函数
+        }
+    });
+  //分享给朋友
+  wx.updateAppMessageShareData({
+      title: "分享描述", // 分享标题
+      desc: "分享描述", // 分享描述
+      link: getMsg.shareLink, // 分享链接
+      imgUrl: getMsg.imgUrl, // 分享图标
+      success () {
+        alert('分享朋友圈成功')
+        // 用户确认分享后执行的回调函数
+      },
+      cancel () {
+      // 用户取消分享后执行的回调函数
+      }
+  });
+  });
+
+// end
+
+  },
   methods: {
     sendDot(code) {
       axios
@@ -112,9 +175,6 @@ export default {
           console.log(error);
         });
     },
-    btnup() {
-      alert("提交事件");
-    },
     openDraw() {
         this.sendDot('B000020421')
       //   发送
@@ -141,37 +201,17 @@ export default {
     close() {
       this.showPop = false;
     },
-    // 判断用户是不是注册用户
-    isUSer(){
-    var data = {
-        "openId": window.openId,
-        "tsno": new Date().getTime()
-    };
-    var url = process.env.SWISSE + '/cust/getCustomer';
-     axios
-        .post(
-          url,
-         data,
-          { headers: { "Content-Type": "application/json" } }
-        )
-        .then(response => {
-          if (data.code == 100) {
-             this.customerId = data.id;
-          } else {
-            this.customerId = '';    
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    share() {
+      alert("请点击右上角分享按钮分享");
     },
-    share(){
+    btnup(){
       this.sendDot('B000020421');
       // 判断是不是登录用户,是就执行分享，否则跳转到登录注册页面
       if(this.customerId) {
-
+        // 如果有,判读是不是已经成功分享，成功分享的有回调
+        alert("成功分享好友即可领取实物大奖");
       } else {
-         window.location.href = process.env.LOGIN + '/weixin/bind/auth?token='+ openId +'&redirect='+encodeURIComponent(window.location.href);
+         window.location.href = process.env.LOGIN;
       }
     }
   }
@@ -184,7 +224,7 @@ export default {
   position: relative;
   min-height: 100%;
   width: 100%;
-  background: url("/static/img/background.png") no-repeat center 0px fixed;
+  background: url("../../static/img/background.png") no-repeat center 0px fixed;
   background-size: 100vw 100vh;
   background-color: #000;
 }
@@ -198,7 +238,7 @@ export default {
   float: left;
   width: 1.62rem;
   height: 100%;
-  background: url("/static/img/index_icon.png") left center no-repeat;
+  background: url("../../static/img/index_icon.png") left center no-repeat;
   background-size: 1.11rem 0.33rem;
 }
 .btn-right {
@@ -206,13 +246,13 @@ export default {
   float: right;
   width: 1.69rem;
   height: 100%;
-  background: url("/static/img/icon2.png") left center no-repeat;
+  background: url("../../static/img/icon2.png") left center no-repeat;
   background-size: 1.68rem 0.32rem;
 }
 .icon {
   margin-top: 0.1rem;
   height: 0.46rem;
-  background: url("/static/img/icon3.png") center center no-repeat;
+  background: url("../../static/img/icon3.png") center center no-repeat;
   background-size: 2.45rem 0.47rem;
 }
 .start {
@@ -222,14 +262,14 @@ export default {
   width: 1.88rem;
   height: 1.88rem;
   position: absolute;
-  background: url("/static/img/star.png") center center no-repeat;
+  background: url("../../static/img/star.png") center center no-repeat;
   background-size: 1.87rem 1.88rem;
 }
 .pick-moon {
   width: 3.33rem;
   height: 3.33rem;
   position: absolute;
-  background: url("/static/img/moon.png") center center no-repeat;
+  background: url("../../static/img/moon.png") center center no-repeat;
   background-size: 3.33rem 3.33rem;
   top: 1.58rem;
   left: 2.1rem;
@@ -270,7 +310,7 @@ export default {
 }
 .title {
   height: 2.66rem;
-  background: url("/static/img/title2.png") center center no-repeat;
+  background: url("../../static/img/title2.png") center center no-repeat;
   background-size: 5.41rem 2.66rem;
 }
 .pick2 {
@@ -281,11 +321,11 @@ export default {
 .getstart {
   margin-top: 0.2rem;
   height: 1.07rem;
-  background: url("/static/img/get-start.png") center center no-repeat;
+  background: url("../../static/img/get-start.png") center center no-repeat;
   background-size: 4.56rem 1.07rem;
 }
 .all-star {
-  background: url("/static/img/all-star.png") center center no-repeat;
+  background: url("../../static/img/all-star.png") center center no-repeat;
   background-size: 4.94rem 1.07rem;
 }
 .world {
