@@ -70,7 +70,6 @@ export default {
     this.sendDot('B000020400');
   },
   mounted() {
-    alert(window.location.origin)
     wxShowMenu.wxShowMenu({
       title1: '这个中秋我要C位出道', // 分享标题
       title2: '这个中秋我要C位出道', // 分享标题
@@ -80,7 +79,8 @@ export default {
       link2: window.location.origin + '/#/friendstar' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId  +'&lightNo' +window.lightNo,// 分享链接
     },() =>{
       // 判断是不是最后点击月亮分享
-      if(winnerId){
+      this.sendDot('B000020401');
+      if(this.winnerId){
         // 发送请求获取礼物
         wxShowMenu.getCustomer((id) =>{
           this.customerId = id;
@@ -185,6 +185,7 @@ export default {
       this.showPop = false;
     },
     share() {
+      this.sendDot('B000020421');
       this.shareFriend = true;
     },
     btnup(){

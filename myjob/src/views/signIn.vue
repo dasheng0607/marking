@@ -25,6 +25,7 @@
 import axios from "axios";
 import qs from "qs";
 import Pop from "../components/pop.vue";
+import wxShowMenu from "../../static/js/share.js";
 export default {
   name: "index",
   components: {
