@@ -14,7 +14,7 @@ fastclick.attach(document.body);
 //提交用户信息
 axios
   .post(
-    "/qxby/api/member/addMember?",
+    "/qxby/api/member/addMember",
     qs.stringify({
       openId: window.openId,
       customerId: "",
@@ -28,7 +28,6 @@ axios
   .catch(error => {
     console.log(error);
   });
-
 Vue.config.productionTip = false;
 router.beforeEach((to, from, next) => {
   //根据字段判断是否路由过滤

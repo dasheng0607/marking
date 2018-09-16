@@ -5,7 +5,7 @@ export default {
         axios.get('http://www.swisse-china.com.cn/swisseweixin/weixin/jsApiSign').then(function (res) {
             var getMsg = res.data;
             wx.config({
-                debug: false,  //生产环境需要关闭debug模式
+                debug: true,  //生产环境需要关闭debug模式
                 appId: getMsg.appId, //appId通过微信服务号后台查看
                 timestamp: getMsg.timestamp, //生成签名的时间戳
                 nonceStr: getMsg.noncestr, //生成签名的随机字符串
@@ -27,6 +27,7 @@ export default {
                         });
                     }
                 });
+                alert("配置执行了")
                 //分享到朋友圈
                 wx.onMenuShareTimeline({
                     title: obj.title1, // 分享标题
@@ -43,13 +44,15 @@ export default {
                 //分享给朋友
                 wx.onMenuShareAppMessage({
                     title: obj.title2 || obj.title1, // 分享标题
-                    desc: obj.desc2, // 分享描述
-                    link: obj.link2, // 分享链接
-                    // imgUrl: getMsg.imgUrl // 分享图标
+                    desc: obj.desc2 || obj.title1, // 分享描述
+                    link: obj.link2 || obj.title1, // 分享链接
+                    imgUrl: 'http://img4.imgtn.bdimg.com/it/u=2659519208,2040552462&fm=26&gp=0.jpg', // 分享图标
                     success() {
+                        alert(1);
                         suc && suc();
                     },
                     cancel() {
+                        alert(2);
                         err && err();
                     }
                 });
@@ -81,7 +84,7 @@ export default {
     getAccessToken(customerId = '',suc,err) {
         axios
             .post(
-                process.env.SWISSE + '/cust/getCustomer',
+                'http://swissewx.mama100.cn/swisse-store/accesstoken/getAccessToken',
                 {
                     "openId": window.openId,
                     "customerId": customerId

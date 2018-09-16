@@ -331,7 +331,7 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-   background: url("/static/img/shareFriend.png") no-repeat center 0px fixed;
+   background: url("../../static/img/shareFriend.png") no-repeat center 0px fixed;
   background-size: 100vw 100vh;
   background-color: #000;
 }

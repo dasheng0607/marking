@@ -55,6 +55,7 @@ export default {
       myImg:decodeURIComponent(this.$route.query.imgUrl),
       mark: false,
       openId: this.$route.query.openId,
+      lightNo: this.$route.query.lightNo,
       text:
         "补签成功<br/>喜提XXX<br/>抢C位邀请好友打CALL,<br/>即可赢取中秋甄选好礼！",
       text2: "赢中秋团圆礼~",
@@ -143,7 +144,7 @@ export default {
             openId: this.openId,
             lightOpenId: window.openId,
             postison: str * 1,
-            lightNo: this.userData.lightNo * 1
+            lightNo: this.lightNo
           })
         )
         .then(response => {
