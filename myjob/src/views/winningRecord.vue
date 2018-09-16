@@ -288,10 +288,13 @@ export default {
 <style lang="less" scoped>
 #winningRecord {
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
   background: url("../../static/img/background.png") no-repeat center 0px fixed;
-  background-size: 100vw 100vh;
+  background-size: 100% 100%;
   background-color: #000;
 }
 .btn {
@@ -416,7 +419,7 @@ export default {
 }
 
 .bg {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;

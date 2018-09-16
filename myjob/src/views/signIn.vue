@@ -12,24 +12,6 @@
                 <img :src="item.headImage" alt="">
                 <span class="day" :class="'day-' + (index+1)"></span>
             </div>
-            <!-- <div class="sign-in-2 sign-in">
-                <span class="day-2 day"></span>
-            </div>
-            <div class="sign-in-3 sign-in">
-                <span class="day-3 day"></span>
-            </div>
-            <div class="sign-in-4 sign-in">
-                <span class="day-4 day"></span>
-            </div>
-            <div class="sign-in-5 sign-in">
-                <span class="day-5 day"></span>
-            </div>
-            <div class="sign-in-6 sign-in">
-                <span class="day-6 day"></span>
-            </div>
-            <div class="sign-in-7 sign-in">
-                <span class="day-7 day"></span>
-            </div> -->
         </div>
         
         <div class="click_text" @click="signIn()"></div>
@@ -57,10 +39,12 @@ export default {
       btnText: "赶紧向朋友炫耀",
       today: "",
       prizeName: "",
-      openId: "11",
+      openId: window.openId,
       signDateList: [],
       signRecords: [],
-      newArr: []
+      newArr: [],
+      winnerId: '',
+      customerId: '',
     };
   },
   created() {
@@ -68,7 +52,44 @@ export default {
     this.getList();
     // this.getDateList();
   },
-  mounted() {},
+  mounted() {
+    wxShowMenu.wxShowMenu({
+      title1: '这个中秋我要C位出道', // 分享标题
+      title2: '这个中秋我要C位出道', // 分享标题
+      desc1: '快来帮我补卡领中秋团圆礼！', //分享描述
+      desc2: '快来帮我补卡领中秋团圆礼！', //分享描述
+      link1: window.location.href + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId,// 分享链接
+      link2: window.location.href + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId,// 分享链接
+    },() =>{
+      // 判断是不是连续签到三天
+      if(winnerId){
+        // 发送请求获取礼物
+        wxShowMenu.getCustomer((id) =>{
+          this.customerId = id;
+          axios
+          .post(
+            '/qxby/api/ticket/exchangePrize',
+            {
+              openId: 2,
+              customerId: this.customerId,
+              winnerId: this.winnerId,
+              accessToken:window.accessToken
+            },
+            { headers: { "Content-Type": "application/json" } }
+          )
+          .then(response => {
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+        },(err) =>{
+          window.location.href = process.env.LOGIN;
+        })
+
+      }
+    })
+  },
   methods: {
     sendDot(code) {
       axios
@@ -157,7 +178,7 @@ export default {
               this.mark = true;
               this.prizeName = response.data.data.prizeName || "";
               this.text = "恭喜你<br/>喜提" + this.prizeName + "<br/>";
-              
+              this.winnerId = response.data.data.winnerId;
             }
             this.getList();
             console.log("sign", response.data.data);

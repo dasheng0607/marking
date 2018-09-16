@@ -56,7 +56,7 @@ export default {
       btnText: "我也要抢C位",
       today: "",
       prizeName: "",
-      openId: "11",
+      openId: window.openId,
       signOpenId: '22',
       signDateList: [],
       signRecords: [],
