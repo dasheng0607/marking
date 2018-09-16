@@ -35,6 +35,7 @@
         <div class="click_text" @click="signIn()"></div>
         <div class="invite_text" @click="invite()"></div>
         <pop v-if="mark" :text1="text" :btnText="btnText" :text2="text2" @btnup="btnup" @close="close"></pop>
+        <div v-if="shareFriend" @click="shareFriend = false" class="shareFriend"></div>
     </div>
 </template>
 
@@ -50,6 +51,7 @@ export default {
   data() {
     return {
       mark: false,
+      shareFriend:false,
       text: "",
       text2: "一起PICK中秋团圆礼",
       btnText: "赶紧向朋友炫耀",
@@ -169,6 +171,7 @@ export default {
     },
     invite() {
       this.sendDot("B000020222");
+      this.shareFriend = true;
     }
   }
 };
@@ -298,5 +301,15 @@ export default {
   height: 1.07rem;
   background: url("../../static/img/invite_text.png") no-repeat center center;
   background-size: 2.66rem 1.07rem;
+}
+.shareFriend{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+   background: url("/static/img/shareFriend.png") no-repeat center 0px fixed;
+  background-size: 100vw 100vh;
+  background-color: #000;
 }
 </style>

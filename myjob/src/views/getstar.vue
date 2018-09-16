@@ -38,7 +38,7 @@ export default {
   },
   data() {
     return {
-      myImg:window.user.headimgurl || 'http://img2.imgtn.bdimg.com/it/u=54240133,741874735&fm=200&gp=0.jpg',
+      myImg:window.user.headimgurl || '',
       text:
         "太棒了！<br/>集齐七星祝福<br/>获得中秋甄选好礼40元Swisse商城现金券",
       text2: "PICK中秋甄选好礼~",

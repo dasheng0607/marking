@@ -111,7 +111,7 @@ export default {
       this.getAddress();
       this.addressInfo();
     },(err) =>{
-      // window.location.href = process.env.LOGIN;
+      window.location.href = process.env.LOGIN;
     })
   },
   mounted() {},
