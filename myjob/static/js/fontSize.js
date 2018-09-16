@@ -35,7 +35,6 @@
     console.log(process.env.SWISSE);
     //赋值给openId
     var openId = getCookie('openId');
-    var accessToken = getCookie('token');
     var customerId = getCookie("customerId");
     var user = getCookie('user') || "{}";
     if (!openId || openId == "\"\"" || openId == '') {
@@ -44,8 +43,8 @@
         redirect = encodeURIComponent(redirect);
         var refusedUrl = "";
         var authBindingApiUrl = process.env.SWISSE + '/swisseweixin/weixin/authorize?encodeTargetUrl=' + redirect+'&user=1';
-        window.location.href = authBindingApiUrl;
-        return false;
+        // window.location.href = authBindingApiUrl;
+        // return false;
     }
 
     // if (!customerId || customerId == "\"\"" || customerId == '') {
@@ -56,8 +55,6 @@
     //     return false;
     // }
 
-    window.openId = openId || 11;
-    window.accessToken = accessToken;
-    // window.customerId = customerId;
+    window.openId = openId;
     window.user = JSON.parse(decodeURIComponent(user));
 })(document, window);

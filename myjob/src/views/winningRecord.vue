@@ -71,7 +71,7 @@ export default {
       customerId:'',
       showPopupPicker: false,
       userName: "",
-      openId: 11,
+      openId: window.openId,
       recordList: [],
       bgFlag: false,
       address: {

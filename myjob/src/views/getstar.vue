@@ -83,23 +83,26 @@ export default {
         // 发送请求获取礼物
         wxShowMenu.getCustomer((id) =>{
           this.customerId = id;
-          axios
-          .post(
-            '/qxby/api/ticket/exchangePrize',
-            {
-              openId: 2,
-              customerId: this.customerId,
-              winnerId: this.winnerId,
-              accessToken:window.accessToken
-            },
-            { headers: { "Content-Type": "application/json" } }
-          )
-          .then(response => {
-            console.log(response);
+          // 先获取getAccessToken
+          wxShowMenu.getAccessToken(id,(data) =>{
+            axios
+            .post(
+              '/qxby/api/ticket/exchangePrize',
+              {
+                openId: 2,
+                customerId: this.customerId,
+                winnerId: this.winnerId,
+                accessToken:data.accessToken
+              },
+              { headers: { "Content-Type": "application/json" } }
+            )
+            .then(response => {
+              console.log(response);
+            })
+            .catch(error => {
+              console.log(error);
+            });
           })
-          .catch(error => {
-            console.log(error);
-          });
         },(err) =>{
           window.location.href = process.env.LOGIN;
         })
@@ -307,6 +310,7 @@ export default {
   background-size: 4.94rem 1.07rem;
 }
 .world {
+  min-height: 0.3rem;
   margin-top: 0.1rem;
   text-align: center;
   font-size: 0.26rem;

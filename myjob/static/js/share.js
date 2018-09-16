@@ -42,7 +42,7 @@ export default {
                 });
                 //分享给朋友
                 wx.onMenuShareAppMessage({
-                    title: obj.title2, // 分享标题
+                    title: obj.title2 || obj.title1, // 分享标题
                     desc: obj.desc2, // 分享描述
                     link: obj.link2, // 分享链接
                     // imgUrl: getMsg.imgUrl // 分享图标
@@ -66,16 +66,37 @@ export default {
                 },
                 { headers: { "Content-Type": "application/json" } }
             )
-            .then(response => {
+            .then(data => {
                 if (data.code == 100) {
                     suc && suc(data.id);
                 } else {
-                    err && err(error);
+                    err && err(data);
                 }
             })
             .catch(error => {
                 err && err(error);
                 console.log(error);
+            });
+    },
+    getAccessToken(customerId = '',suc,err) {
+        axios
+            .post(
+                process.env.SWISSE + '/cust/getCustomer',
+                {
+                    "openId": window.openId,
+                    "customerId": customerId
+                },
+                { headers: { "Content-Type": "application/json" } }
+            )
+            .then(data => {
+                if (data.code == 100) {
+                    suc && suc(data);
+                } else {
+                    err && err(data);
+                }
+            })
+            .catch(error => {
+
             });
     }
 }
