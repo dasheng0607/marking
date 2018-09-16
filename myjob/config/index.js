@@ -49,7 +49,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/qxby-h5/',
+    assetsPublicPath: '/qxby-h5',
 
     /**
      * Source Maps
