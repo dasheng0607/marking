@@ -70,13 +70,14 @@ export default {
     this.sendDot('B000020400');
   },
   mounted() {
+    alert(window.location.origin)
     wxShowMenu.wxShowMenu({
       title1: '这个中秋我要C位出道', // 分享标题
       title2: '这个中秋我要C位出道', // 分享标题
       desc1: '帮我抢C位，一起抢中秋礼，点击开抢！', //分享描述
       desc2: window.user.nickname + '正在抢C位，帮我一起夺C位，赢中秋礼，点击开抢！', //分享描述
-      link1: window.location.href + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.lightNo+'&openId' +window.lightNo,// 分享链接
-      link2: window.location.href + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId+'&lightNo' +window.lightNo,// 分享链接
+      link1: window.location.origin + '/#/friendstar' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId +'&lightNo' +window.lightNo,// 分享链接
+      link2: window.location.origin + '/#/friendstar' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId  +'&lightNo' +window.lightNo,// 分享链接
     },() =>{
       // 判断是不是最后点击月亮分享
       if(winnerId){
@@ -339,6 +340,6 @@ export default {
   bottom: 0;
   background: url("../../static/img/shareFriend.png") no-repeat center 0px fixed;
   background-size: 100vw 100vh;
-  background-color: #000;
+  /* background-color: #000; */
 }
 </style>
