@@ -58,8 +58,8 @@ export default {
       title2: '这个中秋我要C位出道', // 分享标题
       desc1: '快来帮我补卡领中秋团圆礼！', //分享描述
       desc2: '快来帮我补卡领中秋团圆礼！', //分享描述
-      link1: window.location.href + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId,// 分享链接
-      link2: window.location.href + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId,// 分享链接
+      link1: window.location.origin + '/#/friendSignIn' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId,// 分享链接
+      link2: window.location.origin + '/#/friendSignIn' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId,// 分享链接
     },() =>{
       // 判断是不是连续签到三天
       if(winnerId){

@@ -4,6 +4,7 @@ export default {
     wxShowMenu: function (obj={},suc,err) {
         axios.get('http://www.swisse-china.com.cn/swisseweixin/weixin/jsApiSign').then(function (res) {
             var getMsg = res.data;
+            console.log(res.data);
             wx.config({
                 debug: false,  //生产环境需要关闭debug模式
                 appId: getMsg.appId, //appId通过微信服务号后台查看
@@ -16,23 +17,23 @@ export default {
                 ]
             });
             wx.ready(function () {
-                wx.checkJsApi({
-                    jsApiList: ["showMenuItems"],
-                    success: function (res) {
-                        wx.showMenuItems({
-                            menuList: [
-                                'menuItem:share:appMessage', //发送给朋友
-                                'menuItem:share:timeline' //分享到朋友圈
-                            ]
-                        });
-                    }
-                });
+                // wx.checkJsApi({
+                //     jsApiList: ["showMenuItems"],
+                //     success: function (res) {
+                //         wx.showMenuItems({
+                //             menuList: [
+                //                 'menuItem:share:appMessage', //发送给朋友
+                //                 'menuItem:share:timeline' //分享到朋友圈
+                //             ]
+                //         });
+                //     }
+                // });
                 //分享到朋友圈
                 wx.onMenuShareTimeline({
                     title: obj.title1, // 分享标题
                     desc: obj.desc1, //分享描述
                     link: obj.link1,// 分享链接
-                    // imgUrl: getMsg.imgUrl // 分享图标
+                    imgUrl: obj.imgUrl, // 分享图标,
                     success() {
                         suc && suc();
                     },
@@ -45,7 +46,7 @@ export default {
                     title: obj.title2 || obj.title1, // 分享标题
                     desc: obj.desc2, // 分享描述
                     link: obj.link2, // 分享链接
-                    // imgUrl: getMsg.imgUrl // 分享图标
+                    imgUrl: obj.imgUrl, // 分享图标
                     success() {
                         suc && suc();
                     },
