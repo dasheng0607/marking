@@ -150,8 +150,8 @@ export default {
         .post(
           "/qxby/api/sign/addSign",
           qs.stringify({
-            openId: this.openId,
-            signOpenId: this.signOpenId,
+            openId: this.signOpenId,
+            signOpenId: this.openId,
             signDate: date
           })
         )

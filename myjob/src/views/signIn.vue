@@ -9,7 +9,7 @@
         <div class="sign-in-box">
             <div class="sign-in" 
             v-for="(item,index) in newArr" :key="index" :class="'sign-in-'+ (index+1)">
-                <img :src="item.headImage" alt="" v-bind:class="{ img: dataShow(item.data,today) }">
+                <img :src="item.headImage" alt="" v-bind:class="{ img: dataShow(item.date,today) }">
                 <span class="day" :class="'day-' + (index+1)"></span>
             </div>
         </div>
@@ -99,7 +99,7 @@ export default {
       if(!data1 || !data2) return false;
       if(new Date(data1) < new Date(data2)){
          return true;
-      }else {
+      } else {
         return false;
       }
     },
@@ -277,6 +277,7 @@ export default {
   }
   .img{
     background: url("../../static/img/sign_in_icon2.png") center center no-repeat;
+    background-size: 0.89rem 0.89rem;
   }
 }
 .sign-in-7 {

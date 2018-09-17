@@ -70,10 +70,10 @@ export default {
                 { headers: { "Content-Type": "application/json" } }
             )
             .then(data => {
-                if (data.code == 100) {
-                    suc && suc(data.id);
+                if (data.data.code == 100) {
+                    suc && suc(data.data.id);
                 } else {
-                    err && err(data);
+                    err && err(data.data);
                 }
             })
             .catch(error => {
@@ -92,10 +92,10 @@ export default {
                 { headers: { "Content-Type": "application/json" } }
             )
             .then(data => {
-                if (data.code == 100) {
-                    suc && suc(data);
+                if (data.data.code == 100) {
+                    suc && suc(data.data);
                 } else {
-                    err && err(data);
+                    err && err(data.data);
                 }
             })
             .catch(error => {

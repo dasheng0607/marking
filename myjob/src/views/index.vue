@@ -13,7 +13,7 @@
              <div class="pick2" @click="goStar()"></div>
          </router-link>
         <div class="bottom">
-          <a href="http://www.swisse-china.com.cn/swisse-wmall/activityDemo/shoppingGuide/index.html?_campaign=20180916151543_13739">
+          <a :href="adHref">
             <div class="banner">
             </div>
           </a>
@@ -25,10 +25,18 @@
 import axios from "axios";
 export default {
   data() {
-    return {};
+    return {
+      adHref:'http://www.swisse-china.com.cn/swisse-wmall/activityDemo/shoppingGuide/index.html?_campaign=20180916151543_1373'
+    };
   },
   created() {
-      this.sendDot('B000020100')
+      this.sendDot('B000020100');
+      // 设置ad参数
+      if(this.$route.query.assisAccount) adHref += ('&assisAccount=' + this.$route.query.assisAccount);
+      if(this.$route.query.termCode) adHref += ('&termCode=' + this.$route.query.termCode);
+      if(this.$route.query.guiderSourceSystem) adHref += ('&guiderSourceSystem=' + this.$route.query.guiderSourceSystem);
+      if(this.$route.query.guiderSourceBusiness) adHref += ('&guiderSourceBusiness=' + this.$route.query.guiderSourceBusiness);
+      if(this.$route.query.guiderBusinessId) adHref += ('&guiderBusinessId=' + this.$route.query.guiderBusinessId);
   },
   methods: {
     sendDot(code) {

@@ -178,6 +178,7 @@ export default {
               response.data.data.prizeName;
             this.showPop = true;
             this.winnerId = response.data.data.winnerId;
+            this.getUser();
           } else {
             alert(response.data.errMsg);
           }
