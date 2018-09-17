@@ -9,7 +9,7 @@
         <div class="sign-in-box">
             <div class="sign-in" 
             v-for="(item,index) in newArr" :key="index" :class="'sign-in-'+ (index+1)">
-                <img :src="item.headImage" alt="">
+                <img :src="item.headImage" alt="" v-bind:class="{ img: dataShow(item.data,today) }">
                 <span class="day" :class="'day-' + (index+1)"></span>
             </div>
         </div>
@@ -33,6 +33,7 @@ export default {
   },
   data() {
     return {
+      myImg:window.user.headimgurl || '',
       mark: false,
       shareFriend:false,
       text: "",
@@ -59,8 +60,8 @@ export default {
       title2: '这个中秋我要C位出道', // 分享标题
       desc1: '快来帮我补卡领中秋团圆礼！', //分享描述
       desc2: '快来帮我补卡领中秋团圆礼！', //分享描述
-      link1: window.location.origin + '/#/friendSignIn' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId,// 分享链接
-      link2: window.location.origin + '/#/friendSignIn' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId,// 分享链接
+      link1: window.location.origin + process.env.ROATER + '/#/friendSignIn' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId=' +window.openId,// 分享链接
+      link2: window.location.origin + process.env.ROATER + '/#/friendSignIn' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId=' +window.openId,// 分享链接
     },() =>{
       // 判断是不是连续签到三天
       if(winnerId){
@@ -94,6 +95,14 @@ export default {
     })
   },
   methods: {
+    dataShow(data1='',data2=''){
+      if(!data1 || !data2) return false;
+      if(new Date(data1) < new Date(data2)){
+         return true;
+      }else {
+        return false;
+      }
+    },
     sendDot(code) {
       axios
         .post(
@@ -113,7 +122,7 @@ export default {
         });
     },
     btnup() {
-      alert("提交事件");
+      this.shareFriend = true;
     },
     close() {
       this.mark = false;
@@ -265,6 +274,9 @@ export default {
     position: absolute;
     top: 0.42rem;
     left: 0.5rem;
+  }
+  .img{
+    background: url("../../static/img/sign_in_icon2.png") center center no-repeat;
   }
 }
 .sign-in-7 {

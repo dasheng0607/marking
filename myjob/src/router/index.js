@@ -4,6 +4,7 @@ import index from '@/views/index'
 import SignIn from '@/views/signIn'
 import WinningRecord from '@/views/winningRecord'
 import getstar from '@/views/getstar'
+import back from '@/views/back'
 import friendstar from '@/views/friends-star'
 import rules from '@/views/rules'
 import FriendSignIn from '@/views/friends-signIn'
@@ -46,6 +47,11 @@ const my_router = new Router({
       path: '/rules',
       name: 'rules',
       component: rules
+    },
+    {
+      path: '/back',
+      name: 'back',
+      component: back
     },
     {
       path: '*',

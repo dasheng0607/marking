@@ -29,19 +29,6 @@ axios
     console.log(error);
   });
 Vue.config.productionTip = false;
-router.beforeEach((to, from, next) => {
-  //根据字段判断是否路由过滤
-  console.log("to", to)
-  console.log("from", from)
-  // 查看记录要获取到customerId
-  if (to.path === '/winningRecord' && !window.customerId) {
-    // 如果没有custerId并且点击历史记录，则跳转到注册页面
-    // window.location.href = process.env.LOGIN;
-    next();
-  } else {
-    next()//若点击的是不需要验证的页面,则进行正常的路由跳转
-  }
-});
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

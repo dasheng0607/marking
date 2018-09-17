@@ -2,7 +2,7 @@ import axios from 'axios'
 import wx from 'weixin-js-sdk'
 export default {
     wxShowMenu: function (obj={},suc,err) {
-        axios.get('http://www.swisse-china.com.cn/swisseweixin/weixin/jsApiSign').then(function (res) {
+        axios.get(process.env.SWISSE + '/swisseweixin/weixin/jsApiSign').then(function (res) {
             var getMsg = res.data;
             console.log(res.data);
             wx.config({
@@ -84,7 +84,7 @@ export default {
     getAccessToken(customerId = '',suc,err) {
         axios
             .post(
-                'http://swissewx.mama100.cn/swisse-store/accesstoken/getAccessToken',
+                process.env.SWISSE + '/swisse-store/accesstoken/getAccessToken',
                 {
                     "openId": window.openId,
                     "customerId": customerId

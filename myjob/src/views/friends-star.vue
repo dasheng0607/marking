@@ -109,7 +109,7 @@ export default {
         .post(
           "/qxby/api/light/getLightInfo",
           qs.stringify({
-            openId: this.openId || "789"
+            openId: this.openId 
           }),
           { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
         )
@@ -119,9 +119,6 @@ export default {
             arr[element.position] = element.headImage;
           });
           this.starList = arr;
-          if (response.data.data.lightRecords.length === 7) {
-            alert("好友已集齐7颗星");
-          }
           this.userData = Object.assign({}, this.userData, response.data.data);
         })
         .catch(error => {

@@ -38,8 +38,7 @@
     var customerId = getCookie("customerId");
     var user = getCookie('user') || "{}";
     if (!openId || openId == "\"\"" || openId == '') {
-
-        var redirect = window.location.href;
+        var redirect = window.location.origin +  process.env.ROATER + '/#/back';
         redirect = encodeURIComponent(redirect);
         var refusedUrl = "";
         var authBindingApiUrl = process.env.SWISSE + '/swisseweixin/weixin/authorize?encodeTargetUrl=' + redirect+'&user=1';

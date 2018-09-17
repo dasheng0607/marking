@@ -70,48 +70,50 @@ export default {
     this.sendDot('B000020400');
   },
   mounted() {
-    wxShowMenu.wxShowMenu({
-      title1: '这个中秋我要C位出道', // 分享标题
-      title2: '快来帮我一起夺C位', // 分享标题
-      desc1: '帮我抢C位，一起抢中秋礼，点击开抢', //分享描述
-      desc2: '赢中秋礼，点击开抢！', //分享描述
-      link1: window.location.origin + '/#/friendstar' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId +'&lightNo' +window.lightNo,// 分享链接
-      link2: window.location.origin + '/#/friendstar' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId  +'&lightNo' +window.lightNo,// 分享链接
-    },() =>{
-      // 判断是不是最后点击月亮分享
-      this.sendDot('B000020401');
-      if(this.winnerId){
-        // 发送请求获取礼物
-        wxShowMenu.getCustomer((id) =>{
-          this.customerId = id;
-          // 先获取getAccessToken
-          wxShowMenu.getAccessToken(id,(data) =>{
-            axios
-            .post(
-              '/qxby/api/ticket/exchangePrize',
-              {
-                openId: 2,
-                customerId: this.customerId,
-                winnerId: this.winnerId,
-                accessToken:data.accessToken
-              },
-              { headers: { "Content-Type": "application/json" } }
-            )
-            .then(response => {
-              console.log(response);
-            })
-            .catch(error => {
-              console.log(error);
-            });
-          })
-        },(err) =>{
-          window.location.href = process.env.LOGIN;
-        })
-
-      }
-    })
   },
   methods: {
+    myShare(){
+      wxShowMenu.wxShowMenu({
+        title1: '这个中秋我要C位出道', // 分享标题
+        title2: '快来帮我一起夺C位', // 分享标题
+        desc1: '帮我抢C位，一起抢中秋礼，点击开抢', //分享描述
+        desc2: '赢中秋礼，点击开抢！', //分享描述
+        link1: window.location.origin + process.env.ROATER + '/#/friendStar' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId=' +window.openId +'&lightNo=' +this.userData.lightNo,// 分享链接
+        link2: window.location.origin + process.env.ROATER + '/#/friendStar' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId=' +window.openId  +'&lightNo=' +this.userData.lightNo,// 分享链接
+      },() =>{
+        // 判断是不是最后点击月亮分享
+        this.sendDot('B000020401');
+        if(this.winnerId){
+          // 发送请求获取礼物
+          wxShowMenu.getCustomer((id) =>{
+            this.customerId = id;
+            // 先获取getAccessToken
+            wxShowMenu.getAccessToken(id,(data) =>{
+              axios
+              .post(
+                '/qxby/api/ticket/exchangePrize',
+                {
+                  openId: 2,
+                  customerId: this.customerId,
+                  winnerId: this.winnerId,
+                  accessToken:data.accessToken
+                },
+                { headers: { "Content-Type": "application/json" } }
+              )
+              .then(response => {
+                console.log(response);
+              })
+              .catch(error => {
+                console.log(error);
+              });
+            })
+          },(err) =>{
+            window.location.href = process.env.LOGIN;
+          })
+
+        }
+      })
+    },
     sendDot(code) {
       axios
         .post(
@@ -151,6 +153,7 @@ export default {
             this.successBtn = false;
           }
           this.userData = Object.assign({}, this.userData, response.data.data);
+          this.myShare();
           console.log(this.userData);
         })
         .catch(error => {
