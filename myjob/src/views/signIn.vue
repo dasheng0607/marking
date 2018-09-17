@@ -55,46 +55,49 @@ export default {
     // this.getDateList();
   },
   mounted() {
-    wxShowMenu.wxShowMenu({
-      title1: '这个中秋我要C位出道', // 分享标题
-      title2: '这个中秋我要C位出道', // 分享标题
-      desc1: '快来帮我补卡领中秋团圆礼！', //分享描述
-      desc2: '快来帮我补卡领中秋团圆礼！', //分享描述
-      link1: window.location.origin + process.env.ROATER + '/#/friendSignIn' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId=' +window.openId,// 分享链接
-      link2: window.location.origin + process.env.ROATER + '/#/friendSignIn' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId=' +window.openId,// 分享链接
-    },() =>{
-      // 判断是不是连续签到三天
-      if(winnerId){
-        // 发送请求获取礼物
-        wxShowMenu.getCustomer((id) =>{
-          this.customerId = id;
-          wxShowMenu.getAccessToken(id,(data) =>{
-            axios
-            .post(
-              '/qxby/api/ticket/exchangePrize',
-              {
-                openId: 2,
-                customerId: this.customerId,
-                winnerId: this.winnerId,
-                accessToken:data.accessToken
-              },
-              { headers: { "Content-Type": "application/json" } }
-            )
-            .then(response => {
-              console.log(response);
-            })
-            .catch(error => {
-              console.log(error);
-            });
-          })
-        },(err) =>{
-          window.location.href = process.env.LOGIN;
-        })
-
-      }
-    })
+    
   },
   methods: {
+    share(){
+      wxShowMenu.wxShowMenu({
+        title1: '这个中秋我要C位出道', // 分享标题
+        title2: '这个中秋我要C位出道', // 分享标题
+        desc1: '快来帮我补卡领中秋团圆礼！', //分享描述
+        desc2: '快来帮我补卡领中秋团圆礼！', //分享描述
+        link1: window.location.origin + process.env.ROATER + '/#/friendSignIn' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId=' +window.openId,// 分享链接
+        link2: window.location.origin + process.env.ROATER + '/#/friendSignIn' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId=' +window.openId,// 分享链接
+      },() =>{
+        // 判断是不是连续签到三天
+        if(this.winnerId){
+          // 发送请求获取礼物
+          wxShowMenu.getCustomer((id) =>{
+            this.customerId = id;
+            wxShowMenu.getAccessToken(id,(data) =>{
+              axios
+              .post(
+                '/qxby/api/ticket/exchangePrize',
+                {
+                  openId: 2,
+                  customerId: this.customerId,
+                  winnerId: this.winnerId,
+                  accessToken:data.accessToken
+                },
+                { headers: { "Content-Type": "application/json" } }
+              )
+              .then(response => {
+                console.log(response);
+              })
+              .catch(error => {
+                console.log(error);
+              });
+            })
+          },(err) =>{
+            window.location.href = process.env.LOGIN;
+          })
+
+        }
+      })
+    },
     dataShow(data1='',data2=''){
       if(!data1 || !data2) return false;
       if(new Date(data1) < new Date(data2)){
@@ -137,6 +140,7 @@ export default {
           )
         ])
         .then((response, typeResp) => {
+          this.share();
           this.today = response[0].data.data.toDay;
           this.signDateList = response[0].data.data.signDateList;
           this.signRecords = response[1].data.data.signRecords;
@@ -144,7 +148,7 @@ export default {
             this.mark = true;
             this.prizeName = response[1].data.data.prizeName || "";
             this.text = "恭喜你<br/>喜提" + this.prizeName + "<br/>";
-            this.winnerId = response.data.data.winnerId;
+            this.winnerId = response[1].data.data.winnerId;
           }
           let self = this;
           this.newArr = [];
@@ -179,7 +183,6 @@ export default {
     },
     signIn() {
       this.sendDot("B000020221");
-
       axios
         .post(
           "/qxby/api/sign/addSign",

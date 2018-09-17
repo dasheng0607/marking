@@ -45,8 +45,8 @@
         } else if (url.indexOf('/friendStar') >= 0){
             redirect += ('?tar=friendStar&' + url.split("/friendStar?")[1]);
         }
-        var redirect = window.location.origin +  process.env.ROATER + '/#/back';
         redirect = encodeURIComponent(redirect);
+
         var refusedUrl = "";
         var authBindingApiUrl = process.env.SWISSE + '/swisseweixin/weixin/authorize?encodeTargetUrl=' + redirect+'&user=1';
         window.location.href = authBindingApiUrl;
