@@ -13,8 +13,10 @@
              <div class="pick2" @click="goStar()"></div>
          </router-link>
         <div class="bottom">
+          <a href="http://www.swisse-china.com.cn/swisse-wmall/activityDemo/shoppingGuide/index.html?_campaign=20180916151543_13739">
             <div class="banner">
             </div>
+          </a>
         </div>
     </div>
 </template>
@@ -106,6 +108,7 @@ export default {
   background-size: 4.81rem 0.54rem;
 }
 .title {
+  z-index: 999;
   margin-top: 0.5rem;
   height: 2.84rem;
   background: url("../../static/img/title.png") center center no-repeat;

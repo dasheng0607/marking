@@ -57,7 +57,7 @@ export default {
       today: "",
       prizeName: "",
       openId: window.openId,
-      signOpenId: '22',
+      signOpenId: this.$route.query.openId,
       signDateList: [],
       signRecords: [],
       newArr: []
@@ -96,7 +96,7 @@ export default {
         .all([
           axios.post("/qxby/api/sign/getSignDateList"),
           axios.post(
-            "/qxby/api/sign/getSignListByOpenId?openId=" + this.openId,
+            "/qxby/api/sign/getSignListByOpenId?openId=" + this.signOpenId,
             {}
           )
         ])

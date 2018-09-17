@@ -62,7 +62,7 @@ export default {
     getCustomer(suc,err){
         axios
             .post(
-                process.env.SWISSE + '/cust/getCustomer',
+            process.env.SWISSE + '/swisseweixin/cust/getCustomer',
                 {
                     "openId": window.openId,
                     "tsno": new Date().getTime()
