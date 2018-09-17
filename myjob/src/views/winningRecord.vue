@@ -135,24 +135,27 @@ export default {
         });
     },
     getList() {
-      axios
-        .post(
-          "/qxby/api/ticket/getPrizeListByOpenId",
-          qs.stringify({
-            openId: window.openId,
-            customerId: this.customerId,
-            pageIndex: 1,
-            pageSize: 100
+      wxShowMenu.getAccessToken(this.customerId,(data) =>{
+        axios
+          .post(
+            "/qxby/api/ticket/getPrizeListByOpenId",
+            qs.stringify({
+              openId: window.openId,
+              customerId: this.customerId,
+              accessToken:data.accessToken,
+              pageIndex: 1,
+              pageSize: 100
+            })
+          )
+          .then(response => {
+            if (response.data.errCode == 0) {
+              this.recordList = response.data.data.winnerList;
+            }
           })
-        )
-        .then(response => {
-          if (response.data.errCode == 0) {
-            this.recordList = response.data.data.winnerList;
-          }
-        })
-        .catch(error => {
-          console.log(error);
-        });
+          .catch(error => {
+            console.log(error);
+          });
+      })
     },
     addressInfo() {
       axios

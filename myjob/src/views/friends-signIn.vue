@@ -9,7 +9,7 @@
         <div class="sign-in-box">
             <div class="sign-in" @click="friendSign(item.date)"
             v-for="(item,index) in newArr" :key="index" :class="'sign-in-'+ (index+1)">
-                <img :src="item.headImage" alt="">
+                <img :src="item.headImage" alt="" v-bind:class="{ img: dataShow(item.date,today) }">
                 <span class="day" :class="'day-' + (index+1)"></span>
             </div>
             <!-- <div class="sign-in-2 sign-in">
@@ -71,6 +71,14 @@ export default {
   },
   mounted() {},
   methods: {
+    dataShow(data1='',data2=''){
+      if(!data1 || !data2) return false;
+      if(new Date(data1) < new Date(data2)){
+         return true;
+      } else {
+        return false;
+      }
+    },
     sendDot(code){
           axios.post(process.env.SET_DOT, {
             "platform": 2,
@@ -239,6 +247,10 @@ export default {
     position: absolute;
     top: 0.42rem;
     left: 0.5rem;
+  }
+  .img{
+    background: url("../../static/img/sign_in_icon2.png") center center no-repeat;
+    background-size: 0.89rem 0.89rem;
   }
 }
 .sign-in-7 {

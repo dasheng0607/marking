@@ -6,7 +6,7 @@ export default {
             var getMsg = res.data;
             console.log(res.data);
             wx.config({
-                debug: true,  //生产环境需要关闭debug模式
+                debug: false,  //生产环境需要关闭debug模式
                 appId: getMsg.appId, //appId通过微信服务号后台查看
                 timestamp: getMsg.timestamp, //生成签名的时间戳
                 nonceStr: getMsg.nonceStr, //生成签名的随机字符串
@@ -48,11 +48,9 @@ export default {
                     link: obj.link2, // 分享链接
                     imgUrl: window.user.headimgurl, // 分享图标
                     success() {
-                        alert(1);
                         suc && suc();
                     },
                     cancel() {
-                        alert(2);
                         err && err();
                     }
                 });

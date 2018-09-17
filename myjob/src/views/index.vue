@@ -9,10 +9,10 @@
             <div class="pick" @click="goSignIn()"></div>
          </router-link>
         <div class="title"></div>
+        <div class="bottom">
          <router-link to="/getstar">
              <div class="pick2" @click="goStar()"></div>
          </router-link>
-        <div class="bottom">
           <a :href="adHref">
             <div class="banner">
             </div>
@@ -26,17 +26,17 @@ import axios from "axios";
 export default {
   data() {
     return {
-      adHref:'http://www.swisse-china.com.cn/swisse-wmall/activityDemo/shoppingGuide/index.html?_campaign=20180916151543_1373'
+      adHref:'http://www.swisse-china.com.cn/swisse-wmall/activityDemo/shoppingGuide/index.html?_campaign=20180916151543_13739'
     };
   },
   created() {
       this.sendDot('B000020100');
       // 设置ad参数
-      if(this.$route.query.assisAccount) adHref += ('&assisAccount=' + this.$route.query.assisAccount);
-      if(this.$route.query.termCode) adHref += ('&termCode=' + this.$route.query.termCode);
-      if(this.$route.query.guiderSourceSystem) adHref += ('&guiderSourceSystem=' + this.$route.query.guiderSourceSystem);
-      if(this.$route.query.guiderSourceBusiness) adHref += ('&guiderSourceBusiness=' + this.$route.query.guiderSourceBusiness);
-      if(this.$route.query.guiderBusinessId) adHref += ('&guiderBusinessId=' + this.$route.query.guiderBusinessId);
+      if(this.$route.query.assisAccount) this.adHref += ('&assisAccount=' + this.$route.query.assisAccount);
+      if(this.$route.query.termCode) this.adHref += ('&termCode=' + this.$route.query.termCode);
+      if(this.$route.query.guiderSourceSystem) this.adHref += ('&guiderSourceSystem=' + this.$route.query.guiderSourceSystem);
+      if(this.$route.query.guiderSourceBusiness) this.adHref += ('&guiderSourceBusiness=' + this.$route.query.guiderSourceBusiness);
+      if(this.$route.query.guiderBusinessId) this.adHref += ('&guiderBusinessId=' + this.$route.query.guiderBusinessId);
   },
   methods: {
     sendDot(code) {
@@ -123,19 +123,19 @@ export default {
   background-size: 5.11rem 2.84rem;
 }
 .pick2 {
-  margin-top: 0.63rem;
+  /* margin-top: 0.63rem; */
   padding: 0 1.4rem;
   height: 1.15rem;
   background: url("../../static/img/pick2.png") center center no-repeat;
   background-size: 4.56rem 1.13rem;
 }
 .bottom {
-  margin-top: 0.46rem;
+  /* margin-top: 0.46rem; */
   width: 100vw;
-  height: 4.38rem;
+  height: 5.92rem;
   background: url("../../static/img/gift.png") no-repeat;
   background-position-x: 1.05rem;
-  background-position-y: 0;
+  background-position-y: 1.54rem;
   background-size: 4.48rem 3.51rem;
   position: absolute;
   bottom: 0;
@@ -145,10 +145,10 @@ export default {
     bottom: 0;
   padding-top: 2.48rem;
   width: 100vw;
-  height: 2.16rem;
-  background: url("../../static/img/banner1.png") no-repeat;
+  height: 2.56rem;
+  background: url("../../static/img/ad.jpg") no-repeat;
   background-position-x: 0;
   background-position-y: 2.48rem;
-  background-size: 7.5rem 2.17rem;
+  background-size:100% auto;
 }
 </style>
