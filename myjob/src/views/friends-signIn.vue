@@ -297,7 +297,7 @@ export default {
 .help-sign-in {
     width: 5.45rem;
     height: 1.14rem;
-    margin: 2rem auto;
+    margin: 2rem auto 0;
     background: url("../../static/img/help_sign_in.png") no-repeat center center;
     background-size: contain;
 }

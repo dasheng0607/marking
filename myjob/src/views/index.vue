@@ -124,7 +124,7 @@ export default {
 }
 .pick2 {
   /* margin-top: 0.63rem; */
-  padding: 0 1.4rem;
+  padding: 1.5rem 1.4rem 0;
   height: 1.15rem;
   background: url("../../static/img/pick2.png") center center no-repeat;
   background-size: 4.56rem 1.13rem;
@@ -145,8 +145,8 @@ export default {
     bottom: 0;
   padding-top: 2.48rem;
   width: 100vw;
-  height: 2.56rem;
-  background: url("../../static/img/ad.jpg") no-repeat;
+  height: 2.04rem;
+  background: url("../../static/img/ad.png") no-repeat;
   background-position-x: 0;
   background-position-y: 2.48rem;
   background-size:100% auto;

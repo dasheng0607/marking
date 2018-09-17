@@ -107,9 +107,10 @@ export default {
     getUser() {
       axios
         .post(
-          "/qxby/api/light/getLightInfo",
+          "/qxby/api/light/getLightInfoByShare",
           qs.stringify({
-            openId: this.openId 
+            openId: this.openId,
+            lightNo:this.lightNo
           }),
           { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
         )
@@ -270,7 +271,7 @@ export default {
 .getstart {
   margin-top: 0.2rem;
   height: 1.07rem;
-  background: url("../../static/img/help_sign_in.png") center center no-repeat;
+  background: url("../../static/img/friendsGif.png") center center no-repeat;
   background-size: 4.56rem 1.07rem;
 }
 .pick-moon img{

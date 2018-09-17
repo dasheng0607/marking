@@ -12,7 +12,13 @@ export default {
     };
   },
   mounted() {
+    if(this.$route.query.tar='friendSignIn') {
+      this.$router.push("/friendSignIn?" + window.location.href.split("tar=friendSignIn&")[1]);
+    }else if(this.$route.query.tar='friendStar'){
+      this.$router.push("/friendStar?" + window.location.href.split("tar=friendStar&")[1]);
+    }else {
       this.$router.push("/index");
+    }
     //   setTimeout(() => {
     //       window.reload();
     //   }, 0);

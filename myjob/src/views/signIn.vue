@@ -140,7 +140,12 @@ export default {
           this.today = response[0].data.data.toDay;
           this.signDateList = response[0].data.data.signDateList;
           this.signRecords = response[1].data.data.signRecords;
-
+          if(response[1].data.data.isPrize){
+            this.mark = true;
+            this.prizeName = response[1].data.data.prizeName || "";
+            this.text = "恭喜你<br/>喜提" + this.prizeName + "<br/>";
+            this.winnerId = response.data.data.winnerId;
+          }
           let self = this;
           this.newArr = [];
           this.signDateList.forEach(function(v1) {
