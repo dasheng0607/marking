@@ -37,6 +37,7 @@
     var openId = getCookie('openId');
     var customerId = getCookie("customerId");
     var user = getCookie('user') || "{}";
+    // 没授权的，获取授权，要记录地址情况，有可能是分享的特殊页面
     if (!openId || openId == "\"\"" || openId == '') {
         let url = window.location.href;
         var redirect = window.location.origin + process.env.ROATER + '/#/back';
@@ -62,5 +63,6 @@
     // }
 
     window.openId = openId;
+    window.customerId = customerId;
     window.user = JSON.parse(decodeURIComponent(user));
 })(document, window);

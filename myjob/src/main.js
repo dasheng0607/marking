@@ -17,7 +17,7 @@ axios
     "/qxby/api/member/addMember",
     qs.stringify({
       openId: window.openId,
-      customerId: "",
+      customerId: window.customerId,
       headImageUrl: window.user.headimgurl,
       nickName: window.user.nickname
     })

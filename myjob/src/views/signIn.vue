@@ -60,7 +60,7 @@ export default {
   methods: {
     share(){
       wxShowMenu.wxShowMenu({
-        title1: '这个中秋我要C位出道', // 分享标题
+        title1: '这个中秋我要C位出道，快来帮我补卡领中秋团圆礼！', // 分享标题
         title2: '这个中秋我要C位出道', // 分享标题
         desc1: '快来帮我补卡领中秋团圆礼！', //分享描述
         desc2: '快来帮我补卡领中秋团圆礼！', //分享描述
