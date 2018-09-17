@@ -9,7 +9,7 @@ export default {
                 debug: true,  //生产环境需要关闭debug模式
                 appId: getMsg.appId, //appId通过微信服务号后台查看
                 timestamp: getMsg.timestamp, //生成签名的时间戳
-                nonceStr: getMsg.noncestr, //生成签名的随机字符串
+                nonceStr: getMsg.nonceStr, //生成签名的随机字符串
                 signature: getMsg.signature, //签名
                 jsApiList: [ //需要调用的JS接口列表
                     'onMenuShareTimeline', //分享给好友
@@ -33,7 +33,7 @@ export default {
                     title: obj.title1, // 分享标题
                     desc: obj.desc1, //分享描述
                     link: obj.link1,// 分享链接
-                    imgUrl: obj.imgUrl, // 分享图标,
+                    imgUrl: window.user.headimgurl, // 分享图标,
                     success() {
                         suc && suc();
                     },
@@ -43,10 +43,10 @@ export default {
                 });
                 //分享给朋友
                 wx.onMenuShareAppMessage({
-                    title: obj.title2 || obj.title1, // 分享标题
+                    title: obj.title2 , // 分享标题
                     desc: obj.desc2, // 分享描述
                     link: obj.link2, // 分享链接
-                    imgUrl: obj.imgUrl, // 分享图标
+                    imgUrl: window.user.headimgurl, // 分享图标
                     success() {
                         alert(1);
                         suc && suc();

@@ -72,9 +72,9 @@ export default {
   mounted() {
     wxShowMenu.wxShowMenu({
       title1: '这个中秋我要C位出道', // 分享标题
-      title2: '这个中秋我要C位出道', // 分享标题
-      desc1: '帮我抢C位，一起抢中秋礼，点击开抢！', //分享描述
-      desc2: window.user.nickname + '正在抢C位，帮我一起夺C位，赢中秋礼，点击开抢！', //分享描述
+      title2: '快来帮我一起夺C位', // 分享标题
+      desc1: '帮我抢C位，一起抢中秋礼，点击开抢', //分享描述
+      desc2: '赢中秋礼，点击开抢！', //分享描述
       link1: window.location.origin + '/#/friendstar' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId +'&lightNo' +window.lightNo,// 分享链接
       link2: window.location.origin + '/#/friendstar' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId' +window.openId  +'&lightNo' +window.lightNo,// 分享链接
     },() =>{
