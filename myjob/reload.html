@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport"content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover"/>
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <title>Swisse</title>
+  </head>
+  <body>
+  <script>
+    var url = window.location.href;
+    if(url.indexOf('friendSignIn') >=0) {
+       window.location.href = 'http://www.swisse-china.com.cn/qxby-h5/#/friendSignIn?' +url.split("tar=friendSignIn&")[1]
+    }else if(url.indexOf('friendStar') >=0){
+        window.location.href = 'http://www.swisse-china.com.cn/qxby-h5/#/friendStar?' +url.split("tar=friendStar&")[1]
+    }else {
+      window.location.href = 'http://www.swisse-china.com.cn/qxby-h5/#/index?' +url.split("?")[1]
+    }
+  </script>
+  </body>
+</html>

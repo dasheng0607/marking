@@ -19,9 +19,9 @@ export default {
     }else {
       this.$router.push("/index");
     }
-    //   setTimeout(() => {
-    //       window.reload();
-    //   }, 0);
+    setTimeout(() => {
+        window.location.Reload()
+    }, 0);
   }
 };
 </script>

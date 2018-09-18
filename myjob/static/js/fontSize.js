@@ -40,11 +40,13 @@
     // 没授权的，获取授权，要记录地址情况，有可能是分享的特殊页面
     if (!openId || openId == "\"\"" || openId == '') {
         let url = window.location.href;
-        var redirect = window.location.origin + process.env.ROATER + '/#/back';
+        var redirect = 'http://www.swisse-china.com.cn/qxby-h5/reload.html?';
         if (url.indexOf('/friendSignIn') >=0) {
-            redirect += ('?tar=friendSignIn&' + url.split("/friendSignIn?")[1]);
+            redirect += ('tar=friendSignIn&' + url.split("/friendSignIn?")[1]);
         } else if (url.indexOf('/friendStar') >= 0){
-            redirect += ('?tar=friendStar&' + url.split("/friendStar?")[1]);
+            redirect += ('tar=friendStar&' + url.split("/friendStar?")[1]);
+        } else {
+            redirect += url.split("?")[1];
         }
         redirect = encodeURIComponent(redirect);
 
