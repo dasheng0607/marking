@@ -57,7 +57,7 @@ export default {
       today: "",
       prizeName: "",
       openId: window.openId,
-      signOpenId: this.$route.query.openId,
+      signOpenId: this.$route.query.taropenId,
       signDateList: [],
       signRecords: [],
       newArr: []

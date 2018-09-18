@@ -54,7 +54,7 @@ export default {
     return {
       myImg:decodeURIComponent(this.$route.query.imgUrl),
       mark: false,
-      openId: this.$route.query.openId,
+      openId: this.$route.query.taropenId,
       lightNo: this.$route.query.lightNo,
       text:
         "补签成功<br/>喜提XXX<br/>抢C位邀请好友打CALL,<br/>即可赢取中秋甄选好礼！",

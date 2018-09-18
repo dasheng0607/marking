@@ -78,8 +78,8 @@ export default {
         title2: '这个中秋我要C位出道', // 分享标题
         desc1: '帮我抢C位，一起抢中秋礼，点击开抢', //分享描述
         desc2: '帮我抢C位，一起抢中秋礼，点击开抢！', //分享描述
-        link1: window.location.origin + process.env.ROATER + '/#/friendStar' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId=' +window.openId +'&lightNo=' +this.userData.lightNo,// 分享链接
-        link2: window.location.origin + process.env.ROATER + '/#/friendStar' + '?imgUrl='+encodeURIComponent(this.myImg)+'&openId=' +window.openId  +'&lightNo=' +this.userData.lightNo,// 分享链接
+        link1: window.location.origin + process.env.ROATER + '/#/friendStar' + '?imgUrl='+encodeURIComponent(this.myImg)+'&taropenId=' +window.openId +'&lightNo=' +this.userData.lightNo,// 分享链接
+        link2: window.location.origin + process.env.ROATER + '/#/friendStar' + '?imgUrl='+encodeURIComponent(this.myImg)+'&taropenId=' +window.openId  +'&lightNo=' +this.userData.lightNo,// 分享链接
       },() =>{
         // 判断是不是最后点击月亮分享
         this.sendDot('B000020401');
@@ -98,7 +98,7 @@ export default {
                   winnerId: this.winnerId,
                   accessToken:data.accessToken
                 },
-                { headers: { "Content-Type": "application/json" } }
+                { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
               )
               .then(response => {
                 console.log(response);
