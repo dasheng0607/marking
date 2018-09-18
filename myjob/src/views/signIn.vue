@@ -76,16 +76,17 @@ export default {
               axios
               .post(
                 '/qxby/api/ticket/exchangePrize',
-                {
-                  openId: 2,
+                qs.stringify({
+                  openId: window.openId,
                   customerId: this.customerId,
                   winnerId: this.winnerId,
                   accessToken:data.accessToken
-                },
+                }),
                 { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
               )
               .then(response => {
                 console.log(response);
+                this.mark = false;
               })
               .catch(error => {
                 console.log(error);

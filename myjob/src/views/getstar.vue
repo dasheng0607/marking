@@ -92,16 +92,17 @@ export default {
               axios
               .post(
                 '/qxby/api/ticket/exchangePrize',
-                {
-                  openId: 2,
+                qs.stringify({
+                  openId: window.openId,
                   customerId: this.customerId,
                   winnerId: this.winnerId,
                   accessToken:data.accessToken
-                },
+                }),
                 { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
               )
               .then(response => {
                 console.log(response);
+                this.showPop = false;
               })
               .catch(error => {
                 console.log(error);
@@ -147,10 +148,17 @@ export default {
             arr[element.position] = element.headImage;
           });
           this.starList = arr;
-          if (response.data.data.lightRecords.length === 7) {
+          if (response.data.data.isDraw) {
             this.successBtn = true;
           } else {
             this.successBtn = false;
+          }
+          if(response.data.data.isPrize){
+            this.text =
+              "太棒了！<br/>参与集七星祝福<br/>获得中秋甄选好礼" +
+              response.data.data.prizeName;
+            this.showPop = true;
+            this.winnerId = response.data.data.winnerId;
           }
           this.userData = Object.assign({}, this.userData, response.data.data);
           this.myShare();
@@ -344,7 +352,7 @@ export default {
   right: 0;
   bottom: 0;
   background: url("../../static/img/shareFriend.png") no-repeat center 0px fixed;
-  background-size: 100vw 100vh;
+  background-size: 100% 100%;
   /* background-color: #000; */
 }
 </style>
