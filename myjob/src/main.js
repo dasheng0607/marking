@@ -22,10 +22,10 @@ axios
       nickName: window.user.nickname
     })
   )
-  .then(response => {
-    this.friendCanSave = true;
+  .then(function (data) {
+    
   })
-  .catch(error => {
+  .catch(function (error) {
     console.log(error);
   });
 Vue.config.productionTip = false;

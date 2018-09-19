@@ -83,6 +83,7 @@ export default {
           axios.post(process.env.SET_DOT, {
             "platform": 2,
             "point_code":code,
+            "customer_id":window.customerId,
             "created_time": (new Date()).getTime()
             },{headers: {'Content-Type':'application/json'}})
             .then( (response) => {

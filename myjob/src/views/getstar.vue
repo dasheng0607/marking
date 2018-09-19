@@ -74,7 +74,7 @@ export default {
   methods: {
     myShare(){
       wxShowMenu.wxShowMenu({
-        title1: '我正在抢C为，一起来抢夺C位，赢中秋礼，点击开奖！', // 分享标题
+        title1: '我正在抢C位，一起来抢夺C位，赢中秋礼，点击开奖！', // 分享标题
         title2: '这个中秋我要C位出道', // 分享标题
         desc1: '帮我抢C位，一起抢中秋礼，点击开抢', //分享描述
         desc2: '帮我抢C位，一起抢中秋礼，点击开抢！', //分享描述
@@ -122,6 +122,7 @@ export default {
           {
             platform: 2,
             point_code: code,
+            customer_id:window.customerId,
             created_time: new Date().getTime()
           },
           { headers: { "Content-Type": "application/json" } }

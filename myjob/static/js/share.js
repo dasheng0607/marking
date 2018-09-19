@@ -1,10 +1,9 @@
 import axios from 'axios'
 import wx from 'weixin-js-sdk'
 export default {
-    wxShowMenu: function (obj={},suc,err) {
+    wxShowMenu: function (obj,suc,err) {
         axios.get(process.env.SWISSE + '/swisseweixin/weixin/jsApiSign').then(function (res) {
             var getMsg = res.data;
-            console.log(res.data);
             wx.config({
                 debug: false,  //生产环境需要关闭debug模式
                 appId: getMsg.appId, //appId通过微信服务号后台查看
@@ -67,19 +66,19 @@ export default {
                 },
                 { headers: { "Content-Type": "application/json" } }
             )
-            .then(data => {
+            .then(function (data) {
                 if (data.data.code == 100) {
                     suc && suc(data.data.id);
                 } else {
                     err && err(data.data);
                 }
             })
-            .catch(error => {
+            .catch(function (error) {
                 err && err(error);
                 console.log(error);
             });
     },
-    getAccessToken(customerId = '',suc,err) {
+    getAccessToken(customerId,suc,err) {
         axios
             .post(
                 process.env.SWISSE + '/swisse-store/accesstoken/getAccessToken',
@@ -89,14 +88,14 @@ export default {
                 },
                 { headers: { "Content-Type": "application/json" } }
             )
-            .then(data => {
+            .then(function (data) {
                 if (data.data.code == 100) {
                     suc && suc(data.data);
                 } else {
                     err && err(data.data);
                 }
             })
-            .catch(error => {
+            .catch(function (error) {
 
             });
     }

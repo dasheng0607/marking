@@ -61,7 +61,6 @@ export default {
       text2: "赢中秋团圆礼~",
       btnText: "我也要抢C位",
       userData: {},
-      friendCanSave: false,
       reword: {
         prizeName: ""
       },
@@ -93,6 +92,7 @@ export default {
           {
             platform: 2,
             point_code: code,
+            customer_id:window.customerId,
             created_time: new Date().getTime()
           },
           { headers: { "Content-Type": "application/json" } }
