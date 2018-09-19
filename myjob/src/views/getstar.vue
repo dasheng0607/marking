@@ -74,7 +74,7 @@ export default {
   methods: {
     myShare(){
       wxShowMenu.wxShowMenu({
-        title1: window.user.nickname + '正在抢C位，帮我一起夺C位，赢中秋礼，点击开抢！', // 分享标题
+        title1: '我正在抢C为，一起来抢夺C位，赢中秋礼，点击开奖！', // 分享标题
         title2: '这个中秋我要C位出道', // 分享标题
         desc1: '帮我抢C位，一起抢中秋礼，点击开抢', //分享描述
         desc2: '帮我抢C位，一起抢中秋礼，点击开抢！', //分享描述

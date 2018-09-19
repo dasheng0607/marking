@@ -26,7 +26,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      adHref:'http://www.swisse-china.com.cn/swisse-wmall/activityDemo/shoppingGuide/index.html?_campaign=20180916151543_13739'
+      adHref:'http://www.swisse-china.com.cn/swisse-wmall/activityDemo/shoppingGuide/index.html?_campaign=20180916151543_13739&fromSubsystem=MID_AUTUMN'
     };
   },
   created() {
