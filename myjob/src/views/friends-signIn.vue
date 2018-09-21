@@ -84,6 +84,7 @@ export default {
             "platform": 2,
             "point_code":code,
             "customer_id":window.customerId,
+            "user_mark":window.openId,
             "created_time": (new Date()).getTime()
             },{headers: {'Content-Type':'application/json'}})
             .then( (response) => {

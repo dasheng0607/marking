@@ -92,6 +92,7 @@ export default {
           {
             platform: 2,
             point_code: code,
+            user_mark:window.openId,
             customer_id:window.customerId,
             created_time: new Date().getTime()
           },
