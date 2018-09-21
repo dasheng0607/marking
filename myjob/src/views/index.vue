@@ -143,12 +143,12 @@ export default {
   bottom: 0;
 }
 .banner {
-    position: absolute;
-    bottom: 0;
+  position: absolute;
+  bottom: 0;
   padding-top: 2.48rem;
   width: 100vw;
-  height: 2.04rem;
-  background: url("../../static/img/ad.png") no-repeat;
+  height: 2.10rem;
+  background: url("../../static/img/ad1.png") no-repeat;
   background-position-x: 0;
   background-position-y: 2.48rem;
   background-size:100% auto;
